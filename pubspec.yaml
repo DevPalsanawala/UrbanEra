@@ -1,0 +1,59 @@
+name: shoppers_ecommerce_flutter_ui_kit
+description: Shoppers Ecommerce Flutter UI Kit
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+# Flutter version 3.13.3
+# Dart version 3.1.1
+version: 1.0.1
+
+environment:
+  sdk: '>=3.1.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  get: ^4.6.6
+  pinput: ^4.0.0
+  flutter_staggered_grid_view: ^0.7.0
+  image_picker: ^1.0.4
+  fluttertoast: ^8.2.2
+  geolocator: ^7.0.3
+  geocoding: ^2.0.2
+  flutter_switch: ^0.3.2
+  dotted_border: ^2.1.0
+  flutter_rating_bar: ^4.0.1
+  animated_text_kit: ^4.2.2
+  shared_preferences: ^2.2.2
+  share_plus: ^7.2.1
+  firebase_core: ^2.25.5
+  firebase_auth: ^4.17.6
+  cloud_firestore: 4.15.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+   - assets/images/
+   - assets/fonts/
+   - assets/flags/
+   - assets/admin_site_images/all final images with background removed/
+
+  fonts:
+    - family: Lexend_Light
+      fonts:
+        - asset: assets/fonts/Lexend-Light.ttf
+    - family: Lexend_Regular
+      fonts:
+        - asset: assets/fonts/Lexend-Regular.ttf
+    - family: Lexend_Medium
+      fonts:
+        - asset: assets/fonts/Lexend-Medium.ttf
+    - family: Lexend_SemiBold
+      fonts:
+        - asset: assets/fonts/Lexend-SemiBold.ttf
+
