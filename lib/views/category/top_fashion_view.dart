@@ -208,6 +208,7 @@ class _TopFashionViewState extends State<TopFashionView> {
                             bottom: SizeConfig.padding60,
                           ),
                           child: SingleChildScrollView(
+                            physics: BouncingScrollPhysics(),
                             keyboardDismissBehavior:
                                 ScrollViewKeyboardDismissBehavior.onDrag,
                             child: Column(

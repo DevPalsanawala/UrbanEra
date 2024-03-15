@@ -102,6 +102,14 @@ class CategoryView extends StatelessWidget {
           ],
         ),
         body: Obx(() {
+          if (categorycontroller.categories.isEmpty) {
+            return Center(
+                child: CircularProgressIndicator(
+              color: darkModeController.isLightTheme.value
+                  ? ColorsConfig.primaryColor
+                  : ColorsConfig.secondaryColor,
+            ));
+          }
           return Padding(
             padding: const EdgeInsets.only(left: 24, right: 24, bottom: 15),
             child: ListView.builder(
