@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1033064514046",
+    "project_id": "urbanera-79bfc",
+    "storage_bucket": "urbanera-79bfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033064514046:android:30abca37c3e8606cb0c0af",
+        "android_client_info": {
+          "package_name": "com.example.shoppers_ecommerce_flutter_ui_kit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRLPQmLuY8XJ1qZsq4lhPEQK4v55XcXlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
