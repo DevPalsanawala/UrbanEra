@@ -144,6 +144,7 @@ class FashionDetailsView extends StatelessWidget {
                 top: SizeConfig.padding10,
               ),
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     SizedBox(
