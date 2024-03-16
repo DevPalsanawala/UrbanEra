@@ -330,14 +330,11 @@ class HomeView extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Center(
-                                        child: Hero(
-                                          tag: trending[index]['id'],
-                                          child: Image(
-                                            image: AssetImage(
-                                                'assets/admin_site_images/all final images with background removed/${trending[index]['img']}'),
-                                            height: 190,
-                                            width: 190,
-                                          ),
+                                        child: Image(
+                                          image: AssetImage(
+                                              'assets/admin_site_images/all final images with background removed/${trending[index]['img']}'),
+                                          height: 190,
+                                          width: 190,
                                         ),
                                       ),
                                       SizedBox(height: 5),
@@ -540,14 +537,11 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Hero(
-                                          tag: mostpopular[index]['id'],
-                                          child: Image(
-                                            image: AssetImage(
-                                                'assets/admin_site_images/all final images with background removed/${mostpopular[index]['img']}'),
-                                            height: 80,
-                                            width: 70,
-                                          ),
+                                        Image(
+                                          image: AssetImage(
+                                              'assets/admin_site_images/all final images with background removed/${mostpopular[index]['img']}'),
+                                          height: 80,
+                                          width: 70,
                                         ),
                                         const SizedBox(
                                           width: SizeConfig.width12,
@@ -716,14 +710,11 @@ class HomeView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Center(
-                                      child: Hero(
-                                        tag: newarrived[index]['id'],
-                                        child: Image(
-                                          image: AssetImage(
-                                              'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
-                                          height: 190,
-                                          width: 190,
-                                        ),
+                                      child: Image(
+                                        image: AssetImage(
+                                            'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
+                                        height: 190,
+                                        width: 190,
                                       ),
                                     ),
                                     SizedBox(height: 5),

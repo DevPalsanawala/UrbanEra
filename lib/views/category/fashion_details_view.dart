@@ -1490,14 +1490,11 @@ class FashionDetailsView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Center(
-                                            child: Hero(
-                                              tag: newarrived[index]['id'],
-                                              child: Image(
-                                                image: AssetImage(
-                                                    'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
-                                                height: 190,
-                                                width: 190,
-                                              ),
+                                            child: Image(
+                                              image: AssetImage(
+                                                  'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
+                                              height: 190,
+                                              width: 190,
                                             ),
                                           ),
                                           SizedBox(height: 5),
