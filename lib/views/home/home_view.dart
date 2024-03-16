@@ -293,6 +293,14 @@ class HomeView extends StatelessWidget {
                               ],
                             );
                           } else {
+                            final List<Map<String, dynamic>> trending =
+                                productcontroller.produts
+                                    .where((product) =>
+                                        product['sub_category'] == 'Tshirt')
+                                    .toList()
+                                    .sublist(
+                                      42,
+                                    );
                             if (productcontroller.isLoading.value) {
                               return Center(
                                 child: CircularProgressIndicator(
@@ -335,11 +343,10 @@ class HomeView extends StatelessWidget {
                                     children: [
                                       Center(
                                         child: Hero(
-                                          tag: productcontroller.produts[index]
-                                              ['id'],
+                                          tag: trending[index]['id'],
                                           child: Image(
                                             image: AssetImage(
-                                                'assets/admin_site_images/all final images with background removed/${productcontroller.produts[index]['img']}'),
+                                                'assets/admin_site_images/all final images with background removed/${trending[index]['img']}'),
                                             height: 190,
                                             width: 190,
                                           ),
@@ -355,8 +362,7 @@ class HomeView extends StatelessWidget {
                                             // softWrap: true,
                                             // overflow: TextOverflow
                                             //     .ellipsis,
-                                            productcontroller.produts[index]
-                                                ['title'],
+                                            trending[index]['title'],
                                             style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               fontWeight: FontWeight.w500,
@@ -377,8 +383,7 @@ class HomeView extends StatelessWidget {
                                             // softWrap: true,
                                             // overflow: TextOverflow
                                             //     .ellipsis,
-                                            productcontroller.produts[index]
-                                                ['subtitle'],
+                                            trending[index]['subtitle'],
                                             style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               fontWeight: FontWeight.w400,
@@ -400,7 +405,7 @@ class HomeView extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                ('\u{20B9} ${productcontroller.produts[index]['price']}'),
+                                                ('\u{20B9} ${trending[index]['price']}'),
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 14,
