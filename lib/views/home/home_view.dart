@@ -15,6 +15,7 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dar
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/crouesl_slider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/filter_bottom_sheet.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/search_with_image_bottom_sheet.dart';
 
@@ -209,31 +210,6 @@ class HomeView extends StatelessWidget {
                         const SizedBox(
                           width: SizeConfig.width10,
                         ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     selectFilterBottomSheet(context);
-                        //   },
-                        //   child: Container(
-                        //     width: SizeConfig.width48,
-                        //     height: SizeConfig.height48,
-                        //     decoration: BoxDecoration(
-                        //       color: darkModeController.isLightTheme.value
-                        //           ? ColorsConfig.secondaryColor
-                        //           : ColorsConfig.primaryColor,
-                        //       borderRadius: BorderRadius.circular(
-                        //           SizeConfig.borderRadius14),
-                        //     ),
-                        //     child: Center(
-                        //       child: Image(
-                        //         image: const AssetImage(ImageConfig.filterData),
-                        //         width: SizeConfig.width20,
-                        //         color: darkModeController.isLightTheme.value
-                        //             ? ColorsConfig.primaryColor
-                        //             : ColorsConfig.secondaryColor,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -253,6 +229,17 @@ class HomeView extends StatelessWidget {
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Column(
                   children: [
+                    Crousel(),
+                    Divider(
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.lineColor
+                          : ColorsConfig.lineDarkColor,
+                      height: SizeConfig.height32,
+                      thickness: SizeConfig.lineThickness01,
+                    ),
+                    SizedBox(
+                      height: 18,
+                    ),
                     Padding(
                       padding:
                           const EdgeInsets.only(bottom: SizeConfig.padding05),
@@ -468,10 +455,11 @@ class HomeView extends StatelessWidget {
                       height: SizeConfig.height25,
                     ),
                     Divider(
-                      height: 0.5,
                       color: darkModeController.isLightTheme.value
-                          ? ColorsConfig.textColor
-                          : ColorsConfig.modeInactiveColor,
+                          ? ColorsConfig.lineColor
+                          : ColorsConfig.lineDarkColor,
+                      height: SizeConfig.height32,
+                      thickness: SizeConfig.lineThickness01,
                     ),
                     const SizedBox(
                       height: SizeConfig.height20,
@@ -635,10 +623,11 @@ class HomeView extends StatelessWidget {
                       height: SizeConfig.height25,
                     ),
                     Divider(
-                      height: 0.5,
                       color: darkModeController.isLightTheme.value
-                          ? ColorsConfig.textColor
-                          : ColorsConfig.modeInactiveColor,
+                          ? ColorsConfig.lineColor
+                          : ColorsConfig.lineDarkColor,
+                      height: SizeConfig.height32,
+                      thickness: SizeConfig.lineThickness01,
                     ),
                     const SizedBox(
                       height: SizeConfig.height20,

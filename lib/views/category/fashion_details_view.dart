@@ -11,6 +11,7 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controlle
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/model/product_model.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 
@@ -35,6 +36,7 @@ class FashionDetailsView extends StatelessWidget {
       Get.put(BottomNavigationController());
   WishlistController wishlistController = Get.put(WishlistController());
   DarkModeController darkModeController = Get.put(DarkModeController());
+  Productcontroller productcontroller = Get.put(Productcontroller());
 
   void goToTab(int tabIndex) {
     bottomNavigationController.changePage(tabIndex);
@@ -1393,6 +1395,13 @@ class FashionDetailsView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Divider(
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.lineColor
+                                : ColorsConfig.lineDarkColor,
+                            height: SizeConfig.height32,
+                            thickness: SizeConfig.lineThickness01,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -1423,94 +1432,90 @@ class FashionDetailsView extends StatelessWidget {
                           const SizedBox(
                             height: SizeConfig.height24,
                           ),
-                          SizedBox(
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 24,
-                                crossAxisSpacing: 24,
-                                mainAxisExtent: SizeConfig.height224,
-                              ),
-                              itemCount: 4,
-                              itemBuilder: (context, index) {
-                                final imageNewIndex = index;
-                                return Container(
-                                  width: SizeConfig.width159,
-                                  padding: const EdgeInsets.all(
-                                      SizeConfig.padding11),
-                                  decoration: BoxDecoration(
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.secondaryColor
-                                        : ColorsConfig.primaryColor,
-                                    borderRadius: BorderRadius.circular(
-                                        SizeConfig.borderRadius14),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Center(
-                                        child: Image(
-                                          image: AssetImage(
-                                            homeController
-                                                .newArrivedImage[index],
+                          Obx(() {
+                            final List<Map<String, dynamic>> newarrived =
+                                productcontroller.produts
+                                    .where((product) =>
+                                        product['category'] == 'b1' ||
+                                        product['category'] == 'a9')
+                                    .toList()
+                                    .sublist(
+                                      6,
+                                    );
+                            return SizedBox(
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: SizeConfig.padding24,
+                                  crossAxisSpacing: SizeConfig.padding24,
+                                  mainAxisExtent: 280,
+                                ),
+                                itemCount: 4,
+                                itemBuilder: (context, index) {
+                                  final imageNewIndex = index;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              FashionDetailsView(
+                                            product: newarrived[index],
                                           ),
-                                          width: SizeConfig.width111,
-                                          height: SizeConfig.height120,
                                         ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 159,
+                                      padding: const EdgeInsets.only(
+                                        top: 0,
+                                        bottom: 14,
+                                        left: 15,
+                                        right: 15,
                                       ),
-                                      Column(
+                                      decoration: BoxDecoration(
+                                        // color: Colors.grey.shade500,
+                                        color: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.secondaryColor
+                                            : ColorsConfig.primaryColor,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            homeController
-                                                .newArrivedTitle[index],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: FontSize.body2,
-                                              fontFamily:
-                                                  FontFamily.lexendMedium,
-                                              color: darkModeController
-                                                      .isLightTheme.value
-                                                  ? ColorsConfig.primaryColor
-                                                  : ColorsConfig.secondaryColor,
+                                          Center(
+                                            child: Hero(
+                                              tag: newarrived[index]['id'],
+                                              child: Image(
+                                                image: AssetImage(
+                                                    'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
+                                                height: 190,
+                                                width: 190,
+                                              ),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: SizeConfig.height02,
-                                          ),
-                                          Text(
-                                            homeController
-                                                .newArrivedSubtitle[index],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: FontSize.body3,
-                                              fontFamily:
-                                                  FontFamily.lexendLight,
-                                              color: darkModeController
-                                                      .isLightTheme.value
-                                                  ? ColorsConfig.textColor
-                                                  : ColorsConfig
-                                                      .modeInactiveColor,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: SizeConfig.height10,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                          SizedBox(height: 5),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                homeController
-                                                    .newArrivedPrice[index],
+                                                // maxLines: 2,
+                                                // softWrap: true,
+                                                // overflow: TextOverflow
+                                                //     .ellipsis,
+                                                newarrived[index]['title'],
                                                 style: TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   fontWeight: FontWeight.w500,
-                                                  fontSize: FontSize.body2,
+                                                  fontSize: 15,
                                                   fontFamily:
                                                       FontFamily.lexendMedium,
                                                   color: darkModeController
@@ -1521,44 +1526,99 @@ class FashionDetailsView extends StatelessWidget {
                                                           .secondaryColor,
                                                 ),
                                               ),
-                                              Obx(
-                                                () => GestureDetector(
-                                                  onTap: () {
-                                                    homeController
-                                                        .toggleArrival2Favorite(
-                                                            imageNewIndex);
-                                                  },
-                                                  child: Image(
-                                                    image: AssetImage(
-                                                      homeController
-                                                              .isFavouriteArrival2List[
-                                                                  imageNewIndex]
-                                                              .value
-                                                          ? ImageConfig
-                                                              .favourite
-                                                          : ImageConfig
-                                                              .likeFill,
-                                                    ),
-                                                    width: SizeConfig.width18,
-                                                    color: darkModeController
-                                                            .isLightTheme.value
-                                                        ? ColorsConfig
-                                                            .primaryColor
-                                                        : ColorsConfig
-                                                            .secondaryColor,
-                                                  ),
+                                              const SizedBox(
+                                                height: 02,
+                                              ),
+                                              Text(
+                                                // maxLines: 1,
+                                                // softWrap: true,
+                                                // overflow: TextOverflow
+                                                //     .ellipsis,
+                                                newarrived[index]['subtitle'],
+                                                style: TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12,
+                                                  fontFamily:
+                                                      FontFamily.lexendLight,
+                                                  color: darkModeController
+                                                          .isLightTheme.value
+                                                      ? ColorsConfig.textColor
+                                                      : ColorsConfig
+                                                          .modeInactiveColor,
                                                 ),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    ('\u{20B9} ${newarrived[index]['price']}'),
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 14,
+                                                      fontFamily: FontFamily
+                                                          .lexendMedium,
+                                                      color: darkModeController
+                                                              .isLightTheme
+                                                              .value
+                                                          ? ColorsConfig
+                                                              .primaryColor
+                                                          : ColorsConfig
+                                                              .secondaryColor,
+                                                    ),
+                                                  ),
+                                                  Obx(
+                                                    () => GestureDetector(
+                                                      onTap: () {
+                                                        fashionController
+                                                            .toggleFavorite(
+                                                                index);
+                                                      },
+                                                      child: Image(
+                                                        image: AssetImage(
+                                                          fashionController
+                                                                  .isFavouriteList[
+                                                                      index]
+                                                                  .value
+                                                              ? darkModeController
+                                                                      .isLightTheme
+                                                                      .value
+                                                                  ? ImageConfig
+                                                                      .favourite
+                                                                  : ImageConfig
+                                                                      .favouriteUnfill
+                                                              : darkModeController
+                                                                      .isLightTheme
+                                                                      .value
+                                                                  ? ImageConfig
+                                                                      .likeFill
+                                                                  : ImageConfig
+                                                                      .favouriteFill,
+                                                        ),
+                                                        width:
+                                                            SizeConfig.width18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          }),
                         ],
                       ),
                     ),
