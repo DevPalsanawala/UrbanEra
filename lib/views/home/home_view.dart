@@ -14,6 +14,7 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/filter_bottom_sheet.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/search_with_image_bottom_sheet.dart';
 
@@ -312,13 +313,13 @@ class HomeView extends StatelessWidget {
                             } else {
                               return GestureDetector(
                                 onTap: () {
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => FashionDetailsView(
-                                  //       product: listofproducts[index],
-                                  //     ),
-                                  //   ),
-                                  // );
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => FashionDetailsView(
+                                        product: trending[index],
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: Container(
                                   width: 159,
@@ -523,91 +524,107 @@ class HomeView extends StatelessWidget {
                             padding: const EdgeInsets.only(
                               bottom: SizeConfig.padding12,
                             ),
-                            child: Container(
-                              height: 90,
-                              width: double.infinity,
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 20),
-                              decoration: BoxDecoration(
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.secondaryColor
-                                    : ColorsConfig.primaryColor,
-                                borderRadius: BorderRadius.circular(
-                                    SizeConfig.borderRadius14),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image(
-                                        image: AssetImage(
-                                            'assets/admin_site_images/all final images with background removed/${mostpopular[index]['img']}'),
-                                        height: 80,
-                                        width: 70,
-                                      ),
-                                      const SizedBox(
-                                        width: SizeConfig.width12,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 175,
-                                            child: Text(
-                                              mostpopular[index]['title'],
-                                              style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: FontSize.body1,
-                                                fontFamily:
-                                                    FontFamily.lexendMedium,
-                                                color: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig.primaryColor
-                                                    : ColorsConfig
-                                                        .secondaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: SizeConfig.height02,
-                                          ),
-                                          Text(
-                                            mostpopular[index]['subtitle'],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: FontSize.body2,
-                                              fontFamily:
-                                                  FontFamily.lexendLight,
-                                              color: darkModeController
-                                                      .isLightTheme.value
-                                                  ? ColorsConfig.textColor
-                                                  : ColorsConfig
-                                                      .modeInactiveColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    ('\u{20B9} ${mostpopular[index]['price']}'),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: FontSize.body1,
-                                      fontFamily: FontFamily.lexendMedium,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => FashionDetailsView(
+                                      product: mostpopular[index],
                                     ),
                                   ),
-                                ],
+                                );
+                              },
+                              child: Container(
+                                height: 90,
+                                width: double.infinity,
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 20),
+                                decoration: BoxDecoration(
+                                  color: darkModeController.isLightTheme.value
+                                      ? ColorsConfig.secondaryColor
+                                      : ColorsConfig.primaryColor,
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.borderRadius14),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Hero(
+                                          tag: mostpopular[index]['id'],
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/admin_site_images/all final images with background removed/${mostpopular[index]['img']}'),
+                                            height: 80,
+                                            width: 70,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: SizeConfig.width12,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 175,
+                                              child: Text(
+                                                mostpopular[index]['title'],
+                                                style: TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: FontSize.body1,
+                                                  fontFamily:
+                                                      FontFamily.lexendMedium,
+                                                  color: darkModeController
+                                                          .isLightTheme.value
+                                                      ? ColorsConfig
+                                                          .primaryColor
+                                                      : ColorsConfig
+                                                          .secondaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: SizeConfig.height02,
+                                            ),
+                                            Text(
+                                              mostpopular[index]['subtitle'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: FontSize.body2,
+                                                fontFamily:
+                                                    FontFamily.lexendLight,
+                                                color: darkModeController
+                                                        .isLightTheme.value
+                                                    ? ColorsConfig.textColor
+                                                    : ColorsConfig
+                                                        .modeInactiveColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      ('\u{20B9} ${mostpopular[index]['price']}'),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: FontSize.body1,
+                                        fontFamily: FontFamily.lexendMedium,
+                                        color: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.primaryColor
+                                            : ColorsConfig.secondaryColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -679,134 +696,148 @@ class HomeView extends StatelessWidget {
                           itemCount: 6,
                           itemBuilder: (context, index) {
                             final imageNewIndex = index;
-                            return Container(
-                              width: 159,
-                              padding: const EdgeInsets.only(
-                                top: 0,
-                                bottom: 14,
-                                left: 15,
-                                right: 15,
-                              ),
-                              decoration: BoxDecoration(
-                                // color: Colors.grey.shade500,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.secondaryColor
-                                    : ColorsConfig.primaryColor,
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Hero(
-                                      tag: newarrived[index]['id'],
-                                      child: Image(
-                                        image: AssetImage(
-                                            'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
-                                        height: 190,
-                                        width: 190,
-                                      ),
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => FashionDetailsView(
+                                      product: newarrived[index],
                                     ),
                                   ),
-                                  SizedBox(height: 5),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        // maxLines: 2,
-                                        // softWrap: true,
-                                        // overflow: TextOverflow
-                                        //     .ellipsis,
-                                        newarrived[index]['title'],
-                                        style: TextStyle(
-                                          overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15,
-                                          fontFamily: FontFamily.lexendMedium,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
+                                );
+                              },
+                              child: Container(
+                                width: 159,
+                                padding: const EdgeInsets.only(
+                                  top: 0,
+                                  bottom: 14,
+                                  left: 15,
+                                  right: 15,
+                                ),
+                                decoration: BoxDecoration(
+                                  // color: Colors.grey.shade500,
+                                  color: darkModeController.isLightTheme.value
+                                      ? ColorsConfig.secondaryColor
+                                      : ColorsConfig.primaryColor,
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Hero(
+                                        tag: newarrived[index]['id'],
+                                        child: Image(
+                                          image: AssetImage(
+                                              'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
+                                          height: 190,
+                                          width: 190,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 02,
-                                      ),
-                                      Text(
-                                        // maxLines: 1,
-                                        // softWrap: true,
-                                        // overflow: TextOverflow
-                                        //     .ellipsis,
-                                        newarrived[index]['subtitle'],
-                                        style: TextStyle(
-                                          overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                          fontFamily: FontFamily.lexendLight,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.textColor
-                                              : ColorsConfig.modeInactiveColor,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            ('\u{20B9} ${newarrived[index]['price']}'),
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              fontFamily:
-                                                  FontFamily.lexendMedium,
-                                              color: darkModeController
-                                                      .isLightTheme.value
-                                                  ? ColorsConfig.primaryColor
-                                                  : ColorsConfig.secondaryColor,
-                                            ),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          // maxLines: 2,
+                                          // softWrap: true,
+                                          // overflow: TextOverflow
+                                          //     .ellipsis,
+                                          newarrived[index]['title'],
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                            fontFamily: FontFamily.lexendMedium,
+                                            color: darkModeController
+                                                    .isLightTheme.value
+                                                ? ColorsConfig.primaryColor
+                                                : ColorsConfig.secondaryColor,
                                           ),
-                                          Obx(
-                                            () => GestureDetector(
-                                              onTap: () {
-                                                fashionController
-                                                    .toggleFavorite(index);
-                                              },
-                                              child: Image(
-                                                image: AssetImage(
-                                                  fashionController
-                                                          .isFavouriteList[
-                                                              index]
-                                                          .value
-                                                      ? darkModeController
-                                                              .isLightTheme
-                                                              .value
-                                                          ? ImageConfig
-                                                              .favourite
-                                                          : ImageConfig
-                                                              .favouriteUnfill
-                                                      : darkModeController
-                                                              .isLightTheme
-                                                              .value
-                                                          ? ImageConfig.likeFill
-                                                          : ImageConfig
-                                                              .favouriteFill,
-                                                ),
-                                                width: SizeConfig.width18,
+                                        ),
+                                        const SizedBox(
+                                          height: 02,
+                                        ),
+                                        Text(
+                                          // maxLines: 1,
+                                          // softWrap: true,
+                                          // overflow: TextOverflow
+                                          //     .ellipsis,
+                                          newarrived[index]['subtitle'],
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                            fontFamily: FontFamily.lexendLight,
+                                            color: darkModeController
+                                                    .isLightTheme.value
+                                                ? ColorsConfig.textColor
+                                                : ColorsConfig
+                                                    .modeInactiveColor,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              ('\u{20B9} ${newarrived[index]['price']}'),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
+                                                fontFamily:
+                                                    FontFamily.lexendMedium,
+                                                color: darkModeController
+                                                        .isLightTheme.value
+                                                    ? ColorsConfig.primaryColor
+                                                    : ColorsConfig
+                                                        .secondaryColor,
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                            Obx(
+                                              () => GestureDetector(
+                                                onTap: () {
+                                                  fashionController
+                                                      .toggleFavorite(index);
+                                                },
+                                                child: Image(
+                                                  image: AssetImage(
+                                                    fashionController
+                                                            .isFavouriteList[
+                                                                index]
+                                                            .value
+                                                        ? darkModeController
+                                                                .isLightTheme
+                                                                .value
+                                                            ? ImageConfig
+                                                                .favourite
+                                                            : ImageConfig
+                                                                .favouriteUnfill
+                                                        : darkModeController
+                                                                .isLightTheme
+                                                                .value
+                                                            ? ImageConfig
+                                                                .likeFill
+                                                            : ImageConfig
+                                                                .favouriteFill,
+                                                  ),
+                                                  width: SizeConfig.width18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },
