@@ -10,7 +10,9 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/size.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/filter_bottom_sheet.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/search_with_image_bottom_sheet.dart';
@@ -20,6 +22,8 @@ class HomeView extends StatelessWidget {
 
   HomeController homeController = Get.put(HomeController());
   DarkModeController darkModeController = Get.put(DarkModeController());
+  Productcontroller productcontroller = Get.put(Productcontroller());
+  FashionController fashionController = Get.put(FashionController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class HomeView extends StatelessWidget {
                 ? ColorsConfig.backgroundColor
                 : ColorsConfig.buttonColor,
             appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(SizeConfig.height125),
+              preferredSize: const Size.fromHeight(150),
               child: AppBar(
                 backgroundColor: darkModeController.isLightTheme.value
                     ? ColorsConfig.backgroundColor
@@ -44,14 +48,13 @@ class HomeView extends StatelessWidget {
                   padding: const EdgeInsets.only(
                     left: SizeConfig.padding08,
                     right: SizeConfig.padding08,
-                    top: SizeConfig.padding30,
+                    top: SizeConfig.padding70,
                     bottom: SizeConfig.padding08,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +83,9 @@ class HomeView extends StatelessWidget {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            width: 98,
+                          ),
                           GestureDetector(
                             onTap: () {
                               Get.toNamed(AppRoutes.notificationView);
@@ -95,7 +101,7 @@ class HomeView extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: SizeConfig.height30,
+                        height: SizeConfig.height45,
                       ),
                     ],
                   ),
@@ -104,9 +110,9 @@ class HomeView extends StatelessWidget {
                   preferredSize: const Size.fromHeight(SizeConfig.height35),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      left: SizeConfig.padding24,
-                      right: SizeConfig.padding24,
-                      bottom: SizeConfig.padding24,
+                      left: 20,
+                      right: 18,
+                      bottom: 20,
                     ),
                     child: Row(
                       children: [
@@ -202,31 +208,31 @@ class HomeView extends StatelessWidget {
                         const SizedBox(
                           width: SizeConfig.width10,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            selectFilterBottomSheet(context);
-                          },
-                          child: Container(
-                            width: SizeConfig.width48,
-                            height: SizeConfig.height48,
-                            decoration: BoxDecoration(
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.secondaryColor
-                                  : ColorsConfig.primaryColor,
-                              borderRadius: BorderRadius.circular(
-                                  SizeConfig.borderRadius14),
-                            ),
-                            child: Center(
-                              child: Image(
-                                image: const AssetImage(ImageConfig.filterData),
-                                width: SizeConfig.width20,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.primaryColor
-                                    : ColorsConfig.secondaryColor,
-                              ),
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     selectFilterBottomSheet(context);
+                        //   },
+                        //   child: Container(
+                        //     width: SizeConfig.width48,
+                        //     height: SizeConfig.height48,
+                        //     decoration: BoxDecoration(
+                        //       color: darkModeController.isLightTheme.value
+                        //           ? ColorsConfig.secondaryColor
+                        //           : ColorsConfig.primaryColor,
+                        //       borderRadius: BorderRadius.circular(
+                        //           SizeConfig.borderRadius14),
+                        //     ),
+                        //     child: Center(
+                        //       child: Image(
+                        //         image: const AssetImage(ImageConfig.filterData),
+                        //         width: SizeConfig.width20,
+                        //         color: darkModeController.isLightTheme.value
+                        //             ? ColorsConfig.primaryColor
+                        //             : ColorsConfig.secondaryColor,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -234,13 +240,14 @@ class HomeView extends StatelessWidget {
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.only(
-                left: SizeConfig.padding24,
-                top: SizeConfig.padding15,
-                right: SizeConfig.padding24,
-                bottom: SizeConfig.padding12,
+              padding: EdgeInsets.only(
+                left: 24,
+                top: 15,
+                right: 24,
+                bottom: 12,
               ),
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 child: Column(
@@ -254,15 +261,15 @@ class HomeView extends StatelessWidget {
                         crossAxisCount: 2,
                         mainAxisSpacing: 23,
                         crossAxisSpacing: 23,
-                        itemCount:
-                            homeController.trendingProductsImage.length + 1,
+                        itemCount: productcontroller.produts.length - 177,
                         itemBuilder: (context, index) {
+                          print(productcontroller.produts.length);
                           if (index == 0) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  TextString.trending,
+                                  'Trending',
                                   style: TextStyle(
                                     fontSize: FontSize.heading2,
                                     fontWeight: FontWeight.w300,
@@ -273,7 +280,7 @@ class HomeView extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  TextString.products,
+                                  "Products",
                                   style: TextStyle(
                                     fontSize: FontSize.heading2,
                                     fontWeight: FontWeight.w600,
@@ -286,172 +293,39 @@ class HomeView extends StatelessWidget {
                               ],
                             );
                           } else {
-                            final imageIndex = index - 1;
-                            if (imageIndex % 2 == 0) {
-                              return Transform.translate(
-                                offset: const Offset(0, 5),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.fashionDetailsView);
-                                  },
-                                  child: Container(
-                                    width: SizeConfig.width159,
-                                    padding: const EdgeInsets.only(
-                                      top: SizeConfig.padding12,
-                                      bottom: SizeConfig.padding16,
-                                      left: SizeConfig.padding12,
-                                      right: SizeConfig.padding12,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.secondaryColor
-                                              : ColorsConfig.primaryColor,
-                                      borderRadius: BorderRadius.circular(
-                                          SizeConfig.borderRadius14),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Center(
-                                          child: Image(
-                                            image: AssetImage(homeController
-                                                    .trendingProductsImage[
-                                                imageIndex]),
-                                            width: SizeConfig.width111,
-                                            height: SizeConfig.height120,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: SizeConfig.height13,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              homeController
-                                                      .trendingProductsTitle[
-                                                  imageIndex],
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: FontSize.body2,
-                                                fontFamily:
-                                                    FontFamily.lexendMedium,
-                                                color: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig.primaryColor
-                                                    : ColorsConfig
-                                                        .secondaryColor,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: SizeConfig.height02,
-                                            ),
-                                            Text(
-                                              homeController
-                                                      .trendingProductsSubtitle[
-                                                  imageIndex],
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: FontSize.body3,
-                                                fontFamily:
-                                                    FontFamily.lexendLight,
-                                                color: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig.textColor
-                                                    : ColorsConfig
-                                                        .modeInactiveColor,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: SizeConfig.height10,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  homeController
-                                                          .trendingProductsPrice[
-                                                      imageIndex],
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: FontSize.body2,
-                                                    fontFamily:
-                                                        FontFamily.lexendMedium,
-                                                    color: darkModeController
-                                                            .isLightTheme.value
-                                                        ? ColorsConfig
-                                                            .primaryColor
-                                                        : ColorsConfig
-                                                            .secondaryColor,
-                                                  ),
-                                                ),
-                                                Obx(
-                                                  () => GestureDetector(
-                                                    onTap: () {
-                                                      homeController
-                                                          .toggleFavorite(
-                                                              imageIndex);
-                                                    },
-                                                    child: Image(
-                                                      image: AssetImage(
-                                                        homeController
-                                                                .isFavouriteList[
-                                                                    imageIndex]
-                                                                .value
-                                                            ? darkModeController
-                                                                    .isLightTheme
-                                                                    .value
-                                                                ? ImageConfig
-                                                                    .favourite
-                                                                : ImageConfig
-                                                                    .favouriteUnfill
-                                                            : darkModeController
-                                                                    .isLightTheme
-                                                                    .value
-                                                                ? ImageConfig
-                                                                    .likeFill
-                                                                : ImageConfig
-                                                                    .favouriteFill,
-                                                      ),
-                                                      width: SizeConfig.width18,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                            if (productcontroller.isLoading.value) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: darkModeController.isLightTheme.value
+                                      ? ColorsConfig.secondaryColor
+                                      : ColorsConfig.primaryColor,
                                 ),
                               );
                             } else {
                               return GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(AppRoutes.fashionDetailsView);
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => FashionDetailsView(
+                                  //       product: listofproducts[index],
+                                  //     ),
+                                  //   ),
+                                  // );
                                 },
                                 child: Container(
-                                  width: SizeConfig.width159,
+                                  width: 159,
                                   padding: const EdgeInsets.only(
-                                    top: SizeConfig.padding12,
-                                    bottom: SizeConfig.padding16,
-                                    left: SizeConfig.padding12,
-                                    right: SizeConfig.padding12,
+                                    top: 0,
+                                    bottom: 14,
+                                    left: 15,
+                                    right: 15,
                                   ),
                                   decoration: BoxDecoration(
+                                    // color: Colors.grey.shade500,
                                     color: darkModeController.isLightTheme.value
                                         ? ColorsConfig.secondaryColor
                                         : ColorsConfig.primaryColor,
-                                    borderRadius: BorderRadius.circular(
-                                        SizeConfig.borderRadius14),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                   child: Column(
                                     mainAxisAlignment:
@@ -460,28 +334,33 @@ class HomeView extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Center(
-                                        child: Image(
-                                          image: AssetImage(homeController
-                                                  .trendingProductsImage[
-                                              imageIndex]),
-                                          width: SizeConfig.width111,
-                                          height: SizeConfig.height120,
+                                        child: Hero(
+                                          tag: productcontroller.produts[index]
+                                              ['id'],
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/admin_site_images/all final images with background removed/${productcontroller.produts[index]['img']}'),
+                                            height: 190,
+                                            width: 190,
+                                          ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: SizeConfig.height13,
-                                      ),
+                                      SizedBox(height: 5),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            homeController
-                                                    .trendingProductsTitle[
-                                                imageIndex],
+                                            // maxLines: 2,
+                                            // softWrap: true,
+                                            // overflow: TextOverflow
+                                            //     .ellipsis,
+                                            productcontroller.produts[index]
+                                                ['title'],
                                             style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
                                               fontWeight: FontWeight.w500,
-                                              fontSize: FontSize.body2,
+                                              fontSize: 15,
                                               fontFamily:
                                                   FontFamily.lexendMedium,
                                               color: darkModeController
@@ -491,15 +370,19 @@ class HomeView extends StatelessWidget {
                                             ),
                                           ),
                                           const SizedBox(
-                                            height: SizeConfig.height02,
+                                            height: 02,
                                           ),
                                           Text(
-                                            homeController
-                                                    .trendingProductsSubtitle[
-                                                imageIndex],
+                                            // maxLines: 1,
+                                            // softWrap: true,
+                                            // overflow: TextOverflow
+                                            //     .ellipsis,
+                                            productcontroller.produts[index]
+                                                ['subtitle'],
                                             style: TextStyle(
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: FontSize.body3,
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
                                               fontFamily:
                                                   FontFamily.lexendLight,
                                               color: darkModeController
@@ -510,19 +393,17 @@ class HomeView extends StatelessWidget {
                                             ),
                                           ),
                                           const SizedBox(
-                                            height: SizeConfig.height10,
+                                            height: 10,
                                           ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                homeController
-                                                        .trendingProductsPrice[
-                                                    imageIndex],
+                                                ('\u{20B9} ${productcontroller.produts[index]['price']}'),
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
-                                                  fontSize: FontSize.body2,
+                                                  fontSize: 14,
                                                   fontFamily:
                                                       FontFamily.lexendMedium,
                                                   color: darkModeController
@@ -536,15 +417,14 @@ class HomeView extends StatelessWidget {
                                               Obx(
                                                 () => GestureDetector(
                                                   onTap: () {
-                                                    homeController
-                                                        .toggleFavorite(
-                                                            imageIndex);
+                                                    fashionController
+                                                        .toggleFavorite(index);
                                                   },
                                                   child: Image(
                                                     image: AssetImage(
-                                                      homeController
+                                                      fashionController
                                                               .isFavouriteList[
-                                                                  imageIndex]
+                                                                  index]
                                                               .value
                                                           ? darkModeController
                                                                   .isLightTheme
@@ -579,7 +459,16 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: SizeConfig.height40,
+                      height: SizeConfig.height25,
+                    ),
+                    Divider(
+                      height: 0.5,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.textColor
+                          : ColorsConfig.modeInactiveColor,
+                    ),
+                    const SizedBox(
+                      height: SizeConfig.height20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -609,100 +498,128 @@ class HomeView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: SizeConfig.height24,
+                      height: SizeConfig.height25,
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: SizeConfig.padding12),
-                          child: Container(
-                            height: SizeConfig.height80,
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(SizeConfig.padding11),
-                            decoration: BoxDecoration(
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.secondaryColor
-                                  : ColorsConfig.primaryColor,
-                              borderRadius: BorderRadius.circular(
-                                  SizeConfig.borderRadius14),
+                    Obx(() {
+                      final List<Map<String, dynamic>> mostpopular =
+                          productcontroller.produts
+                              .where((product) =>
+                                  product['sub_category'] == 'Shoes')
+                              .toList()
+                              .sublist(
+                                16,
+                              );
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: SizeConfig.padding12,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Image(
-                                      image: AssetImage(homeController
-                                          .mostPopularImage[index]),
-                                      height: SizeConfig.height56,
-                                      width: SizeConfig.width64,
-                                    ),
-                                    const SizedBox(
-                                      width: SizeConfig.width12,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          homeController
-                                              .mostPopularTitle[index],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: FontSize.body2,
-                                            fontFamily: FontFamily.lexendMedium,
-                                            color: darkModeController
-                                                    .isLightTheme.value
-                                                ? ColorsConfig.primaryColor
-                                                : ColorsConfig.secondaryColor,
+                            child: Container(
+                              height: 90,
+                              width: double.infinity,
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 20),
+                              decoration: BoxDecoration(
+                                color: darkModeController.isLightTheme.value
+                                    ? ColorsConfig.secondaryColor
+                                    : ColorsConfig.primaryColor,
+                                borderRadius: BorderRadius.circular(
+                                    SizeConfig.borderRadius14),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image(
+                                        image: AssetImage(
+                                            'assets/admin_site_images/all final images with background removed/${mostpopular[index]['img']}'),
+                                        height: 80,
+                                        width: 70,
+                                      ),
+                                      const SizedBox(
+                                        width: SizeConfig.width12,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 175,
+                                            child: Text(
+                                              mostpopular[index]['title'],
+                                              style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: FontSize.body1,
+                                                fontFamily:
+                                                    FontFamily.lexendMedium,
+                                                color: darkModeController
+                                                        .isLightTheme.value
+                                                    ? ColorsConfig.primaryColor
+                                                    : ColorsConfig
+                                                        .secondaryColor,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: SizeConfig.height02,
-                                        ),
-                                        Text(
-                                          homeController
-                                              .mostPopularSubtitle[index],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: FontSize.body3,
-                                            fontFamily: FontFamily.lexendLight,
-                                            color: darkModeController
-                                                    .isLightTheme.value
-                                                ? ColorsConfig.textColor
-                                                : ColorsConfig
-                                                    .modeInactiveColor,
+                                          const SizedBox(
+                                            height: SizeConfig.height02,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  homeController.mostPopularPrice[index],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: FontSize.body2,
-                                    fontFamily: FontFamily.lexendMedium,
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.primaryColor
-                                        : ColorsConfig.secondaryColor,
+                                          Text(
+                                            mostpopular[index]['subtitle'],
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: FontSize.body2,
+                                              fontFamily:
+                                                  FontFamily.lexendLight,
+                                              color: darkModeController
+                                                      .isLightTheme.value
+                                                  ? ColorsConfig.textColor
+                                                  : ColorsConfig
+                                                      .modeInactiveColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    ('\u{20B9} ${mostpopular[index]['price']}'),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: FontSize.body1,
+                                      fontFamily: FontFamily.lexendMedium,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      );
+                    }),
+                    const SizedBox(
+                      height: SizeConfig.height25,
+                    ),
+                    Divider(
+                      height: 0.5,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.textColor
+                          : ColorsConfig.modeInactiveColor,
                     ),
                     const SizedBox(
-                      height: SizeConfig.height30,
+                      height: SizeConfig.height20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -732,131 +649,165 @@ class HomeView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: SizeConfig.height24,
+                      height: SizeConfig.height25,
                     ),
-                    SizedBox(
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: SizeConfig.padding24,
-                          crossAxisSpacing: SizeConfig.padding24,
-                          mainAxisExtent: SizeConfig.height224,
-                        ),
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          final imageNewIndex = index;
-                          return Container(
-                            width: SizeConfig.width159,
-                            padding: const EdgeInsets.all(SizeConfig.padding11),
-                            decoration: BoxDecoration(
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.secondaryColor
-                                  : ColorsConfig.primaryColor,
-                              borderRadius: BorderRadius.circular(
-                                  SizeConfig.borderRadius14),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Center(
-                                  child: Image(
-                                    image: AssetImage(
-                                      homeController.newArrivedImage[index],
+                    Obx(() {
+                      final List<Map<String, dynamic>> newarrived =
+                          productcontroller.produts
+                              .where((product) =>
+                                  product['sub_category'] == 'none')
+                              .toList()
+                              .sublist(
+                                6,
+                              );
+                      return SizedBox(
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: SizeConfig.padding24,
+                            crossAxisSpacing: SizeConfig.padding24,
+                            mainAxisExtent: 280,
+                          ),
+                          itemCount: 6,
+                          itemBuilder: (context, index) {
+                            final imageNewIndex = index;
+                            return Container(
+                              width: 159,
+                              padding: const EdgeInsets.only(
+                                top: 0,
+                                bottom: 14,
+                                left: 15,
+                                right: 15,
+                              ),
+                              decoration: BoxDecoration(
+                                // color: Colors.grey.shade500,
+                                color: darkModeController.isLightTheme.value
+                                    ? ColorsConfig.secondaryColor
+                                    : ColorsConfig.primaryColor,
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Hero(
+                                      tag: newarrived[index]['id'],
+                                      child: Image(
+                                        image: AssetImage(
+                                            'assets/admin_site_images/all final images with background removed/${newarrived[index]['img']}'),
+                                        height: 190,
+                                        width: 190,
+                                      ),
                                     ),
-                                    width: SizeConfig.width111,
-                                    height: SizeConfig.height120,
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      homeController.newArrivedTitle[index],
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: FontSize.body2,
-                                        fontFamily: FontFamily.lexendMedium,
-                                        color: darkModeController
-                                                .isLightTheme.value
-                                            ? ColorsConfig.primaryColor
-                                            : ColorsConfig.secondaryColor,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: SizeConfig.height02,
-                                    ),
-                                    Text(
-                                      homeController.newArrivedSubtitle[index],
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: FontSize.body3,
-                                        fontFamily: FontFamily.lexendLight,
-                                        color: darkModeController
-                                                .isLightTheme.value
-                                            ? ColorsConfig.textColor
-                                            : ColorsConfig.modeInactiveColor,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: SizeConfig.height10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          homeController.newArrivedPrice[index],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: FontSize.body2,
-                                            fontFamily: FontFamily.lexendMedium,
-                                            color: darkModeController
-                                                    .isLightTheme.value
-                                                ? ColorsConfig.primaryColor
-                                                : ColorsConfig.secondaryColor,
-                                          ),
+                                  SizedBox(height: 5),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        // maxLines: 2,
+                                        // softWrap: true,
+                                        // overflow: TextOverflow
+                                        //     .ellipsis,
+                                        newarrived[index]['title'],
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                          fontFamily: FontFamily.lexendMedium,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
                                         ),
-                                        Obx(
-                                          () => GestureDetector(
-                                            onTap: () {
-                                              homeController
-                                                  .toggleArrivalFavorite(
-                                                      imageNewIndex);
-                                            },
-                                            child: Image(
-                                              image: AssetImage(
-                                                homeController
-                                                        .isFavouriteArrivalList[
-                                                            imageNewIndex]
-                                                        .value
-                                                    ? darkModeController
-                                                            .isLightTheme.value
-                                                        ? ImageConfig.favourite
-                                                        : ImageConfig
-                                                            .favouriteUnfill
-                                                    : darkModeController
-                                                            .isLightTheme.value
-                                                        ? ImageConfig.likeFill
-                                                        : ImageConfig
-                                                            .favouriteFill,
-                                              ),
-                                              width: SizeConfig.width18,
+                                      ),
+                                      const SizedBox(
+                                        height: 02,
+                                      ),
+                                      Text(
+                                        // maxLines: 1,
+                                        // softWrap: true,
+                                        // overflow: TextOverflow
+                                        //     .ellipsis,
+                                        newarrived[index]['subtitle'],
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                          fontFamily: FontFamily.lexendLight,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            ('\u{20B9} ${newarrived[index]['price']}'),
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              fontFamily:
+                                                  FontFamily.lexendMedium,
+                                              color: darkModeController
+                                                      .isLightTheme.value
+                                                  ? ColorsConfig.primaryColor
+                                                  : ColorsConfig.secondaryColor,
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                                          Obx(
+                                            () => GestureDetector(
+                                              onTap: () {
+                                                fashionController
+                                                    .toggleFavorite(index);
+                                              },
+                                              child: Image(
+                                                image: AssetImage(
+                                                  fashionController
+                                                          .isFavouriteList[
+                                                              index]
+                                                          .value
+                                                      ? darkModeController
+                                                              .isLightTheme
+                                                              .value
+                                                          ? ImageConfig
+                                                              .favourite
+                                                          : ImageConfig
+                                                              .favouriteUnfill
+                                                      : darkModeController
+                                                              .isLightTheme
+                                                              .value
+                                                          ? ImageConfig.likeFill
+                                                          : ImageConfig
+                                                              .favouriteFill,
+                                                ),
+                                                width: SizeConfig.width18,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    }),
                     const SizedBox(
                       height: SizeConfig.height04,
                     ),

@@ -8,7 +8,7 @@ import '../config/text_string.dart';
 class FashionController extends GetxController {
   final ScrollController scrollController = ScrollController();
   bool showTitle = false;
-  final List<RxBool> isFavouriteList = List.generate(30, (_) => true.obs);
+  final List<RxBool> isFavouriteList = List.generate(200, (_) => true.obs);
   RxBool isFashionFavouriteList = true.obs;
   RxBool searchBoolean = false.obs;
 
