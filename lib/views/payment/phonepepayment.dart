@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +16,13 @@ class PhonePepayment extends StatefulWidget {
 }
 
 class _PhonePepaymentState extends State<PhonePepayment> {
-  // String environment = "UAT_SIM"; //youtuber walu
+  // String environment = "UAT_SIM"; //youtube
   String environment = "SANDBOX"; // comment
 
   String appId = "";
   String transactionId = DateTime.now().millisecondsSinceEpoch.toString();
   String merchantId =
-      "PGTESTPAYUAT"; //You typically acquire a merchant ID when you set up a merchant account with a credit card processor or payment gateway. The process typically involves a business verification procedure, including providing tax information and ownership details
+      "PGTESTPAYUAT"; //aapre jo merchant id change karie toh real payment thai sake
   bool enableLoggingk = true;
   String checksum = "";
   String saltkey = "099eb0cd-02cf-4e2a-8aca-3e6c6aff0399";
@@ -36,7 +37,7 @@ class _PhonePepaymentState extends State<PhonePepayment> {
       "merchantId": merchantId,
       "merchantTransactionId": transactionId,
       "merchantUserId": "MUID123",
-      "amount": 100,
+      "amount": 1000,
       "callbackUrl": callbackurl,
       "mobileNumber": "9173848696@paytm",
       "paymentInstrument": {"type": "PAY_PAGE"}
@@ -86,10 +87,10 @@ class _PhonePepaymentState extends State<PhonePepayment> {
                     checkStatus();
                   } else {
                     /* String result */ result =
-                        "Flow Completed - Status: $status and Error: $error";
+                        "Transaction Completed - Status: $status and Error: $error";
                   }
                 } else {
-                  result = "Flow Incomplete";
+                  result = "transacrtion Incomplete";
                 }
               })
             })
@@ -147,31 +148,69 @@ class _PhonePepaymentState extends State<PhonePepayment> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("phone pe payment gateway"),
-        ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 40,
+            ),
+            Image.asset(
+              'assets/images/titlewhite.png',
+              width: 300, // Adjust width as needed
+              height: 40, // Adjust height as needed
+              fit: BoxFit.cover, // Adjust fit as needed
+            ),
             Container(
-              child: ElevatedButton(
-                child: Text("start transaction"),
-                onPressed: () {
-                  startPgTransaction();
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black, // Set button background color to black
-                  onPrimary: Colors.white,
-                  minimumSize: Size(300, 50),
+              alignment: Alignment.topCenter,
+              padding: EdgeInsets.only(top: 20), // Adjust top padding as needed
+              child: Image.asset(
+                'assets/images/moneyimage.png',
+                width: 400, // Adjust width as needed
+                height: 400, // Adjust height as needed
+                fit: BoxFit.cover, // Adjust fit as needed
+              ),
+            ),
+            Container(
+              child: Center(
+                child: ElevatedButton(
+                  child: Text("start transaction"),
+                  onPressed: () {
+                    startPgTransaction();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary:
+                        Colors.black, // Set button background color to black
+                    onPrimary: Colors.white,
+                    minimumSize: Size(300, 50),
 
-                  // Set text color to white
+                    // Set text color to white
+                  ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
-            Text("Result \n $result"),
+            Container(
+              padding: EdgeInsets.all(10), // Add padding to the container
+              margin: EdgeInsets.symmetric(
+                  horizontal: 20), // Add margin to the container
+              decoration: BoxDecoration(
+                color: Colors.grey[200], // Set container color to light grey
+                borderRadius: BorderRadius.circular(
+                    10), // Add border radius to the container
+              ),
+              child: Text(
+                "Result:\n$result",
+                textAlign: TextAlign.center, // Center align the text
+                style: TextStyle(
+                  fontSize: 16, // Set text size
+                  color: Colors.black87, // Set text color
+                ),
+              ),
+            ),
           ],
         ),
       ),
