@@ -1,30 +1,24 @@
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserController extends GetxController {
-  late String _name;
-  late String _email;
-  late String _phone;
+  final _firebase = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
 
-  String get name => _name;
-  String get email => _email;
-  String get phone => _phone;
-
-  Future<void> fetchUserData(String userId) async {
+  RxString name = ''.obs;
+  RxString phone = ''.obs;
+  RxString email = ''.obs;
+  RxString userid = ''.obs;
+  Future<void> getUserData() async {
     try {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .get();
-
-      if (snapshot.exists) {
-        _name = snapshot.get('name');
-        _email = snapshot.get('email');
-        _phone = snapshot.get('phone');
-        update(); // Notify listeners that data has been updated
-      }
-    } catch (e) {
-      print('Error fetching user data: $e');
+      final userId = _firebase.currentUser!.uid;
+      final userData = await _firestore.collection('users').doc(userId).get();
+      name.value = userData.get('name') ?? '';
+      phone.value = userData.get('phone') ?? '';
+      email.value = userData.get('email') ?? '';
+    } catch (error) {
+      print('Error fetching user data: $error');
     }
   }
 }

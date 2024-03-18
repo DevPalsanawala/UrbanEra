@@ -9,7 +9,7 @@ class GeneralBindings extends Bindings {
     /// -- Product Controllers
     Get.put(Productcontroller(), permanent: true);
     Get.put(Categorycontroller(), permanent: true);
-    // Get.put(UserController(), permanent: true);
+    Get.put(UserController(), permanent: true);
 
     // Get.put(ProductController(), permanent: true);
     // Get.put(CartController(), permanent: true);
