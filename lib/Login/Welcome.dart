@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Login.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/account.dart';
 
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/phone.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
@@ -109,7 +110,7 @@ class Welcome extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MyPhone()),
+                          MaterialPageRoute(builder: (context) => account()),
                         );
                       },
                       color: darkModeController.isLightTheme.value

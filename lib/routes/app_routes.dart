@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Welcome.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/account.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/otp.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/phone.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/bag/bag_view.dart';
@@ -77,14 +78,15 @@ class AppRoutes {
   static const String bagView = "/bag_view";
   static const String editAddressView = "/edit_address_view";
   static const String fashionSearchView = "/fashion_search_view";
+  static const String accountview = "/account";
 
   static List<GetPage> pages = [
     GetPage(name: splashView, page: () => SplashView()),
     GetPage(name: onBoardingView, page: () => OnBoardingView()),
     GetPage(name: welcomeView, page: () => Welcome()),
     GetPage(name: phoneview, page: () => MyPhone()),
-    GetPage(name: otpview, page: () => MyOtp()),
-
+    // GetPage(name: otpview, page: () => MyOtp()),
+    // GetPage(name: accountview, page: () => account()),
     // GetPage(name: logInView, page: () => LogInView()),
     // GetPage(name: otpView, page: () => OTPView()),
     GetPage(name: homeView, page: () => HomeView()),

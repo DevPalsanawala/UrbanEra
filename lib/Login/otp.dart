@@ -1,7 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/account.dart';
+
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/phone.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 
 class MyOtp extends StatefulWidget {
   @override
@@ -42,6 +49,9 @@ class _MyOtpState extends State<MyOtp> {
     var code = "";
 
     return Scaffold(
+      backgroundColor: darkModeController.isLightTheme.value
+          ? ColorsConfig.backgroundColor
+          : ColorsConfig.buttonColor,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -63,10 +73,17 @@ class _MyOtpState extends State<MyOtp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/Enter OTP-bro.png',
-                width: 250,
-                height: 250,
+              Container(
+                width: 200,
+                height: 200,
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.purple.shade50,
+                ),
+                child: Image.asset(
+                  "assets/images/Enter OTP-bro.png",
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -109,10 +126,8 @@ class _MyOtpState extends State<MyOtp> {
                     try {
                       PhoneAuthCredential credential =
                           PhoneAuthProvider.credential(
-                              verificationId: MyPhone.verify, smsCode: code);
+                              verificationId: account.verify, smsCode: code);
 
-                      // Sign the user in (or link) with the credential
-                      await auth.signInWithCredential(credential);
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         "home_view",
@@ -123,6 +138,25 @@ class _MyOtpState extends State<MyOtp> {
                         "bottom_navigation_bar_view",
                         (route) => false,
                       );
+
+                      // Sign the user in (or link) with the credential
+                      // await auth.signInWithCredential(credential);
+                      // final userid = auth.currentUser!.uid;
+                      // await FirebaseFirestore.instance
+                      //     .collection('users')
+                      //     .doc(auth.currentUser!.uid)
+                      //     .set({
+                      //   'phone': widget.phone,
+                      //   // Add more user data as needed
+                      // });
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //   builder: (context) => account(),
+                      // ));
+                      // Navigator.pushNamedAndRemoveUntil(
+                      //   context,
+                      //   "bottom_navigation_bar_view",
+                      //   (route) => false,
+                      // );
                     } catch (e) {
                       print("Wrong otp");
                     }
@@ -134,26 +168,28 @@ class _MyOtpState extends State<MyOtp> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
+                    backgroundColor: darkModeController.isLightTheme.value
+                        ? ColorsConfig.primaryColor
+                        : ColorsConfig.secondaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, 'phone', (route) => false);
-                      },
-                      child: Text(
-                        "Edit phone number?",
-                        style: TextStyle(color: Colors.black),
-                      ))
-                ],
-              )
+              // Row(
+              //   children: [
+              //     TextButton(
+              //         onPressed: () {
+              //           Navigator.pushNamedAndRemoveUntil(
+              //               context, 'phone', (route) => false);
+              //         },
+              //         child: Text(
+              //           "Edit phone number?",
+              //           style: TextStyle(color: Colors.black),
+              //         ))
+              //   ],
+              // )
             ],
           ),
         ),

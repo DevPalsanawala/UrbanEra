@@ -33,6 +33,9 @@ dependencies:
   phonepe_payment_sdk: ^2.0.1
   crypto: ^3.0.3
   http: ^1.2.0
+  country_picker: ^2.0.25
+  ionicons: ^0.2.2
+
 
 
 
