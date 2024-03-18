@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/gogle_sign_in_provider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 
@@ -236,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
               // Google Sign-in Button
               TextButton.icon(
                 onPressed: () {
-                  // GoogleSignInProvider.googleLogin(context);
+                  GoogleSignInProvider.googleLogin(context);
                 },
                 icon: Image.asset(
                   'assets/images/google.png', // Replace with your Google logo

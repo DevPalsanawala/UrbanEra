@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Login.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/gogle_sign_in_provider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
@@ -29,10 +31,10 @@ class HomeView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
   FashionController fashionController = Get.put(FashionController());
-  // UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
+    // User? user = FirebaseAuth.instance.currentUser;
     return Obx(() => WillPopScope(
           onWillPop: () async {
             Get.offAllNamed(AppRoutes.phoneview);
@@ -67,7 +69,7 @@ class HomeView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "",
+                                TextString.hiRajan,
                                 style: TextStyle(
                                   fontSize: FontSize.heading4,
                                   fontWeight: FontWeight.w500,

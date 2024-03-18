@@ -150,75 +150,68 @@ class _PhonePepaymentState extends State<PhonePepayment> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Image.asset(
-                  'assets/images/titlewhite.png',
-                  width: 300, // Adjust width as needed
-                  height: 40, // Adjust height as needed
-                  fit: BoxFit.cover, // Adjust fit as needed
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  padding:
-                      EdgeInsets.only(top: 20), // Adjust top padding as needed
-                  child: Image.asset(
-                    'assets/images/moneyimage.png',
-                    width: 400, // Adjust width as needed
-                    height: 400, // Adjust height as needed
-                    fit: BoxFit.cover, // Adjust fit as needed
-                  ),
-                ),
-                Container(
-                  child: Center(
-                    child: ElevatedButton(
-                      child: Text("start transaction"),
-                      onPressed: () {
-                        startPgTransaction();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors
-                            .black, // Set button background color to black
-                        onPrimary: Colors.white,
-                        minimumSize: Size(300, 50),
-
-                        // Set text color to white
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Container(
-                  padding: EdgeInsets.all(10), // Add padding to the container
-                  margin: EdgeInsets.symmetric(
-                      horizontal: 20), // Add margin to the container
-                  decoration: BoxDecoration(
-                    color:
-                        Colors.grey[200], // Set container color to light grey
-                    borderRadius: BorderRadius.circular(
-                        10), // Add border radius to the container
-                  ),
-                  child: Text(
-                    "Result:\n$result",
-                    textAlign: TextAlign.center, // Center align the text
-                    style: TextStyle(
-                      fontSize: 16, // Set text size
-                      color: Colors.black87, // Set text color
-                    ),
-                  ),
-                ),
-              ],
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 40,
             ),
-          ),
+            Image.asset(
+              'assets/images/titlewhite.png',
+              width: 300, // Adjust width as needed
+              height: 40, // Adjust height as needed
+              fit: BoxFit.cover, // Adjust fit as needed
+            ),
+            Container(
+              alignment: Alignment.topCenter,
+              padding: EdgeInsets.only(top: 20), // Adjust top padding as needed
+              child: Image.asset(
+                'assets/images/moneyimage.png',
+                width: 400, // Adjust width as needed
+                height: 400, // Adjust height as needed
+                fit: BoxFit.cover, // Adjust fit as needed
+              ),
+            ),
+            Container(
+              child: Center(
+                child: ElevatedButton(
+                  child: Text("start transaction"),
+                  onPressed: () {
+                    startPgTransaction();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary:
+                        Colors.black, // Set button background color to black
+                    onPrimary: Colors.white,
+                    minimumSize: Size(300, 50),
+
+                    // Set text color to white
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Container(
+              padding: EdgeInsets.all(10), // Add padding to the container
+              margin: EdgeInsets.symmetric(
+                  horizontal: 20), // Add margin to the container
+              decoration: BoxDecoration(
+                color: Colors.grey[200], // Set container color to light grey
+                borderRadius: BorderRadius.circular(
+                    10), // Add border radius to the container
+              ),
+              child: Text(
+                "Result:\n$result",
+                textAlign: TextAlign.center, // Center align the text
+                style: TextStyle(
+                  fontSize: 16, // Set text size
+                  color: Colors.black87, // Set text color
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

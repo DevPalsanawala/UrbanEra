@@ -35,6 +35,7 @@ dependencies:
   http: ^1.2.0
   country_picker: ^2.0.25
   ionicons: ^0.2.2
+  google_sign_in: ^6.2.1
 
 
 
