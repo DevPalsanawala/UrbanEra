@@ -518,7 +518,7 @@ class HomeView extends StatelessWidget {
                                 );
                               },
                               child: Container(
-                                height: 90,
+                                height: 85,
                                 width: double.infinity,
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 20),
