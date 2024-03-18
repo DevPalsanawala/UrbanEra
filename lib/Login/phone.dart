@@ -1,5 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/otp.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
+
+import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/filter_bottom_sheet.dart';
 
 class MyPhone extends StatefulWidget {
   static String verify = "";
@@ -10,11 +16,19 @@ class MyPhone extends StatefulWidget {
 
 class _MyPhoneState extends State<MyPhone> {
   TextEditingController countryycode = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
   var phone = "";
+  Country selectedCountry = Country(
+    phoneCode: "91",
+    countryCode: "IN",
+    e164Sc: 0,
+    geographic: true,
+    level: 1,
+    name: "India",
+    example: "India",
+    displayName: "India",
+    displayNameNoCountryCode: "IN",
+    e164Key: "",
+  );
 
   @override
   void initState() {
@@ -22,9 +36,38 @@ class _MyPhoneState extends State<MyPhone> {
     super.initState();
   }
 
+  void _isvalid() async {
+    if (phone.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(milliseconds: 2000),
+          content: Text("Enter valid phone number"),
+        ),
+      );
+    } else {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '${countryycode.text + phone}',
+        verificationCompleted: (PhoneAuthCredential credential) {},
+        verificationFailed: (FirebaseAuthException e) {},
+        codeSent: (String verificationId, int? resendToken) {
+          MyPhone.verify = verificationId;
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => MyOtp(),
+            ),
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkModeController.isLightTheme.value
+          ? ColorsConfig.backgroundColor
+          : ColorsConfig.buttonColor,
       body: Container(
         margin: EdgeInsets.only(left: 25, right: 25),
         alignment: Alignment.topCenter,
@@ -38,11 +81,15 @@ class _MyPhoneState extends State<MyPhone> {
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(
-                        top: 30), // Adjust the top margin as needed
-                    child: const Icon(
-                      Icons.lock,
-                      size: 100,
+                    width: 200,
+                    height: 200,
+                    padding: const EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.purple.shade50,
+                    ),
+                    child: Image.asset(
+                      "assets/images/account.png",
                     ),
                   ),
                   SizedBox(height: 20),
@@ -50,6 +97,9 @@ class _MyPhoneState extends State<MyPhone> {
                     'We need to register your account before getting started!',
                     style: TextStyle(
                       fontSize: 20,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.textColor
+                          : ColorsConfig.modeInactiveColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -59,29 +109,6 @@ class _MyPhoneState extends State<MyPhone> {
               SizedBox(height: 50),
 
               // Username text field
-              TextField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-
-              SizedBox(height: 20),
-
-              // Email text field
-              TextField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
 
               SizedBox(height: 20),
 
@@ -94,28 +121,47 @@ class _MyPhoneState extends State<MyPhone> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 25,
-                      child: TextField(
-                        controller: countryycode,
-                        decoration: InputDecoration(border: InputBorder.none),
+                    GestureDetector(
+                      onTap: () {
+                        showCountryPicker(
+                          context: context,
+                          countryListTheme: const CountryListThemeData(
+                            bottomSheetHeight: 550,
+                          ),
+                          onSelect: (value) {
+                            setState(() {
+                              selectedCountry = value;
+                              countryycode.text = value.phoneCode;
+                            });
+                          },
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.primaryColor
+                                : ColorsConfig.secondaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     Text(
                       "|",
                       style: TextStyle(fontSize: 35, color: Colors.grey),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     Expanded(
                       child: TextField(
+                        style: TextStyle(
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.primaryColor
+                                : ColorsConfig.secondaryColor),
                         keyboardType: TextInputType.phone,
                         onChanged: (value) {
                           phone = value;
@@ -133,48 +179,31 @@ class _MyPhoneState extends State<MyPhone> {
               SizedBox(height: 20),
 
               // Password text field
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
 
               SizedBox(height: 20),
 
               // Send code button
-              SizedBox(
-                height: 49,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.verifyPhoneNumber(
-                      phoneNumber: '${countryycode.text + phone}',
-                      verificationCompleted:
-                          (PhoneAuthCredential credential) {},
-                      verificationFailed: (FirebaseAuthException e) {},
-                      codeSent: (String verificationId, int? resendToken) {
-                        MyPhone.verify = verificationId;
-                        Navigator.pushNamed(context, "otp");
-                      },
-                      codeAutoRetrievalTimeout: (String verificationId) {},
-                    );
-                  },
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+              MaterialButton(
+                minWidth: MediaQuery.of(context).size.width * 0.87,
+                height: 55,
+                onPressed: () {
+                  _isvalid();
+                },
+                color: darkModeController.isLightTheme.value
+                    ? ColorsConfig.primaryColor
+                    : ColorsConfig.secondaryColor,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text(
+                  "Sign up",
+                  style: TextStyle(
+                    color: darkModeController.isLightTheme.value
+                        ? ColorsConfig.secondaryColor
+                        : ColorsConfig.primaryColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
                   ),
                 ),
               ),

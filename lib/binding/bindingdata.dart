@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/category_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 
 class GeneralBindings extends Bindings {
@@ -8,6 +9,7 @@ class GeneralBindings extends Bindings {
     /// -- Product Controllers
     Get.put(Productcontroller(), permanent: true);
     Get.put(Categorycontroller(), permanent: true);
+    // Get.put(UserController(), permanent: true);
 
     // Get.put(ProductController(), permanent: true);
     // Get.put(CartController(), permanent: true);

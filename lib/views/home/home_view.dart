@@ -1,8 +1,12 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Login.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/gogle_sign_in_provider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
@@ -12,6 +16,7 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
@@ -26,9 +31,11 @@ class HomeView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
   FashionController fashionController = Get.put(FashionController());
-
+  // UserController userController = Get.put(UserController());
+//for user authentication data by google id
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return Obx(() => WillPopScope(
           onWillPop: () async {
             Get.offAllNamed(AppRoutes.phoneview);
@@ -62,27 +69,54 @@ class HomeView extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                TextString.hiRajan,
-                                style: TextStyle(
-                                  fontSize: FontSize.heading4,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: FontFamily.lexendMedium,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.primaryColor
-                                      : ColorsConfig.secondaryColor,
-                                ),
-                              ),
-                              Text(
-                                TextString.offerSomethingSpecial,
-                                style: TextStyle(
-                                  fontSize: FontSize.body3,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: FontFamily.lexendLight,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.textLightColor
-                                      : ColorsConfig.modeInactiveColor,
-                                ),
+                              Row(
+                                children: [
+                                  Text(
+                                    // userController.name,
+                                    "",
+                                    style: TextStyle(
+                                      fontSize: FontSize.heading4,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: FontFamily.lexendMedium,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    user!.displayName!,
+                                    style: TextStyle(
+                                      fontSize: FontSize.body1,
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: FontFamily.lexendLight,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.textLightColor
+                                              : ColorsConfig.modeInactiveColor,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  CircleAvatar(
+                                    radius: 15,
+                                    backgroundImage: NetworkImage(user!
+                                        .photoURL!), // You can use NetworkImage for URLs
+                                  ),
+                                  IconButton(
+                                      icon: Icon(Icons.logout),
+                                      onPressed: () {
+                                        GoogleSignInProvider
+                                            .signOutFromGoogle();
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginPage()),
+                                                (_) => false);
+                                      }),
+                                ],
                               ),
                             ],
                           ),
