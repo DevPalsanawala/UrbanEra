@@ -57,6 +57,7 @@ class HomeView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,9 +85,6 @@ class HomeView extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          ),
-                          SizedBox(
-                            width: 98,
                           ),
                           GestureDetector(
                             onTap: () {
