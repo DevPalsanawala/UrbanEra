@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
   FashionController fashionController = Get.put(FashionController());
-  // UserController userController = Get.put(UserController());
+  UserController userController = Get.put(UserController());
 //for user authentication data by google id
   @override
   Widget build(BuildContext context) {
