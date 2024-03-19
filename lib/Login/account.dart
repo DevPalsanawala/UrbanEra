@@ -166,7 +166,6 @@ class _accountState extends State<account> {
                     label: Text(
                       "Name",
                       style: TextStyle(
-                          fontSize: 20,
                           color: darkModeController.isLightTheme.value
                               ? ColorsConfig.primaryColor
                               : ColorsConfig.secondaryColor),
@@ -228,7 +227,7 @@ class _accountState extends State<account> {
                           child: Text(
                             "${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 15,
                               color: darkModeController.isLightTheme.value
                                   ? ColorsConfig.primaryColor
                                   : ColorsConfig.secondaryColor,
@@ -259,7 +258,7 @@ class _accountState extends State<account> {
                               border: InputBorder.none,
                               hintText: "Phone",
                               hintStyle: TextStyle(
-                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
                                   color: darkModeController.isLightTheme.value
                                       ? ColorsConfig.primaryColor
                                       : ColorsConfig.secondaryColor)),
@@ -279,7 +278,6 @@ class _accountState extends State<account> {
                     label: Text(
                       "Email",
                       style: TextStyle(
-                          fontSize: 20,
                           color: darkModeController.isLightTheme.value
                               ? ColorsConfig.primaryColor
                               : ColorsConfig.secondaryColor),
@@ -325,7 +323,6 @@ class _accountState extends State<account> {
                     label: Text(
                       "Password",
                       style: TextStyle(
-                          fontSize: 20,
                           color: darkModeController.isLightTheme.value
                               ? ColorsConfig.primaryColor
                               : ColorsConfig.secondaryColor),
