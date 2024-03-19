@@ -6,7 +6,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Timer(const Duration(seconds: 7),
+    Timer(const Duration(seconds: 5),
         () => Get.offAllNamed(AppRoutes.onBoardingView));
   }
 }

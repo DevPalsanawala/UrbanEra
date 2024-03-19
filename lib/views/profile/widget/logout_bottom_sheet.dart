@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Welcome.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 import '../../../config/colors.dart';
@@ -161,8 +163,14 @@ logoutBottomSheet(BuildContext context) {
                             ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () {
-                                  Get.offAllNamed(AppRoutes.phoneview);
+                                onTap: () async {
+                                  try {
+                                    await FirebaseAuth.instance.signOut();
+                                    print("Sign out successful");
+                                    // Get.back();
+                                  } catch (e) {
+                                    print("Error signing out: $e");
+                                  }
                                 },
                                 child: Container(
                                   height: SizeConfig.height52,
