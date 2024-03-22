@@ -163,14 +163,7 @@ class _accountState extends State<account> {
                   textAlignVertical: TextAlignVertical.center,
                   enableSuggestions: false,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Name",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor),
-                    ),
+                    labelText: "Name",
                     prefixIcon: Icon(
                       Icons.person_3_outlined,
                       color: darkModeController.isLightTheme.value
@@ -228,7 +221,7 @@ class _accountState extends State<account> {
                           child: Text(
                             "${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 15,
                               color: darkModeController.isLightTheme.value
                                   ? ColorsConfig.primaryColor
                                   : ColorsConfig.secondaryColor,
@@ -259,7 +252,7 @@ class _accountState extends State<account> {
                               border: InputBorder.none,
                               hintText: "Phone",
                               hintStyle: TextStyle(
-                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
                                   color: darkModeController.isLightTheme.value
                                       ? ColorsConfig.primaryColor
                                       : ColorsConfig.secondaryColor)),
@@ -276,14 +269,7 @@ class _accountState extends State<account> {
                   autocorrect: false,
                   textCapitalization: TextCapitalization.none,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Email",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor),
-                    ),
+                    labelText: "Email",
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: darkModeController.isLightTheme.value
@@ -322,14 +308,7 @@ class _accountState extends State<account> {
                   obscureText: _issecure,
                   textCapitalization: TextCapitalization.none,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Password",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor),
-                    ),
+                    labelText: "Password",
                     suffixIcon: InkWell(
                       onTap: () {
                         setState(() {
