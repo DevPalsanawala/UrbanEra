@@ -1,12 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/bottom_navigation_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/model/category_model.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/model/product_model.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
@@ -38,6 +42,7 @@ class _TopFashionViewState extends State<TopFashionView> {
   Productcontroller productcontroller = Get.put(Productcontroller());
   BottomNavigationController bottomNavigationController =
       Get.put(BottomNavigationController());
+  WishlistController1 wishlistController1 = Get.put(WishlistController1());
 
   late ScrollController scrollController;
   List<Map<String, dynamic>> listofproducts = [];
@@ -84,6 +89,9 @@ class _TopFashionViewState extends State<TopFashionView> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
+    User? user = userController.currentUser.value;
+    Map<String, dynamic> userData = userController.userData.value;
     setupScrollListener();
     return Obx(() => Scaffold(
           backgroundColor: darkModeController.isLightTheme.value
@@ -403,21 +411,27 @@ class _TopFashionViewState extends State<TopFashionView> {
                                                                       .secondaryColor,
                                                             ),
                                                           ),
-                                                          Obx(
-                                                            () =>
-                                                                GestureDetector(
+                                                          Obx(() {
+                                                            final isInWishlist =
+                                                                wishlistController1
+                                                                        .isAddedMap[listofproducts[
+                                                                            index]
+                                                                        [
+                                                                        'id']] ??
+                                                                    false;
+                                                            return GestureDetector(
                                                               onTap: () {
-                                                                fashionController
-                                                                    .toggleFavorite(
-                                                                        index);
+                                                                wishlistController1
+                                                                    .toggleWishlistItem(
+                                                                        user!
+                                                                            .uid,
+                                                                        listofproducts[
+                                                                            index]);
                                                               },
                                                               child: Image(
                                                                 image:
                                                                     AssetImage(
-                                                                  fashionController
-                                                                          .isFavouriteList[
-                                                                              index]
-                                                                          .value
+                                                                  !isInWishlist
                                                                       ? darkModeController
                                                                               .isLightTheme
                                                                               .value
@@ -436,8 +450,8 @@ class _TopFashionViewState extends State<TopFashionView> {
                                                                 width: SizeConfig
                                                                     .width18,
                                                               ),
-                                                            ),
-                                                          ),
+                                                            );
+                                                          }),
                                                         ],
                                                       ),
                                                     ],

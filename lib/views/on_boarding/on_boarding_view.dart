@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Welcome.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/size.dart';
@@ -66,7 +67,7 @@ class OnBoardingView extends StatelessWidget {
                               onBoardingController.pageViewIndex.value == 1) {
                             pageController
                                 .jumpToPage(onBoardingModelList.length - 1);
-                            Get.toNamed(AppRoutes.phoneview);
+                            Get.to(Welcome());
                           }
                         },
                         child: Text(

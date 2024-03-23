@@ -1,12 +1,21 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/wishdata_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/wishlist/widget/remove_wishlist_bottom_sheet.dart';
 import '../../config/colors.dart';
 import '../../config/font_family.dart';
@@ -16,369 +25,390 @@ import '../../config/size.dart';
 import '../../config/text_string.dart';
 import '../../routes/app_routes.dart';
 
-class WishlistView extends StatelessWidget {
+class WishlistView extends StatefulWidget {
   WishlistView({Key? key}) : super(key: key);
 
+  @override
+  State<WishlistView> createState() => _WishlistViewState();
+}
+
+class _WishlistViewState extends State<WishlistView> {
   HomeController homeController = Get.put(HomeController());
+
   WishlistController wishlistController = Get.put(WishlistController());
+
   ButtonController buttonController = Get.put(ButtonController());
+
   DarkModeController darkModeController = Get.put(DarkModeController());
+
+  WishlistController1 wishlistController1 = Get.put(WishlistController1());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-      backgroundColor: darkModeController.isLightTheme.value
-          ? ColorsConfig.backgroundColor
-          : ColorsConfig.buttonColor,
-      appBar: AppBar(
+    final UserController userController = Get.find();
+    User? user = userController.currentUser.value;
+    Map<String, dynamic> userData = userController.userData.value;
+
+    return Obx(
+      () => Scaffold(
         backgroundColor: darkModeController.isLightTheme.value
             ? ColorsConfig.backgroundColor
             : ColorsConfig.buttonColor,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.only(
-            top: SizeConfig.padding10,
-            left: SizeConfig.padding10,
-          ),
-          child: !wishlistController.searchBoolean.value
-              ? Text(
-                TextString.wishList,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: FontFamily.lexendMedium,
-                  fontSize: FontSize.heading4,
-                  color: darkModeController.isLightTheme.value
-                      ? ColorsConfig.primaryColor
-                      : ColorsConfig.secondaryColor,
-                ),
-              )
-              : _searchTextField(),
-        ),
-        actions: [
-          Obx(() => Padding(
+        appBar: AppBar(
+          backgroundColor: darkModeController.isLightTheme.value
+              ? ColorsConfig.backgroundColor
+              : ColorsConfig.buttonColor,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          title: Padding(
             padding: const EdgeInsets.only(
-              // top: SizeConfig.padding05,
-              right: SizeConfig.padding24,
+              top: SizeConfig.padding10,
+              left: SizeConfig.padding10,
             ),
             child: !wishlistController.searchBoolean.value
-                ? Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    wishlistController.searchBoolean.value = true;
-                  },
-                  child: Image(
-                    image: const AssetImage(ImageConfig.search),
-                    width: SizeConfig.width20,
-                    height: SizeConfig.height20,
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.primaryColor
-                        : ColorsConfig.secondaryColor,
-                  ),
-                ),
-                const SizedBox(
-                  width: SizeConfig.width18,
-                ),
-                Image(
-                  image: const AssetImage(ImageConfig.cart),
-                  width: SizeConfig.width20,
-                  height: SizeConfig.height20,
-                  color: darkModeController.isLightTheme.value
-                      ? ColorsConfig.primaryColor
-                      : ColorsConfig.secondaryColor,
-                ),
-              ],
-            ) : GestureDetector(
-              onTap: () {
-                wishlistController.searchBoolean.value = false;
-              },
-              child: Icon(
-                Icons.clear_rounded,
-                size: SizeConfig.width25,
-                color: darkModeController.isLightTheme.value
-                    ? ColorsConfig.primaryColor
-                    : ColorsConfig.secondaryColor,
-              ),
-            ),
-          )),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: SizeConfig.padding20,
-          left: SizeConfig.padding24,
-          right: SizeConfig.padding24,
-        ),
-        child: Obx(() {
-          return buttonController.showFirstContent.value
-              ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                  child: Container(
-                    width: SizeConfig.width70,
-                    height: SizeConfig.height70,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: darkModeController.isLightTheme.value
-                          ? ColorsConfig.secondaryColor
-                          : ColorsConfig.primaryColor,
-                    ),
-                    child: Center(
-                      child: Image(
-                        image: const AssetImage(ImageConfig.heartFill),
-                        width: SizeConfig.width30,
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.primaryColor
-                            : ColorsConfig.secondaryColor,
-                      ),
-                    ),
-                  )),
-              const SizedBox(
-                height: SizeConfig.height20,
-              ),
-              Text(
-                TextString.wishListIsEmpty,
-                style: TextStyle(
-                  fontFamily: FontFamily.lexendRegular,
-                  fontSize: FontSize.heading5,
-                  fontWeight: FontWeight.w400,
-                  color: darkModeController.isLightTheme.value
-                      ? ColorsConfig.primaryColor
-                      : ColorsConfig.secondaryColor,
-                ),
-              ),
-              const SizedBox(
-                height: SizeConfig.height08,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: SizeConfig.padding20,
-                  right: SizeConfig.padding20,
-                ),
-                child: Text(
-                  TextString.wishListDescription,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: FontFamily.lexendLight,
-                    fontSize: FontSize.body3,
-                    fontWeight: FontWeight.w300,
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.textColor
-                        : ColorsConfig.modeInactiveColor,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: SizeConfig.height32,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Get.offAllNamed(AppRoutes.bottomView);
-                },
-                child: Container(
-                  height: SizeConfig.height52,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        SizeConfig.borderRadius14),
-                    border: Border.all(
+                ? Text(
+                    TextString.wishList,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: FontFamily.lexendMedium,
+                      fontSize: FontSize.heading4,
                       color: darkModeController.isLightTheme.value
                           ? ColorsConfig.primaryColor
                           : ColorsConfig.secondaryColor,
                     ),
+                  )
+                : _searchTextField(),
+          ),
+          actions: [
+            Obx(() => Padding(
+                  padding: const EdgeInsets.only(
+                    // top: SizeConfig.padding05,
+                    right: SizeConfig.padding24,
                   ),
-                  child: Center(
-                    child: Text(
-                      TextString.textButtonContinueShopping,
+                  child: !wishlistController.searchBoolean.value
+                      ? Row(
+                          children: [
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     wishlistController.searchBoolean.value = true;
+                            //   },
+                            //   child: Image(
+                            //     image: const AssetImage(ImageConfig.search),
+                            //     width: SizeConfig.width20,
+                            //     height: SizeConfig.height20,
+                            //     color: darkModeController.isLightTheme.value
+                            //         ? ColorsConfig.primaryColor
+                            //         : ColorsConfig.secondaryColor,
+                            //   ),
+                            // ),
+                            const SizedBox(
+                              width: SizeConfig.width18,
+                            ),
+                            Image(
+                              image: const AssetImage(ImageConfig.cart),
+                              width: SizeConfig.width20,
+                              height: SizeConfig.height20,
+                              color: darkModeController.isLightTheme.value
+                                  ? ColorsConfig.primaryColor
+                                  : ColorsConfig.secondaryColor,
+                            ),
+                          ],
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            wishlistController.searchBoolean.value = false;
+                          },
+                          child: Icon(
+                            Icons.clear_rounded,
+                            size: SizeConfig.width25,
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.primaryColor
+                                : ColorsConfig.secondaryColor,
+                          ),
+                        ),
+                )),
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(
+            top: SizeConfig.padding20,
+            left: SizeConfig.padding24,
+            right: SizeConfig.padding24,
+          ),
+          child: Obx(() {
+            WishlistdataController wishlistdataController =
+                Get.put(WishlistdataController());
+            //   if (controller.isLoading.value) {
+            //   return Center(
+            //     child: CircularProgressIndicator(),
+            //   );
+            // }
+
+            if (wishlistdataController.items.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                        child: Container(
+                      width: SizeConfig.width70,
+                      height: SizeConfig.height70,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: darkModeController.isLightTheme.value
+                            ? ColorsConfig.secondaryColor
+                            : ColorsConfig.primaryColor,
+                      ),
+                      child: Center(
+                        child: Image(
+                          image: const AssetImage(ImageConfig.heartFill),
+                          width: SizeConfig.width30,
+                          color: darkModeController.isLightTheme.value
+                              ? ColorsConfig.primaryColor
+                              : ColorsConfig.secondaryColor,
+                        ),
+                      ),
+                    )),
+                    const SizedBox(
+                      height: SizeConfig.height20,
+                    ),
+                    Text(
+                      TextString.wishListIsEmpty,
                       style: TextStyle(
-                        fontSize: FontSize.body1,
-                        fontWeight: FontWeight.w400,
                         fontFamily: FontFamily.lexendRegular,
+                        fontSize: FontSize.heading5,
+                        fontWeight: FontWeight.w400,
                         color: darkModeController.isLightTheme.value
                             ? ColorsConfig.primaryColor
                             : ColorsConfig.secondaryColor,
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ],
-          ) : SizedBox(
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 24,
-                crossAxisSpacing: 24,
-                mainAxisExtent: SizeConfig.height262,
-              ),
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Container(
-                  width: SizeConfig.width159,
-                  padding: const EdgeInsets.all(SizeConfig.padding11),
-                  decoration: BoxDecoration(
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.secondaryColor
-                        : ColorsConfig.primaryColor,
-                    borderRadius: BorderRadius.circular(
-                        SizeConfig.borderRadius14),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Center(
-                        child: Image(
-                          image: AssetImage(
-                            wishlistController.wishListProducts[index],
-                          ),
-                          width: SizeConfig.width111,
-                          height: SizeConfig.height120,
+                    const SizedBox(
+                      height: SizeConfig.height08,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: SizeConfig.padding20,
+                        right: SizeConfig.padding20,
+                      ),
+                      child: Text(
+                        TextString.wishListDescription,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: FontFamily.lexendLight,
+                          fontSize: FontSize.body3,
+                          fontWeight: FontWeight.w300,
+                          color: darkModeController.isLightTheme.value
+                              ? ColorsConfig.textColor
+                              : ColorsConfig.modeInactiveColor,
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            wishlistController
-                                .wishListProductsName[index],
+                    ),
+                    const SizedBox(
+                      height: SizeConfig.height32,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAllNamed(AppRoutes.bottomView);
+                      },
+                      child: Container(
+                        height: SizeConfig.height52,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(SizeConfig.borderRadius14),
+                          border: Border.all(
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.primaryColor
+                                : ColorsConfig.secondaryColor,
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            TextString.textButtonContinueShopping,
                             style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: FontSize.body2,
-                              fontFamily: FontFamily.lexendMedium,
+                              fontSize: FontSize.body1,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: FontFamily.lexendRegular,
                               color: darkModeController.isLightTheme.value
                                   ? ColorsConfig.primaryColor
                                   : ColorsConfig.secondaryColor,
                             ),
                           ),
-                          const SizedBox(
-                            height: SizeConfig.height02,
-                          ),
-                          Text(
-                            wishlistController
-                                .wishListProductsDescription[index],
-                            style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: FontSize.body3,
-                              fontFamily: FontFamily.lexendLight,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.textColor
-                                  : ColorsConfig.modeInactiveColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: SizedBox(
+                  child: GridView.builder(
+                    semanticChildCount: null,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: SizeConfig.padding24,
+                      crossAxisSpacing: SizeConfig.padding24,
+                      mainAxisExtent: 280,
+                    ),
+                    itemCount: wishlistdataController.items.length,
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> item =
+                          wishlistdataController.items[index];
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => FashionDetailsView(
+                                product: item,
+                              ),
                             ),
+                          );
+                        },
+                        child: Container(
+                          width: 159,
+                          padding: const EdgeInsets.only(
+                            top: 0,
+                            bottom: 14,
+                            left: 15,
+                            right: 15,
                           ),
-                          const SizedBox(
-                            height: SizeConfig.height10,
+                          decoration: BoxDecoration(
+                            // color: Colors.grey.shade500,
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.secondaryColor
+                                : ColorsConfig.primaryColor,
+                            borderRadius: BorderRadius.circular(14),
                           ),
-                          Text(
-                            wishlistController
-                                .wishlistProductsPrice[index],
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: FontSize.body2,
-                              fontFamily: FontFamily.lexendMedium,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: SizeConfig.height10,
-                          ),
-                          Row(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  removeWishlistBottomSheet(context);
-                                },
-                                child: Container(
-                                  height: SizeConfig.height32,
-                                  width: SizeConfig.width32,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: darkModeController.isLightTheme.value
-                                          ? ColorsConfig.primaryColor
-                                          : ColorsConfig.secondaryColor,
-                                      width: SizeConfig.width01,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                      SizeConfig.borderRadius08,
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Image(
-                                      image:
-                                      const AssetImage(ImageConfig.delete),
-                                      width: SizeConfig.width18,
-                                      color: darkModeController.isLightTheme.value
-                                          ? ColorsConfig.primaryColor
-                                          : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
+                              Center(
+                                child: Image(
+                                  image: AssetImage(
+                                      'assets/admin_site_images/all final images with background removed/${wishlistdataController.items[index]['img']}'),
+                                  height: 190,
+                                  width: 190,
                                 ),
                               ),
-                              const SizedBox(
-                                width: SizeConfig.width08,
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    wishlistController.toggleContent();
-                                    Fluttertoast.showToast(
-                                      msg: TextString.addedToBagToast,
-                                      gravity: ToastGravity.BOTTOM,
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      backgroundColor: darkModeController.isLightTheme.value
-                                          ? ColorsConfig.buttonColor
-                                          : ColorsConfig.secondaryColor,
-                                      textColor: darkModeController.isLightTheme.value
-                                          ? ColorsConfig.secondaryColor
-                                          : ColorsConfig.buttonColor,
-                                    );
-                                  },
-                                  child: Container(
-                                    height: SizeConfig.height32,
-                                    decoration: BoxDecoration(
-                                      color: darkModeController.isLightTheme.value
-                                          ? ColorsConfig.primaryColor
-                                          : ColorsConfig.secondaryColor,
-                                      borderRadius: BorderRadius.circular(
-                                        SizeConfig.borderRadius08,
-                                      ),
+                              SizedBox(height: 5),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    // maxLines: 2,
+                                    // softWrap: true,
+                                    // overflow: TextOverflow
+                                    //     .ellipsis,
+                                    wishlistdataController.items[index]
+                                        ['title'],
+                                    style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      fontFamily: FontFamily.lexendMedium,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        TextString.textButtonAddToBag,
+                                  ),
+                                  const SizedBox(
+                                    height: 02,
+                                  ),
+                                  Text(
+                                    // maxLines: 1,
+                                    // softWrap: true,
+                                    // overflow: TextOverflow
+                                    //     .ellipsis,
+                                    wishlistdataController.items[index]
+                                        ['subtitle'],
+                                    style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      fontFamily: FontFamily.lexendLight,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        ('\u{20B9} ${wishlistdataController.items[index]['price']}'),
                                         style: TextStyle(
-                                          fontSize: FontSize.body3,
-                                          fontFamily:
-                                          FontFamily.lexendRegular,
                                           fontWeight: FontWeight.w500,
-                                          color: darkModeController.isLightTheme.value
-                                              ? ColorsConfig.secondaryColor
-                                              : ColorsConfig.primaryColor,
+                                          fontSize: 14,
+                                          fontFamily: FontFamily.lexendMedium,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
                                         ),
                                       ),
-                                    ),
+                                      Obx(() {
+                                        final isInWishlist =
+                                            wishlistController1.isAddedMap[
+                                                    wishlistdataController
+                                                        .items[index]['id']] ??
+                                                false;
+                                        return GestureDetector(
+                                          onTap: () {
+                                            wishlistController1
+                                                .toggleWishlistItem(
+                                                    user!.uid,
+                                                    wishlistdataController
+                                                        .items[index]);
+                                          },
+                                          child: Image(
+                                            image: AssetImage(
+                                              !isInWishlist
+                                                  ? darkModeController
+                                                          .isLightTheme.value
+                                                      ? ImageConfig.favourite
+                                                      : ImageConfig
+                                                          .favouriteUnfill
+                                                  : darkModeController
+                                                          .isLightTheme.value
+                                                      ? ImageConfig.likeFill
+                                                      : ImageConfig
+                                                          .favouriteFill,
+                                            ),
+                                            width: SizeConfig.width18,
+                                          ),
+                                        );
+                                      }),
+                                    ],
                                   ),
-                                ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          );
-        }),
+                ),
+              );
+            }
+          }),
+        ),
       ),
-    ));
+    );
   }
 
   Widget _searchTextField() {

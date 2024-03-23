@@ -16,8 +16,10 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/crouesl_slider.dart';
@@ -31,6 +33,7 @@ class HomeView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
   FashionController fashionController = Get.put(FashionController());
+  WishlistController1 wishlistController1 = Get.put(WishlistController1());
 
   @override
   Widget build(BuildContext context) {
@@ -397,18 +400,22 @@ class HomeView extends StatelessWidget {
                                                   : ColorsConfig.secondaryColor,
                                             ),
                                           ),
-                                          Obx(
-                                            () => GestureDetector(
+                                          Obx(() {
+                                            final isInWishlist =
+                                                wishlistController1.isAddedMap[
+                                                        trending[index]
+                                                            ['id']] ??
+                                                    false;
+                                            return GestureDetector(
                                               onTap: () {
-                                                fashionController
-                                                    .toggleFavorite(index);
+                                                wishlistController1
+                                                    .toggleWishlistItem(
+                                                        user!.uid,
+                                                        trending[index]);
                                               },
                                               child: Image(
                                                 image: AssetImage(
-                                                  fashionController
-                                                          .isFavouriteList[
-                                                              index]
-                                                          .value
+                                                  !isInWishlist
                                                       ? darkModeController
                                                               .isLightTheme
                                                               .value
@@ -425,8 +432,8 @@ class HomeView extends StatelessWidget {
                                                 ),
                                                 width: SizeConfig.width18,
                                               ),
-                                            ),
-                                          ),
+                                            );
+                                          }),
                                         ],
                                       ),
                                     ],
@@ -762,17 +769,21 @@ class HomeView extends StatelessWidget {
                                                 : ColorsConfig.secondaryColor,
                                           ),
                                         ),
-                                        Obx(
-                                          () => GestureDetector(
+                                        Obx(() {
+                                          final isInWishlist =
+                                              wishlistController1.isAddedMap[
+                                                      newarrived[index]
+                                                          ['id']] ??
+                                                  false;
+                                          return GestureDetector(
                                             onTap: () {
-                                              fashionController
-                                                  .toggleFavorite(index);
+                                              wishlistController1
+                                                  .toggleWishlistItem(user!.uid,
+                                                      newarrived[index]);
                                             },
                                             child: Image(
                                               image: AssetImage(
-                                                fashionController
-                                                        .isFavouriteList[index]
-                                                        .value
+                                                !isInWishlist
                                                     ? darkModeController
                                                             .isLightTheme.value
                                                         ? ImageConfig.favourite
@@ -786,8 +797,8 @@ class HomeView extends StatelessWidget {
                                               ),
                                               width: SizeConfig.width18,
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        }),
                                       ],
                                     ),
                                   ],

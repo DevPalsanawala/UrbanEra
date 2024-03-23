@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
@@ -11,7 +12,9 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controlle
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/model/product_model.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 
@@ -37,6 +40,7 @@ class FashionDetailsView extends StatelessWidget {
   WishlistController wishlistController = Get.put(WishlistController());
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
+  WishlistController1 wishlistController1 = Get.put(WishlistController1());
 
   void goToTab(int tabIndex) {
     bottomNavigationController.changePage(tabIndex);
@@ -45,6 +49,9 @@ class FashionDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
+    User? user = userController.currentUser.value;
+    Map<String, dynamic> userData = userController.userData.value;
     return Obx(() => Scaffold(
           backgroundColor: darkModeController.isLightTheme.value
               ? ColorsConfig.backgroundColor
@@ -248,29 +255,31 @@ class FashionDetailsView extends StatelessWidget {
                                   const SizedBox(
                                     width: SizeConfig.width12,
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      fashionController.toggleFashionFavorite();
-                                    },
-                                    child: Obx(() => Image(
-                                          image: AssetImage(
-                                            fashionController
-                                                    .isFashionFavouriteList
-                                                    .value
-                                                ? darkModeController
-                                                        .isLightTheme.value
-                                                    ? ImageConfig.favourite
-                                                    : ImageConfig
-                                                        .favouriteUnfill
-                                                : darkModeController
-                                                        .isLightTheme.value
-                                                    ? ImageConfig.likeFill
-                                                    : ImageConfig.favouriteFill,
-                                          ),
-                                          width: SizeConfig.width20,
-                                          height: SizeConfig.height20,
-                                        )),
-                                  ),
+                                  Obx(() {
+                                    final isInWishlist = wishlistController1
+                                            .isAddedMap[product['id']] ??
+                                        false;
+                                    return GestureDetector(
+                                      onTap: () {
+                                        wishlistController1.toggleWishlistItem(
+                                            user!.uid, product);
+                                      },
+                                      child: Image(
+                                        image: AssetImage(
+                                          !isInWishlist
+                                              ? darkModeController
+                                                      .isLightTheme.value
+                                                  ? ImageConfig.favourite
+                                                  : ImageConfig.favouriteUnfill
+                                              : darkModeController
+                                                      .isLightTheme.value
+                                                  ? ImageConfig.likeFill
+                                                  : ImageConfig.favouriteFill,
+                                        ),
+                                        width: SizeConfig.width18,
+                                      ),
+                                    );
+                                  }),
                                 ],
                               ),
                             ],
