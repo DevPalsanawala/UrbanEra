@@ -33,10 +33,14 @@ class HomeView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
   FashionController fashionController = Get.put(FashionController());
+
   WishlistController1 wishlistController1 = Get.put(WishlistController1());
 
   @override
   Widget build(BuildContext context) {
+    User? usergoogle = FirebaseAuth
+        .instance.currentUser; //for user authentication data by google id
+
     final UserController userController = Get.find();
     return Obx(() {
       User? user = userController.currentUser.value;
@@ -70,7 +74,9 @@ class HomeView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Hi ${userData['name']}',
+                            userData != null && userData['name'] != null
+                                ? 'Hi ${userData['name']}'
+                                : usergoogle!.displayName!,
                             style: TextStyle(
                               fontSize: FontSize.heading4,
                               fontWeight: FontWeight.w500,
@@ -80,6 +86,8 @@ class HomeView extends StatelessWidget {
                                   : ColorsConfig.secondaryColor,
                             ),
                           ),
+                          //signout code google
+
                           Text(
                             TextString.offerSomethingSpecial,
                             style: TextStyle(

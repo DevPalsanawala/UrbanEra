@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Login.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Welcome.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Login/gogle_sign_in_provider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 import '../../../config/colors.dart';
@@ -165,9 +168,41 @@ logoutBottomSheet(BuildContext context) {
                               child: GestureDetector(
                                 onTap: () async {
                                   try {
-                                    await FirebaseAuth.instance.signOut();
-                                    print("Sign out successful");
-                                    // Get.back();
+                                    // Check if the user is authenticated
+                                    if (FirebaseAuth.instance.currentUser !=
+                                        null) {
+                                      // Check if the user is authenticated using email and password
+                                      if (FirebaseAuth.instance.currentUser!
+                                              .providerData.isNotEmpty &&
+                                          FirebaseAuth.instance.currentUser!
+                                                  .providerData[0].providerId ==
+                                              'password') {
+                                        await FirebaseAuth.instance
+                                            .signOut(); // Logout with email method
+                                        print("Sign out successful");
+                                      }
+                                      // Check if the user is authenticated using Google
+                                      else if (FirebaseAuth
+                                              .instance
+                                              .currentUser!
+                                              .providerData
+                                              .isNotEmpty &&
+                                          FirebaseAuth.instance.currentUser!
+                                                  .providerData[0].providerId ==
+                                              'google.com') {
+                                        final googleSignIn = GoogleSignIn();
+                                        await googleSignIn
+                                            .signOut(); // Logout with Google method
+                                        await FirebaseAuth.instance.signOut();
+                                        print("Sign out successful");
+                                      }
+                                      // Handle other authentication methods if needed
+                                      else {
+                                        print("Unknown authentication method");
+                                      }
+                                    } else {
+                                      print("User not logged in");
+                                    }
                                   } catch (e) {
                                     print("Error signing out: $e");
                                   }
