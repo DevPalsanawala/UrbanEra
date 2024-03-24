@@ -71,7 +71,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/wishdata_controller.dart';
 
 class WishlistController1 extends GetxController {
   final _firestore = FirebaseFirestore.instance;
@@ -132,11 +131,12 @@ class WishlistController1 extends GetxController {
 
       if (querySnapshot.docs.isNotEmpty) {
         // If the item is already in the wishlist, remove it
+        isAddedMap[itemId] = false;
         String docId = querySnapshot.docs.first.id;
         await collectionRef.doc(docId).delete();
-        isAddedMap[itemId] = false;
       } else {
         // If the item is not in the wishlist, add it
+        isAddedMap[itemId] = true;
         await collectionRef.add({
           'category': productData['category'],
           'id': productData['id'],
@@ -148,7 +148,6 @@ class WishlistController1 extends GetxController {
           'title': productData['title'],
           'userId': userId,
         });
-        isAddedMap[itemId] = true;
       }
 
       // Refresh the items list

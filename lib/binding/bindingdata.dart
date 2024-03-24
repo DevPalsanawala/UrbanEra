@@ -4,7 +4,6 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/category_controll
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/wishdata_controller.dart';
 
 class GeneralBindings extends Bindings {
   @override

@@ -1,22 +1,17 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:get/get.dart';
-import 'package:pinput/pinput.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/wishdata_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/wishlist/widget/remove_wishlist_bottom_sheet.dart';
 import '../../config/colors.dart';
 import '../../config/font_family.dart';
 import '../../config/font_size.dart';
@@ -42,8 +37,6 @@ class _WishlistViewState extends State<WishlistView> {
   DarkModeController darkModeController = Get.put(DarkModeController());
 
   WishlistController1 wishlistController1 = Get.put(WishlistController1());
-  WishlistdataController wishlistdataController =
-      Get.put(WishlistdataController());
 
   final _firestore = FirebaseFirestore.instance;
   Stream<List<Map<String, dynamic>>> wishlistStream(String userId) {
