@@ -9,7 +9,6 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dar
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/search_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/search_product_views.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/search_with_image_bottom_sheet.dart';
 
 import '../../config/colors.dart';
@@ -124,7 +123,10 @@ class _SearchViewState extends State<SearchView> {
                 child: Text(_resultList[index]['subtitle']),
               ),
               subtitle: Text(_resultList[index]['title']),
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: Icon(
+                Icons.arrow_forward_ios_outlined,
+                size: 15,
+              ),
             ),
           );
         },

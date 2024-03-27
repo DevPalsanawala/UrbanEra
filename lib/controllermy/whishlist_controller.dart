@@ -77,6 +77,14 @@ class WishlistController1 extends GetxController {
   RxMap isAddedMap = {}.obs;
   RxList<Map<String, dynamic>> items = <Map<String, dynamic>>[].obs;
 
+  Stream<List<Map<String, dynamic>>> wishlistStream(String userId) {
+    return _firestore
+        .collection('wishlist')
+        .where('userId', isEqualTo: userId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
+  }
+
   @override
   void onInit() {
     super.onInit();
