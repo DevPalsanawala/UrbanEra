@@ -39,13 +39,6 @@ class _WishlistViewState extends State<WishlistView> {
   WishlistController1 wishlistController1 = Get.put(WishlistController1());
 
   final _firestore = FirebaseFirestore.instance;
-  Stream<List<Map<String, dynamic>>> wishlistStream(String userId) {
-    return _firestore
-        .collection('wishlist')
-        .where('userId', isEqualTo: userId)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +133,7 @@ class _WishlistViewState extends State<WishlistView> {
             right: SizeConfig.padding24,
           ),
           child: StreamBuilder<List<Map<String, dynamic>>>(
-            stream: wishlistStream(user!.uid),
+            stream: wishlistController1.wishlistStream(user!.uid),
             builder: (context, snapshot) {
               //   if (controller.isLoading.value) {
               //   return Center(
