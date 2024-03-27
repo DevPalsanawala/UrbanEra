@@ -1,17 +1,27 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 
 import '../config/image.dart';
 import '../config/text_string.dart';
 
+final UserController userController = Get.find();
+User? user = userController.currentUser.value;
+Map<String, dynamic> userData = userController.userData.value;
+
 class EditProfileController extends GetxController {
-  TextEditingController firstNameController = TextEditingController(text: TextString.rajan);
-  TextEditingController lastNameController = TextEditingController(text: TextString.sharma);
-  TextEditingController mobileNumberController = TextEditingController(text: TextString.rajanMobileNumber);
-  TextEditingController changeMobileController = TextEditingController(text: TextString.rajanMobileNumber);
+  TextEditingController firstNameController =
+      TextEditingController(text: userData['name']);
+  TextEditingController lastNameController =
+      TextEditingController(text: userData['email']);
+  TextEditingController mobileNumberController =
+      TextEditingController(text: userData['phone']);
+  TextEditingController changeMobileController =
+      TextEditingController(text: userData['phone']);
   TextEditingController pinController = TextEditingController();
   final FocusNode pinFocusNode = FocusNode();
   final FocusNode focusNode = FocusNode();

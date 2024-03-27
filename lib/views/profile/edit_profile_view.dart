@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/edit_profile_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/profile/widget/change_mobile_number_bottom_sheet.dart';
 
 import '../../config/colors.dart';
@@ -29,6 +31,10 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
+    User? user = userController.currentUser.value;
+    Map<String, dynamic> userData = userController.userData.value;
+
     return Obx(() => Scaffold(
           backgroundColor: darkModeController.isLightTheme.value
               ? ColorsConfig.backgroundColor
@@ -92,23 +98,71 @@ class _EditProfileViewState extends State<EditProfileView> {
                     },
                     child: Center(
                       child: Obx(
-                        () =>
-                            editProfileController.pickedImagePath.value.isEmpty
-                                ? Image.asset(
-                                    darkModeController.isLightTheme.value
-                                        ? ImageConfig.profilePic
-                                        : ImageConfig.profilePicDark,
-                                    width: SizeConfig.width100,
-                                  )
-                                : ClipOval(
-                                    child: Image.file(
-                                      File(editProfileController
-                                          .pickedImagePath.value),
-                                      width: SizeConfig.width100,
-                                      height: SizeConfig.width100,
-                                      fit: BoxFit.cover,
+                        () => editProfileController
+                                .pickedImagePath.value.isEmpty
+                            ? Stack(
+                                children: [
+                                  Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "${userData['name'].toString().substring(0, 1)}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: FontFamily.lexendRegular,
+                                          fontSize: 50,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.secondaryColor
+                                              : ColorsConfig.buttonColor,
+                                        ),
+                                      ),
                                     ),
                                   ),
+                                  Positioned(
+                                      bottom: 3,
+                                      right: 4,
+                                      child: CircleAvatar(
+                                        radius: 13,
+                                        backgroundColor: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.secondaryColor
+                                            : ColorsConfig.primaryColor,
+                                        child: CircleAvatar(
+                                          backgroundColor: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
+                                          radius: 10,
+                                          child: Icon(
+                                            Icons.edit,
+                                            size: 15,
+                                            color: darkModeController
+                                                    .isLightTheme.value
+                                                ? ColorsConfig.secondaryColor
+                                                : ColorsConfig.primaryColor,
+                                          ),
+                                        ),
+                                      )),
+                                ],
+                              )
+                            : ClipOval(
+                                child: Image.file(
+                                  File(editProfileController
+                                      .pickedImagePath.value),
+                                  width: SizeConfig.width100,
+                                  height: SizeConfig.width100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                       ),
                     ),
                   ),
@@ -241,7 +295,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            TextString.lastName,
+                            'Email',
                             style: TextStyle(
                               fontSize: FontSize.body2,
                               fontFamily: FontFamily.lexendRegular,
