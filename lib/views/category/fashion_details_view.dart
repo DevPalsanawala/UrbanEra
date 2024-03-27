@@ -12,6 +12,7 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controlle
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/bag_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
@@ -41,6 +42,7 @@ class FashionDetailsView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
   WishlistController1 wishlistController1 = Get.put(WishlistController1());
+  Bagcontroller bagcontroller = Get.put(Bagcontroller());
 
   void goToTab(int tabIndex) {
     bottomNavigationController.changePage(tabIndex);
@@ -1692,58 +1694,86 @@ class FashionDetailsView extends StatelessWidget {
                   const SizedBox(
                     width: SizeConfig.width14,
                   ),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        buttonController.toggleCartVisibility();
-                        if (buttonController.buttonLabel.value ==
-                            TextString.textButtonViewBag) {
-                          goToTab(4);
-                          buttonController.toggleContainer();
-                          if (bottomNavigationController.selectedIndex == 4 &&
-                              wishlistController.showFirstContent.value) {
-                            bottomNavigationController.showBottomBar = false;
-                          }
-                          wishlistController.toggleContent();
-                        }
-                        if (buttonController.buttonLabel.value !=
-                            TextString.textButtonViewBag) {
-                          if (buttonController.showToast) {
-                            buttonController.addToBag();
-                            buttonController.showToast = false;
-                          }
-                        }
-                      },
-                      child: Obx(
-                        () {
-                          return Container(
-                            height: SizeConfig.height52,
-                            width: SizeConfig.width212,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  SizeConfig.borderRadius14),
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
+                  Obx(() {
+                    final isInBag =
+                        bagcontroller.isAddedMap[product['id']] ?? false;
+                    return !isInBag
+                        ? Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                bagcontroller.toggleaddToBag(
+                                    user!.uid, product);
+                              },
+                              child: Obx(
+                                () {
+                                  return Container(
+                                    height: SizeConfig.height52,
+                                    width: SizeConfig.width212,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          SizeConfig.borderRadius14),
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Add to Bag',
+                                        style: TextStyle(
+                                          fontSize: FontSize.body1,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: FontFamily.lexendMedium,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.secondaryColor
+                                              : ColorsConfig.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                            child: Center(
-                              child: Text(
-                                buttonController.buttonLabel.value,
-                                style: TextStyle(
-                                  fontSize: FontSize.body1,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: FontFamily.lexendMedium,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.secondaryColor
-                                      : ColorsConfig.primaryColor,
-                                ),
+                          )
+                        : Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                goToTab(4);
+                              },
+                              child: Obx(
+                                () {
+                                  return Container(
+                                    height: SizeConfig.height52,
+                                    width: SizeConfig.width212,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          SizeConfig.borderRadius14),
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "View Bag",
+                                        style: TextStyle(
+                                          fontSize: FontSize.body1,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: FontFamily.lexendMedium,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.secondaryColor
+                                              : ColorsConfig.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           );
-                        },
-                      ),
-                    ),
-                  ),
+                  }),
                 ],
               ),
             ),

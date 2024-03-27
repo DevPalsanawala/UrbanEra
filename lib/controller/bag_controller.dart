@@ -10,7 +10,7 @@ class BagController extends GetxController {
     showFirstContent.toggle();
   }
 
-  RxList<int> itemQuantities = List.generate(2, (index) => 1).obs;
+  RxList<int> itemQuantities = List.generate(10, (index) => 1).obs;
   final List<RxBool> isFavouriteArrivalList = List.generate(4, (_) => true.obs);
 
   void incrementCounter(int index) {
@@ -24,7 +24,8 @@ class BagController extends GetxController {
   }
 
   void toggleArrivalFavorite(int imageArrivalIndex) {
-    isFavouriteArrivalList[imageArrivalIndex].value = !isFavouriteArrivalList[imageArrivalIndex].value;
+    isFavouriteArrivalList[imageArrivalIndex].value =
+        !isFavouriteArrivalList[imageArrivalIndex].value;
   }
 
   List<String> bagProducts = [

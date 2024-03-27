@@ -162,6 +162,11 @@ class _accountState extends State<account> {
                 TextFormField(
                   textAlignVertical: TextAlignVertical.center,
                   enableSuggestions: false,
+                  style: TextStyle(
+                    color: darkModeController.isLightTheme.value
+                        ? ColorsConfig.primaryColor
+                        : ColorsConfig.secondaryColor,
+                  ),
                   decoration: InputDecoration(
                     labelText: "Name",
                     prefixIcon: Icon(
@@ -267,6 +272,11 @@ class _accountState extends State<account> {
                   textAlignVertical: TextAlignVertical.center,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
+                  style: TextStyle(
+                    color: darkModeController.isLightTheme.value
+                        ? ColorsConfig.primaryColor
+                        : ColorsConfig.secondaryColor,
+                  ),
                   textCapitalization: TextCapitalization.none,
                   decoration: InputDecoration(
                     labelText: "Email",
@@ -306,6 +316,11 @@ class _accountState extends State<account> {
                   textAlignVertical: TextAlignVertical.center,
                   autocorrect: false,
                   obscureText: _issecure,
+                  style: TextStyle(
+                    color: darkModeController.isLightTheme.value
+                        ? ColorsConfig.primaryColor
+                        : ColorsConfig.secondaryColor,
+                  ),
                   textCapitalization: TextCapitalization.none,
                   decoration: InputDecoration(
                     labelText: "Password",
@@ -315,9 +330,14 @@ class _accountState extends State<account> {
                           _issecure = !_issecure;
                         });
                       },
-                      child: Icon(_issecure
-                          ? Icons.remove_red_eye_sharp
-                          : Ionicons.eye_off_sharp),
+                      child: Icon(
+                        _issecure
+                            ? Ionicons.eye_off_sharp
+                            : Icons.remove_red_eye_sharp,
+                        color: darkModeController.isLightTheme.value
+                            ? ColorsConfig.primaryColor
+                            : ColorsConfig.secondaryColor,
+                      ),
                     ),
                     prefixIcon: Icon(
                       Icons.password_outlined,

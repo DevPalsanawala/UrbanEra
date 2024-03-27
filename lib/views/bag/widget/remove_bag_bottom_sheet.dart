@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/bag_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import '../../../config/colors.dart';
 import '../../../config/font_family.dart';
 import '../../../config/font_size.dart';
@@ -9,8 +12,12 @@ import '../../../config/size.dart';
 import '../../../config/text_string.dart';
 
 DarkModeController darkModeController = Get.put(DarkModeController());
+Bagcontroller bagcontroller = Get.put(Bagcontroller());
 
 removeBagBottomSheet(BuildContext context) {
+  final UserController userController = Get.find();
+  User? user = userController.currentUser.value;
+  Map<String, dynamic> userData = userController.userData.value;
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -146,9 +153,10 @@ removeBagBottomSheet(BuildContext context) {
                                       fontSize: FontSize.body1,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: FontFamily.lexendRegular,
-                                      color: darkModeController.isLightTheme.value
-                                          ? ColorsConfig.primaryColor
-                                          : ColorsConfig.secondaryColor,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.primaryColor
+                                              : ColorsConfig.secondaryColor,
                                     ),
                                   ),
                                 ),
@@ -160,7 +168,7 @@ removeBagBottomSheet(BuildContext context) {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.back();
+                                  //  bagcontroller.toggleaddToBag(user!.uid, productData)
                                 },
                                 child: Container(
                                   height: SizeConfig.height52,
@@ -179,7 +187,8 @@ removeBagBottomSheet(BuildContext context) {
                                         fontSize: FontSize.body1,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: FontFamily.lexendRegular,
-                                        color: darkModeController.isLightTheme.value
+                                        color: darkModeController
+                                                .isLightTheme.value
                                             ? ColorsConfig.secondaryColor
                                             : ColorsConfig.primaryColor,
                                       ),

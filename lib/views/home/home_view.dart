@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +42,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     User? usergoogle = FirebaseAuth
         .instance.currentUser; //for user authentication data by google id
-
+    // int randomNumber = Random().nextInt(178 - 7);
     final UserController userController = Get.find();
     return Obx(() {
       User? user = userController.currentUser.value;
@@ -297,7 +299,7 @@ class HomeView extends StatelessWidget {
                                     product['sub_category'] == 'Tshirt')
                                 .toList()
                                 .sublist(
-                                  42,
+                                  41,
                                 );
                         if (productcontroller.isLoading.value) {
                           return Center(

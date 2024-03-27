@@ -7,7 +7,6 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 
 class HomeController extends GetxController {
-
   TextEditingController searchController = TextEditingController();
 
   RxString keyword = ''.obs;
@@ -24,7 +23,8 @@ class HomeController extends GetxController {
 
   final List<RxBool> isFavouriteList = List.generate(6, (_) => true.obs);
   final List<RxBool> isFavouriteArrivalList = List.generate(4, (_) => true.obs);
-  final List<RxBool> isFavouriteArrival2List = List.generate(4, (_) => true.obs);
+  final List<RxBool> isFavouriteArrival2List =
+      List.generate(4, (_) => true.obs);
   RxList<bool> isCheckedList = List.generate(8, (index) => false).obs;
 
   void resetFilters() {
@@ -42,11 +42,13 @@ class HomeController extends GetxController {
   }
 
   void toggleArrivalFavorite(int imageArrivalIndex) {
-    isFavouriteArrivalList[imageArrivalIndex].value = !isFavouriteArrivalList[imageArrivalIndex].value;
+    isFavouriteArrivalList[imageArrivalIndex].value =
+        !isFavouriteArrivalList[imageArrivalIndex].value;
   }
 
   void toggleArrival2Favorite(int imageArrival2Index) {
-    isFavouriteArrival2List[imageArrival2Index].value = !isFavouriteArrival2List[imageArrival2Index].value;
+    isFavouriteArrival2List[imageArrival2Index].value =
+        !isFavouriteArrival2List[imageArrival2Index].value;
   }
 
   Future<void> openGallery() async {

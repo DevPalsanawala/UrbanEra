@@ -94,6 +94,11 @@ class _LoginPageState extends State<LoginPage> {
               // Email text field
               TextFormField(
                 controller: _emailController,
+                style: TextStyle(
+                  color: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
+                ),
                 validator: (text) {
                   if (text == null || text.isEmpty) {
                     return 'Email is empty';
@@ -124,6 +129,11 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 20),
               // Password text field
               TextFormField(
+                style: TextStyle(
+                  color: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
+                ),
                 controller: _passwordController,
                 validator: (text) {
                   if (text == null || text.isEmpty) {
@@ -146,9 +156,14 @@ class _LoginPageState extends State<LoginPage> {
                         _issecure = !_issecure;
                       });
                     },
-                    child: Icon(_issecure
-                        ? Icons.remove_red_eye_sharp
-                        : Ionicons.eye_off_sharp),
+                    child: Icon(
+                      _issecure
+                          ? Ionicons.eye_off_sharp
+                          : Icons.remove_red_eye_sharp,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.primaryColor
+                          : ColorsConfig.secondaryColor,
+                    ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
