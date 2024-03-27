@@ -162,8 +162,7 @@ class BagView extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Image(
-                                  image:
-                                      const AssetImage(ImageConfig.heartFill),
+                                  image: const AssetImage(ImageConfig.cartFill),
                                   width: SizeConfig.width30,
                                   color: darkModeController.isLightTheme.value
                                       ? ColorsConfig.primaryColor
@@ -175,7 +174,7 @@ class BagView extends StatelessWidget {
                               height: SizeConfig.height20,
                             ),
                             Text(
-                              TextString.wishListIsEmpty,
+                              TextString.bagIsEmpty,
                               style: TextStyle(
                                 fontFamily: FontFamily.lexendRegular,
                                 fontSize: FontSize.heading5,
@@ -194,7 +193,7 @@ class BagView extends StatelessWidget {
                                 right: SizeConfig.padding20,
                               ),
                               child: Text(
-                                TextString.wishListDescription,
+                                TextString.bagIsEmptyDescription,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: FontFamily.lexendLight,

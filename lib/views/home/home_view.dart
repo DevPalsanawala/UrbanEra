@@ -76,7 +76,7 @@ class HomeView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            userData != null && userData['name'] != null
+                            userData['name'] != null
                                 ? 'Hi ${userData['name']}'
                                 : usergoogle!.displayName!,
                             style: TextStyle(
