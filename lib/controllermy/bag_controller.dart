@@ -76,11 +76,27 @@ class Bagcontroller extends GetxController {
       if (querySnapshot.docs.isNotEmpty) {
         // If the item is already in the wishlist, remove it
         isAddedMap[itemId] = false;
+        Fluttertoast.showToast(
+          msg: 'Item removed from bag',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black54,
+          textColor: Colors.white,
+        );
         String docId = querySnapshot.docs.first.id;
         await collectionRef.doc(docId).delete();
       } else {
         // If the item is not in the wishlist, add it
         isAddedMap[itemId] = true;
+        Fluttertoast.showToast(
+          msg: 'Add to Bag',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black54,
+          textColor: Colors.white,
+        );
         await collectionRef.add({
           'category': productData['category'],
           'id': productData['id'],
