@@ -51,7 +51,7 @@ class _CrouselState extends State<Crousel> {
             activeDotColor: darkModeController.isLightTheme.value
                 ? ColorsConfig.primaryColor
                 : ColorsConfig.secondaryColor,
-            paintStyle: PaintingStyle.fill,
+            paintStyle: PaintingStyle.stroke,
             type: WormType.underground,
           ),
         ),
