@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DarkModeController extends GetxController {
-
   RxBool isLightTheme = true.obs;
 
   Future<SharedPreferences> preference = SharedPreferences.getInstance();
@@ -17,7 +16,7 @@ class DarkModeController extends GetxController {
     var isLight = preference.then((SharedPreferences prefs) {
       return prefs.getBool('theme') ?? true;
     }).obs;
-    isLightTheme.value =  await isLight.value;
+    isLightTheme.value = await isLight.value;
     Get.changeThemeMode(isLightTheme.value ? ThemeMode.light : ThemeMode.dark);
   }
 }

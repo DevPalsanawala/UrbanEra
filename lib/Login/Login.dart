@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/gogle_sign_in_provider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 
 final _firebase = FirebaseAuth.instance;
@@ -16,13 +18,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   var _issecure = true;
-
+  var isLogin = false;
   final _emailController = TextEditingController();
 
   final _passwordController = TextEditingController();
 
   void _login(BuildContext context) async {
     try {
+      setState(() {
+        isLogin = true;
+      });
       final userCredentials = await _firebase.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
       if (userCredentials != null) {
@@ -45,6 +50,9 @@ class _LoginPageState extends State<LoginPage> {
           content: Text(error.message ?? "Authentication Error"),
         ),
       );
+      setState(() {
+        isLogin = false;
+      });
     }
   }
 
@@ -82,8 +90,12 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'Welcome back you\'ve been missed!',
                     style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 16,
+                      fontFamily: FontFamily.lexendRegular,
+                      fontSize: FontSize.body2,
+                      fontWeight: FontWeight.w400,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.primaryColor
+                          : ColorsConfig.secondaryColor,
                     ),
                   ),
                 ],
@@ -93,8 +105,14 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 30),
               // Email text field
               TextFormField(
+                cursorColor: darkModeController.isLightTheme.value
+                    ? ColorsConfig.primaryColor
+                    : ColorsConfig.secondaryColor,
                 controller: _emailController,
                 style: TextStyle(
+                  fontFamily: FontFamily.lexendRegular,
+                  fontSize: FontSize.body2,
+                  fontWeight: FontWeight.w400,
                   color: darkModeController.isLightTheme.value
                       ? ColorsConfig.primaryColor
                       : ColorsConfig.secondaryColor,
@@ -130,6 +148,9 @@ class _LoginPageState extends State<LoginPage> {
               // Password text field
               TextFormField(
                 style: TextStyle(
+                  fontFamily: FontFamily.lexendRegular,
+                  fontSize: FontSize.body2,
+                  fontWeight: FontWeight.w400,
                   color: darkModeController.isLightTheme.value
                       ? ColorsConfig.primaryColor
                       : ColorsConfig.secondaryColor,
@@ -142,6 +163,9 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
                 obscureText: _issecure,
+                cursorColor: darkModeController.isLightTheme.value
+                    ? ColorsConfig.primaryColor
+                    : ColorsConfig.secondaryColor,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   prefixIcon: Icon(
@@ -201,6 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                 minWidth: MediaQuery.of(context).size.width * 0.87,
                 height: 55,
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   _login(context);
                 },
                 color: darkModeController.isLightTheme.value
@@ -210,16 +235,27 @@ class _LoginPageState extends State<LoginPage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.secondaryColor
-                        : ColorsConfig.primaryColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                  ),
-                ),
+                child: isLogin
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.secondaryColor
+                                : ColorsConfig.primaryColor,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        "Login",
+                        style: TextStyle(
+                          color: darkModeController.isLightTheme.value
+                              ? ColorsConfig.secondaryColor
+                              : ColorsConfig.primaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      ),
               ),
               SizedBox(height: 20),
               Padding(

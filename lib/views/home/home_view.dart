@@ -24,6 +24,7 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controlle
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/search_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/crouesl_slider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/filter_bottom_sheet.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/search_with_image_bottom_sheet.dart';
@@ -138,7 +139,7 @@ class HomeView extends StatelessWidget {
                         height: SizeConfig.height48,
                         child: TextFormField(
                           onTap: () {
-                            Get.toNamed(AppRoutes.searchView);
+                            Get.to(SearchView());
                           },
                           readOnly: true,
                           cursorColor: darkModeController.isLightTheme.value

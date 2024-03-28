@@ -7,6 +7,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/otp.dart';
 
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 
 final _firebase = FirebaseAuth.instance;
@@ -32,6 +34,7 @@ class _accountState extends State<account> {
 
   final _formkey = GlobalKey<FormState>();
   var _issecure = true;
+  var _isLoading = false;
   var _enteredname = "";
   var _enteredemail = "";
   var _enteredpassword = "";
@@ -72,6 +75,9 @@ class _accountState extends State<account> {
         ),
       );
     } else {
+      setState(() {
+        _isLoading = true;
+      });
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '${countryycode.text + _enteredphone}',
         verificationCompleted: (PhoneAuthCredential credential) {},
@@ -90,6 +96,9 @@ class _accountState extends State<account> {
     // print(
     //     "Name: $_enteredname, Email: $_enteredemail, Password: $_enteredpassword");
     try {
+      setState(() {
+        _isLoading = true;
+      });
       final userCredentials = await _firebase.createUserWithEmailAndPassword(
           email: _enteredemail, password: _enteredpassword);
 
@@ -110,6 +119,9 @@ class _accountState extends State<account> {
           content: Text(error.message ?? "Authentication Error"),
         ),
       );
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -148,11 +160,13 @@ class _accountState extends State<account> {
                     Text(
                       'Create Account',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor),
+                        fontFamily: FontFamily.lexendRegular,
+                        fontSize: FontSize.body2,
+                        fontWeight: FontWeight.w400,
+                        color: darkModeController.isLightTheme.value
+                            ? ColorsConfig.primaryColor
+                            : ColorsConfig.secondaryColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -160,9 +174,15 @@ class _accountState extends State<account> {
                 SizedBox(height: 50),
                 // Username text field
                 TextFormField(
+                  cursorColor: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
                   textAlignVertical: TextAlignVertical.center,
                   enableSuggestions: false,
                   style: TextStyle(
+                    fontFamily: FontFamily.lexendRegular,
+                    fontSize: FontSize.body2,
+                    fontWeight: FontWeight.w400,
                     color: darkModeController.isLightTheme.value
                         ? ColorsConfig.primaryColor
                         : ColorsConfig.secondaryColor,
@@ -243,10 +263,17 @@ class _accountState extends State<account> {
                       SizedBox(width: 10),
                       Expanded(
                         child: TextField(
+                          cursorColor: darkModeController.isLightTheme.value
+                              ? ColorsConfig.primaryColor
+                              : ColorsConfig.secondaryColor,
                           style: TextStyle(
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor),
+                            fontFamily: FontFamily.lexendRegular,
+                            fontSize: FontSize.body2,
+                            fontWeight: FontWeight.w400,
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.primaryColor
+                                : ColorsConfig.secondaryColor,
+                          ),
                           keyboardType: TextInputType.phone,
                           onChanged: (value) {
                             _enteredphone = value;
@@ -269,10 +296,16 @@ class _accountState extends State<account> {
                 SizedBox(height: 20),
                 // Email text field
                 TextFormField(
+                  cursorColor: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
                   textAlignVertical: TextAlignVertical.center,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   style: TextStyle(
+                    fontFamily: FontFamily.lexendRegular,
+                    fontSize: FontSize.body2,
+                    fontWeight: FontWeight.w400,
                     color: darkModeController.isLightTheme.value
                         ? ColorsConfig.primaryColor
                         : ColorsConfig.secondaryColor,
@@ -313,10 +346,16 @@ class _accountState extends State<account> {
                 SizedBox(height: 20),
                 // Password text field
                 TextFormField(
+                  cursorColor: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
                   textAlignVertical: TextAlignVertical.center,
                   autocorrect: false,
                   obscureText: _issecure,
                   style: TextStyle(
+                    fontFamily: FontFamily.lexendRegular,
+                    fontSize: FontSize.body2,
+                    fontWeight: FontWeight.w400,
                     color: darkModeController.isLightTheme.value
                         ? ColorsConfig.primaryColor
                         : ColorsConfig.secondaryColor,
@@ -368,6 +407,7 @@ class _accountState extends State<account> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       _submit();
                       // Navigator.pushNamedAndRemoveUntil(
                       //   context,
@@ -381,16 +421,27 @@ class _accountState extends State<account> {
                       // );
                       // Add your signup logic here
                     },
-                    child: Text(
-                      'Create Account',
-                      style: TextStyle(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.secondaryColor
-                            : ColorsConfig.primaryColor,
-                        // fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    ),
+                    child: _isLoading
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircularProgressIndicator(
+                                color: darkModeController.isLightTheme.value
+                                    ? ColorsConfig.secondaryColor
+                                    : ColorsConfig.primaryColor,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            'Create Account',
+                            style: TextStyle(
+                              color: darkModeController.isLightTheme.value
+                                  ? ColorsConfig.secondaryColor
+                                  : ColorsConfig.primaryColor,
+                              // fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                            ),
+                          ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: darkModeController.isLightTheme.value
                           ? ColorsConfig.primaryColor

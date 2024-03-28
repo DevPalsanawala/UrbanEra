@@ -1,12 +1,19 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/crousel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Crousel extends StatelessWidget {
+class Crousel extends StatefulWidget {
   Crousel({super.key});
 
+  @override
+  State<Crousel> createState() => _CrouselState();
+}
+
+class _CrouselState extends State<Crousel> {
   Crouselcontroller crouselcontroller = Get.put(Crouselcontroller());
 
   @override
@@ -21,21 +28,33 @@ class Crousel extends StatelessWidget {
               autoPlay: true,
               autoPlayInterval: Duration(milliseconds: 3000),
               scrollPhysics: BouncingScrollPhysics(),
-              onPageChanged: (index, reson) {}),
+              onPageChanged: (index, reson) {
+                setState(() {
+                  crouselcontroller.currentindex.value = index;
+                });
+              }),
           items: crouselcontroller.Mylist,
         ),
         const SizedBox(
           height: 10,
         ),
-        // AnimatedSmoothIndicator(
-        //   activeIndex: crouselcontroller.currentindex,
-        //   count: crouselcontroller.Mylist.length,
-        //   effect: const WormEffect(
-        //     dotHeight: 9,
-        //     dotWidth: 9,
-        //     spacing: 10,
-        //   ),
-        // ),
+        AnimatedSmoothIndicator(
+          activeIndex: crouselcontroller.currentindex.value,
+          count: crouselcontroller.Mylist.length,
+          effect: WormEffect(
+            dotHeight: 4,
+            dotWidth: 15,
+            spacing: 6,
+            dotColor: darkModeController.isLightTheme.value
+                ? ColorsConfig.textColor
+                : ColorsConfig.modeInactiveColor,
+            activeDotColor: darkModeController.isLightTheme.value
+                ? ColorsConfig.primaryColor
+                : ColorsConfig.secondaryColor,
+            paintStyle: PaintingStyle.fill,
+            type: WormType.underground,
+          ),
+        ),
       ],
     );
     ;

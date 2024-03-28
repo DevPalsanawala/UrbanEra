@@ -18,8 +18,17 @@ class Welcome extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Scaffold(
+            backgroundColor: darkModeController.isLightTheme.value
+                ? ColorsConfig.backgroundColor
+                : ColorsConfig.buttonColor,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: darkModeController.isLightTheme.value
+                    ? ColorsConfig.primaryColor
+                    : ColorsConfig.secondaryColor,
+              ),
+            ),
           ); // You'll need to define SplashScreen
         }
         if (snapshot.hasData) {

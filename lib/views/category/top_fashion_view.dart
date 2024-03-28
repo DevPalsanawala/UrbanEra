@@ -474,86 +474,86 @@ class _TopFashionViewState extends State<TopFashionView> {
                   ),
                 ],
               ),
-              Container(
-                height: SizeConfig.height48,
-                color: darkModeController.isLightTheme.value
-                    ? ColorsConfig.buttonColor
-                    : ColorsConfig.secondaryColor,
-                child: IntrinsicHeight(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          selectCategoriesBottomSheet(context);
-                        },
-                        child: Row(
-                          children: [
-                            Image(
-                              image: const AssetImage(ImageConfig.category),
-                              width: SizeConfig.width16,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.secondaryColor
-                                  : ColorsConfig.primaryColor,
-                            ),
-                            const SizedBox(
-                              width: SizeConfig.width06,
-                            ),
-                            Text(
-                              TextString.categories,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: FontSize.body2,
-                                fontFamily: FontFamily.lexendMedium,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.secondaryColor
-                                    : ColorsConfig.primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      VerticalDivider(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.textLightColor
-                            : ColorsConfig.modeInactiveColor,
-                        indent: 15,
-                        endIndent: 15,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.filtersView);
-                        },
-                        child: Row(
-                          children: [
-                            Image(
-                              image: const AssetImage(ImageConfig.filterData),
-                              width: SizeConfig.width16,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.secondaryColor
-                                  : ColorsConfig.primaryColor,
-                            ),
-                            const SizedBox(
-                              width: SizeConfig.width06,
-                            ),
-                            Text(
-                              TextString.filters,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: FontSize.body2,
-                                fontFamily: FontFamily.lexendMedium,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.secondaryColor
-                                    : ColorsConfig.primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   height: SizeConfig.height48,
+              //   color: darkModeController.isLightTheme.value
+              //       ? ColorsConfig.buttonColor
+              //       : ColorsConfig.secondaryColor,
+              //   child: IntrinsicHeight(
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       children: [
+              //         GestureDetector(
+              //           onTap: () {
+              //             selectCategoriesBottomSheet(context);
+              //           },
+              //           child: Row(
+              //             children: [
+              //               Image(
+              //                 image: const AssetImage(ImageConfig.category),
+              //                 width: SizeConfig.width16,
+              //                 color: darkModeController.isLightTheme.value
+              //                     ? ColorsConfig.secondaryColor
+              //                     : ColorsConfig.primaryColor,
+              //               ),
+              //               const SizedBox(
+              //                 width: SizeConfig.width06,
+              //               ),
+              //               Text(
+              //                 TextString.categories,
+              //                 style: TextStyle(
+              //                   fontWeight: FontWeight.w500,
+              //                   fontSize: FontSize.body2,
+              //                   fontFamily: FontFamily.lexendMedium,
+              //                   color: darkModeController.isLightTheme.value
+              //                       ? ColorsConfig.secondaryColor
+              //                       : ColorsConfig.primaryColor,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //         VerticalDivider(
+              //           color: darkModeController.isLightTheme.value
+              //               ? ColorsConfig.textLightColor
+              //               : ColorsConfig.modeInactiveColor,
+              //           indent: 15,
+              //           endIndent: 15,
+              //         ),
+              //         GestureDetector(
+              //           onTap: () {
+              //             Get.toNamed(AppRoutes.filtersView);
+              //           },
+              //           child: Row(
+              //             children: [
+              //               Image(
+              //                 image: const AssetImage(ImageConfig.filterData),
+              //                 width: SizeConfig.width16,
+              //                 color: darkModeController.isLightTheme.value
+              //                     ? ColorsConfig.secondaryColor
+              //                     : ColorsConfig.primaryColor,
+              //               ),
+              //               const SizedBox(
+              //                 width: SizeConfig.width06,
+              //               ),
+              //               Text(
+              //                 TextString.filters,
+              //                 style: TextStyle(
+              //                   fontWeight: FontWeight.w500,
+              //                   fontSize: FontSize.body2,
+              //                   fontFamily: FontFamily.lexendMedium,
+              //                   color: darkModeController.isLightTheme.value
+              //                       ? ColorsConfig.secondaryColor
+              //                       : ColorsConfig.primaryColor,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ));

@@ -114,7 +114,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "${userData['name'].toString().substring(0, 1)}",
+                                        "${userData['name'].toString().substring(0, 1).toUpperCase()}",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: FontFamily.lexendRegular,

@@ -166,46 +166,10 @@ logoutBottomSheet(BuildContext context) {
                             ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () async {
-                                  try {
-                                    // Check if the user is authenticated
-                                    if (FirebaseAuth.instance.currentUser !=
-                                        null) {
-                                      // Check if the user is authenticated using email and password
-                                      if (FirebaseAuth.instance.currentUser!
-                                              .providerData.isNotEmpty &&
-                                          FirebaseAuth.instance.currentUser!
-                                                  .providerData[0].providerId ==
-                                              'password') {
-                                        await FirebaseAuth.instance
-                                            .signOut(); // Logout with email method
-                                        print("Sign out successful");
-                                      }
-                                      // Check if the user is authenticated using Google
-                                      else if (FirebaseAuth
-                                              .instance
-                                              .currentUser!
-                                              .providerData
-                                              .isNotEmpty &&
-                                          FirebaseAuth.instance.currentUser!
-                                                  .providerData[0].providerId ==
-                                              'google.com') {
-                                        final googleSignIn = GoogleSignIn();
-                                        await googleSignIn
-                                            .signOut(); // Logout with Google method
-                                        await FirebaseAuth.instance.signOut();
-                                        print("Sign out successful");
-                                      }
-                                      // Handle other authentication methods if needed
-                                      else {
-                                        print("Unknown authentication method");
-                                      }
-                                    } else {
-                                      print("User not logged in");
-                                    }
-                                  } catch (e) {
-                                    print("Error signing out: $e");
-                                  }
+                                onTap: () {
+                                  FirebaseAuth.instance.signOut().then(
+                                        (value) => Get.offAll(() => Welcome()),
+                                      );
                                 },
                                 child: Container(
                                   height: SizeConfig.height52,
