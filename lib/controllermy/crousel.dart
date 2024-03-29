@@ -19,9 +19,12 @@ class Crouselcontroller extends GetxController {
             'assets/admin_site_images/all final images with background removed/ban4.jpg'),
     const CarosulItems(
         imgurl:
-            'assets/admin_site_images/all final images with background removed/ban5.jpg'),
+            'assets/admin_site_images/all final images with background removed/ban6.jpg'),
     const CarosulItems(
         imgurl:
-            'assets/admin_site_images/all final images with background removed/ban6.jpg'),
+            'assets/admin_site_images/all final images with background removed/ban7.jpg'),
+    const CarosulItems(
+        imgurl:
+            'assets/admin_site_images/all final images with background removed/ban8.jpg'),
   ].obs;
 }

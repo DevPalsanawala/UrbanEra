@@ -22,11 +22,11 @@ class _CrouselState extends State<Crousel> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 180,
-              viewportFraction: 0.9,
+              height: 185,
+              viewportFraction: 0.81,
               aspectRatio: 2.0,
               autoPlay: true,
-              autoPlayInterval: Duration(milliseconds: 3000),
+              autoPlayInterval: Duration(milliseconds: 2000),
               scrollPhysics: BouncingScrollPhysics(),
               onPageChanged: (index, reson) {
                 setState(() {
