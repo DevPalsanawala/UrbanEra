@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -94,39 +96,39 @@ class BagView extends StatelessWidget {
                     )
                   : _searchTextField(),
             ),
-            actions: [
-              Obx(() => Padding(
-                    padding: const EdgeInsets.only(
-                      right: SizeConfig.padding24,
-                    ),
-                    child: !bagController.searchBoolean.value
-                        ? GestureDetector(
-                            onTap: () {
-                              bagController.searchBoolean.value = true;
-                            },
-                            child: Image(
-                              image: const AssetImage(ImageConfig.search),
-                              width: SizeConfig.width20,
-                              height: SizeConfig.height20,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          )
-                        : GestureDetector(
-                            onTap: () {
-                              bagController.searchBoolean.value = false;
-                            },
-                            child: Icon(
-                              Icons.clear_rounded,
-                              size: SizeConfig.width25,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ),
-                  )),
-            ],
+            // actions: [
+            //   Obx(() => Padding(
+            //         padding: const EdgeInsets.only(
+            //           right: SizeConfig.padding24,
+            //         ),
+            //         child: !bagController.searchBoolean.value
+            //             ? GestureDetector(
+            //                 onTap: () {
+            //                   bagController.searchBoolean.value = true;
+            //                 },
+            //                 child: Image(
+            //                   image: const AssetImage(ImageConfig.search),
+            //                   width: SizeConfig.width20,
+            //                   height: SizeConfig.height20,
+            //                   color: darkModeController.isLightTheme.value
+            //                       ? ColorsConfig.primaryColor
+            //                       : ColorsConfig.secondaryColor,
+            //                 ),
+            //               )
+            //             : GestureDetector(
+            //                 onTap: () {
+            //                   bagController.searchBoolean.value = false;
+            //                 },
+            //                 child: Icon(
+            //                   Icons.clear_rounded,
+            //                   size: SizeConfig.width25,
+            //                   color: darkModeController.isLightTheme.value
+            //                       ? ColorsConfig.primaryColor
+            //                       : ColorsConfig.secondaryColor,
+            //                 ),
+            //               ),
+            //       )),
+            // ],
           ),
           body: Padding(
             padding: const EdgeInsets.only(
@@ -274,11 +276,11 @@ class BagView extends StatelessWidget {
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.end,
                                         children: [
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            // mainAxisAlignment:
+                                            //     MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.end,
                                             children: [
@@ -302,7 +304,7 @@ class BagView extends StatelessWidget {
                                                               .start,
                                                       children: [
                                                         Container(
-                                                          width: 188,
+                                                          width: 150,
                                                           child: Text(
                                                             item['title'],
                                                             // maxLines: 2,
@@ -354,35 +356,31 @@ class BagView extends StatelessWidget {
                                                           height: SizeConfig
                                                               .height12,
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              ('\u{20B9} ${item['price']}'),
-                                                              style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontFamily:
-                                                                    FontFamily
-                                                                        .lexendRegular,
-                                                                fontSize:
-                                                                    FontSize
-                                                                        .body2,
-                                                                color: darkModeController
-                                                                        .isLightTheme
-                                                                        .value
-                                                                    ? ColorsConfig
-                                                                        .primaryColor
-                                                                    : ColorsConfig
-                                                                        .secondaryColor,
-                                                              ),
-                                                            ),
-                                                          ],
+                                                        Text(
+                                                          ('\u{20B9} ${item['price']}'),
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontFamily: FontFamily
+                                                                .lexendRegular,
+                                                            fontSize:
+                                                                FontSize.body2,
+                                                            color: darkModeController
+                                                                    .isLightTheme
+                                                                    .value
+                                                                ? ColorsConfig
+                                                                    .primaryColor
+                                                                : ColorsConfig
+                                                                    .secondaryColor,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
                                                   ),
                                                 ],
+                                              ),
+                                              SizedBox(
+                                                width: 20,
                                               ),
                                               Obx(
                                                 () => Row(
@@ -800,7 +798,7 @@ class BagView extends StatelessWidget {
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(AppRoutes.orderSummaryView);
+                                      Get.toNamed(AppRoutes.myAddressView);
                                     },
                                     child: Container(
                                       height: SizeConfig.height52,
