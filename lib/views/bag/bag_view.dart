@@ -44,6 +44,7 @@ class BagView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
+        var qty = 0;
         final UserController userController = Get.find();
         User? user = userController.currentUser.value;
         Map<String, dynamic> userData = userController.userData.value;
@@ -382,83 +383,99 @@ class BagView extends StatelessWidget {
                                               SizedBox(
                                                 width: 20,
                                               ),
-                                              Obx(
-                                                () => Row(
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        bagController
-                                                            .decrementCounter(
-                                                                index);
-                                                      },
-                                                      child: Image(
-                                                        image: AssetImage(
-                                                          darkModeController
-                                                                  .isLightTheme
-                                                                  .value
-                                                              ? ImageConfig
-                                                                  .minus
-                                                              : ImageConfig
-                                                                  .minusDark,
-                                                        ),
-                                                        width:
-                                                            SizeConfig.width22,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: SizeConfig.width08,
-                                                    ),
-                                                    SizedBox(
-                                                      width: SizeConfig.width15,
-                                                      child: Text(
-                                                        bagController
-                                                            .itemQuantities[
-                                                                index]
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontFamily: FontFamily
-                                                              .lexendMedium,
-                                                          fontSize:
-                                                              FontSize.body3,
-                                                          color: darkModeController
-                                                                  .isLightTheme
-                                                                  .value
-                                                              ? ColorsConfig
-                                                                  .primaryColor
-                                                              : ColorsConfig
-                                                                  .secondaryColor,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: SizeConfig.width08,
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        bagController
-                                                            .incrementCounter(
-                                                                index);
-                                                      },
-                                                      child: Image(
-                                                        image: AssetImage(
-                                                          darkModeController
-                                                                  .isLightTheme
-                                                                  .value
-                                                              ? ImageConfig.plus
-                                                              : ImageConfig
-                                                                  .plusDark,
-                                                        ),
-                                                        width:
-                                                            SizeConfig.width22,
-                                                      ),
-                                                    ),
-                                                  ],
+                                              Text(
+                                                'Quntity: ${item['qty'].toString().substring(0, 1)}',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      FontFamily.lexendRegular,
+                                                  fontSize: FontSize.body2,
+                                                  color: darkModeController
+                                                          .isLightTheme.value
+                                                      ? ColorsConfig
+                                                          .primaryColor
+                                                      : ColorsConfig
+                                                          .secondaryColor,
                                                 ),
                                               ),
+
+                                              // Obx(
+                                              //   () => Row(
+                                              //     children: [
+                                              //       GestureDetector(
+                                              //         onTap: () {
+                                              //           bagController
+                                              //               .decrementCounter(
+                                              //                   index);
+                                              //         },
+                                              //         child: Image(
+                                              //           image: AssetImage(
+                                              //             darkModeController
+                                              //                     .isLightTheme
+                                              //                     .value
+                                              //                 ? ImageConfig
+                                              //                     .minus
+                                              //                 : ImageConfig
+                                              //                     .minusDark,
+                                              //           ),
+                                              //           width:
+                                              //               SizeConfig.width22,
+                                              //         ),
+                                              //       ),
+                                              //       const SizedBox(
+                                              //         width: SizeConfig.width08,
+                                              //       ),
+                                              //       SizedBox(
+                                              //         width: SizeConfig.width15,
+                                              //         child: Text(
+                                              //           bagController
+                                              //               .itemQuantities[
+                                              //                   index]
+                                              //               .toString(),
+                                              //           textAlign:
+                                              //               TextAlign.center,
+                                              //           style: TextStyle(
+                                              //             fontWeight:
+                                              //                 FontWeight.w500,
+                                              //             fontFamily: FontFamily
+                                              //                 .lexendMedium,
+                                              //             fontSize:
+                                              //                 FontSize.body3,
+                                              //             color: darkModeController
+                                              //                     .isLightTheme
+                                              //                     .value
+                                              //                 ? ColorsConfig
+                                              //                     .primaryColor
+                                              //                 : ColorsConfig
+                                              //                     .secondaryColor,
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //       const SizedBox(
+                                              //         width: SizeConfig.width08,
+                                              //       ),
+                                              //       GestureDetector(
+                                              //         onTap: () {
+                                              //           bagController
+                                              //               .incrementCounter(
+                                              //                   index);
+                                              //         },
+                                              //         child: Image(
+                                              //           image: AssetImage(
+                                              //             darkModeController
+                                              //                     .isLightTheme
+                                              //                     .value
+                                              //                 ? ImageConfig.plus
+                                              //                 : ImageConfig
+                                              //                     .plusDark,
+                                              //           ),
+                                              //           width:
+                                              //               SizeConfig.width22,
+                                              //         ),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // ),
                                             ],
                                           ),
                                           const SizedBox(
@@ -485,7 +502,7 @@ class BagView extends StatelessWidget {
                                           GestureDetector(
                                             onTap: () {
                                               bagcontroller.toggleaddToBag(
-                                                  user!.uid, item);
+                                                  user!.uid, item, qty);
                                             },
                                             child: Text(
                                               TextString.remove,

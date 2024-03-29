@@ -4,6 +4,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:input_quantity/input_quantity.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/bottom_navigation_controller.dart';
@@ -51,6 +52,7 @@ class FashionDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var qty = 1;
     final UserController userController = Get.find();
     User? user = userController.currentUser.value;
     Map<String, dynamic> userData = userController.userData.value;
@@ -290,6 +292,7 @@ class FashionDetailsView extends StatelessWidget {
                             height: SizeConfig.height06,
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 product['subtitle'],
@@ -306,6 +309,7 @@ class FashionDetailsView extends StatelessWidget {
                               const SizedBox(
                                 width: SizeConfig.width10,
                               ),
+
                               // Text(
                               //   TextString.off50,
                               //   textAlign: TextAlign.center,
@@ -490,6 +494,67 @@ class FashionDetailsView extends StatelessWidget {
                           //     );
                           //   },
                           // ),
+                          const SizedBox(
+                            height: SizeConfig.height24,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Select Quntity",
+                                style: TextStyle(
+                                  fontSize: FontSize.body2,
+                                  fontFamily: FontFamily.lexendMedium,
+                                  fontWeight: FontWeight.w500,
+                                  color: darkModeController.isLightTheme.value
+                                      ? ColorsConfig.primaryColor
+                                      : ColorsConfig.secondaryColor,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: SizeConfig.height20,
+                              ),
+                              InputQty.int(
+                                qtyFormProps: QtyFormProps(enableTyping: false),
+                                decoration: QtyDecorationProps(
+                                  minusBtn: Icon(
+                                    Icons.remove_circle,
+                                    color: darkModeController.isLightTheme.value
+                                        ? ColorsConfig.primaryColor
+                                        : ColorsConfig.secondaryColor,
+                                  ),
+                                  plusBtn: Icon(
+                                    Icons.add_circle,
+                                    color: darkModeController.isLightTheme.value
+                                        ? ColorsConfig.primaryColor
+                                        : ColorsConfig.secondaryColor,
+                                  ),
+                                  qtyStyle: QtyStyle.classic,
+                                  orientation: ButtonOrientation.horizontal,
+                                  btnColor:
+                                      darkModeController.isLightTheme.value
+                                          ? ColorsConfig.primaryColor
+                                          : ColorsConfig.secondaryColor,
+                                  isBordered: false,
+                                  iconColor:
+                                      darkModeController.isLightTheme.value
+                                          ? ColorsConfig.primaryColor
+                                          : ColorsConfig.secondaryColor,
+                                ),
+                                maxVal: 10,
+                                initVal: 1,
+                                minVal: 1,
+                                steps: 1,
+                                onQtyChanged: (val) {
+                                  if (val == null) {
+                                    qty = 1;
+                                  } else {
+                                    qty = val;
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+
                           const SizedBox(
                             height: SizeConfig.height24,
                           ),
@@ -1702,7 +1767,7 @@ class FashionDetailsView extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () {
                                 bagcontroller.toggleaddToBag(
-                                    user!.uid, product);
+                                    user!.uid, product, qty);
                               },
                               child: Obx(
                                 () {

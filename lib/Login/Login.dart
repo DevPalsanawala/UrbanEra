@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/Admin/admin.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/gogle_sign_in_provider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
@@ -24,35 +25,46 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   void _login(BuildContext context) async {
-    try {
+    if (_emailController.text == "adminofurbanera@gmail.com" &&
+        _passwordController.text == "hydrakijay") {
       setState(() {
         isLogin = true;
       });
-      final userCredentials = await _firebase.signInWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text);
-      if (userCredentials != null) {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          "home_view",
-          (route) => false,
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => AdminPage(),
+      ));
+    } else {
+      try {
+        setState(() {
+          isLogin = true;
+        });
+
+        final userCredentials = await _firebase.signInWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+        if (userCredentials != null) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            "home_view",
+            (route) => false,
+          );
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            "bottom_navigation_bar_view",
+            (route) => false,
+          );
+        }
+      } on FirebaseAuthException catch (error) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: const Duration(milliseconds: 3000),
+            content: Text(error.message ?? "Authentication Error"),
+          ),
         );
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          "bottom_navigation_bar_view",
-          (route) => false,
-        );
+        setState(() {
+          isLogin = false;
+        });
       }
-    } on FirebaseAuthException catch (error) {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(milliseconds: 3000),
-          content: Text(error.message ?? "Authentication Error"),
-        ),
-      );
-      setState(() {
-        isLogin = false;
-      });
     }
   }
 
