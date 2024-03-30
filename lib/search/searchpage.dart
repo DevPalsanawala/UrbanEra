@@ -24,7 +24,11 @@ class Searchpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.find();
-
+    if (txt == "Caps" || txt == "Kurta") {
+      data = "none";
+    } else {
+      data = txt;
+    }
     User? user = userController.currentUser.value;
     Map<String, dynamic> userData = userController.userData.value;
     return Scaffold(
@@ -87,7 +91,7 @@ class Searchpage extends StatelessWidget {
           child: Obx(() {
             final List<Map<String, dynamic>> newarrived = productcontroller
                 .produts
-                .where((product) => product['sub_category'] == '${txt}')
+                .where((product) => product['sub_category'] == '${data}')
                 .toList();
 
             if (newarrived.isEmpty) {

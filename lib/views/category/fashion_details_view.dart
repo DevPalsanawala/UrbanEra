@@ -555,189 +555,253 @@ class FashionDetailsView extends StatelessWidget {
                             ],
                           ),
 
-                          const SizedBox(
-                            height: SizeConfig.height24,
-                          ),
-                          Obx(
-                            () {
-                              final selectedSize =
-                                  fashionController.selectedSize.value;
+                          if (product["sub_category"] == "Tshirt" ||
+                              product["sub_category"] == "Shirt")
+                            Container(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: SizeConfig.height24,
+                                    ),
+                                    Obx(
+                                      () {
+                                        final selectedSize = fashionController
+                                            .selectedSize.value;
 
-                              return Text(
-                                "${TextString.selectSize}($selectedSize)",
-                                style: TextStyle(
-                                  fontSize: FontSize.body2,
-                                  fontFamily: FontFamily.lexendMedium,
-                                  fontWeight: FontWeight.w500,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.primaryColor
-                                      : ColorsConfig.secondaryColor,
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(
-                            height: SizeConfig.height10,
-                          ),
-                          GridView.builder(
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 7,
-                              mainAxisExtent: SizeConfig.height35,
-                            ),
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: fashionController.sizesList.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  fashionController.selectSize(index);
-                                },
-                                child: Obx(
-                                  () {
-                                    final isSelected = fashionController
-                                            .selectedSizeIndex.value ==
-                                        index;
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: SizeConfig.padding10,
-                                      ),
-                                      child: Container(
-                                        width: SizeConfig.width45,
-                                        height: SizeConfig.height45,
-                                        decoration: BoxDecoration(
-                                          color: isSelected
-                                              ? darkModeController
-                                                      .isLightTheme.value
-                                                  ? ColorsConfig.primaryColor
-                                                  : ColorsConfig.secondaryColor
-                                              : darkModeController
-                                                      .isLightTheme.value
-                                                  ? ColorsConfig.secondaryColor
-                                                  : ColorsConfig.primaryColor,
-                                          borderRadius: BorderRadius.circular(
-                                              SizeConfig.borderRadius08),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            fashionController.sizesList[index],
-                                            style: TextStyle(
-                                              fontSize: FontSize.body3,
-                                              fontFamily: isSelected
-                                                  ? FontFamily.lexendMedium
-                                                  : FontFamily.lexendLight,
-                                              fontWeight: isSelected
-                                                  ? FontWeight.w500
-                                                  : FontWeight.w300,
-                                              color: isSelected
-                                                  ? darkModeController
-                                                          .isLightTheme.value
-                                                      ? ColorsConfig
-                                                          .secondaryColor
-                                                      : ColorsConfig
-                                                          .primaryColor
-                                                  : darkModeController
-                                                          .isLightTheme.value
-                                                      ? ColorsConfig
-                                                          .primaryColor
-                                                      : ColorsConfig
-                                                          .secondaryColor,
-                                            ),
+                                        return Text(
+                                          "${TextString.selectSize}($selectedSize)",
+                                          style: TextStyle(
+                                            fontSize: FontSize.body2,
+                                            fontFamily: FontFamily.lexendMedium,
+                                            fontWeight: FontWeight.w500,
+                                            color: darkModeController
+                                                    .isLightTheme.value
+                                                ? ColorsConfig.primaryColor
+                                                : ColorsConfig.secondaryColor,
                                           ),
-                                        ),
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: SizeConfig.height10,
+                                    ),
+                                    GridView.builder(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 7,
+                                        mainAxisExtent: SizeConfig.height35,
                                       ),
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(
-                            height: SizeConfig.height10,
-                          ),
-                          // Container(
-                          //   width: SizeConfig.width167,
-                          //   height: SizeConfig.height22,
-                          //   padding: const EdgeInsets.only(
-                          //     left: SizeConfig.padding06,
-                          //     right: SizeConfig.padding06,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          fashionController.sizesList.length,
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            fashionController.selectSize(index);
+                                          },
+                                          child: Obx(
+                                            () {
+                                              final isSelected =
+                                                  fashionController
+                                                          .selectedSizeIndex
+                                                          .value ==
+                                                      index;
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                  right: SizeConfig.padding10,
+                                                ),
+                                                child: Container(
+                                                  width: SizeConfig.width45,
+                                                  height: SizeConfig.height45,
+                                                  decoration: BoxDecoration(
+                                                    color: isSelected
+                                                        ? darkModeController
+                                                                .isLightTheme
+                                                                .value
+                                                            ? ColorsConfig
+                                                                .primaryColor
+                                                            : ColorsConfig
+                                                                .secondaryColor
+                                                        : darkModeController
+                                                                .isLightTheme
+                                                                .value
+                                                            ? ColorsConfig
+                                                                .secondaryColor
+                                                            : ColorsConfig
+                                                                .primaryColor,
+                                                    borderRadius: BorderRadius
+                                                        .circular(SizeConfig
+                                                            .borderRadius08),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      fashionController
+                                                          .sizesList[index],
+                                                      style: TextStyle(
+                                                        fontSize:
+                                                            FontSize.body3,
+                                                        fontFamily: isSelected
+                                                            ? FontFamily
+                                                                .lexendMedium
+                                                            : FontFamily
+                                                                .lexendLight,
+                                                        fontWeight: isSelected
+                                                            ? FontWeight.w500
+                                                            : FontWeight.w300,
+                                                        color: isSelected
+                                                            ? darkModeController
+                                                                    .isLightTheme
+                                                                    .value
+                                                                ? ColorsConfig
+                                                                    .secondaryColor
+                                                                : ColorsConfig
+                                                                    .primaryColor
+                                                            : darkModeController
+                                                                    .isLightTheme
+                                                                    .value
+                                                                ? ColorsConfig
+                                                                    .primaryColor
+                                                                : ColorsConfig
+                                                                    .secondaryColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ]),
+                            ),
+                          // if (product["sub_category"] == "Pants")
+                          //   Container(
+                          //     child: Column(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           const SizedBox(
+                          //             height: SizeConfig.height24,
+                          //           ),
+                          //           Obx(
+                          //             () {
+                          //               final selectedSize = fashionController
+                          //                   .selectedSize.value;
+
+                          //               return Text(
+                          //                 "${TextString.selectSize}($selectedSize)",
+                          //                 style: TextStyle(
+                          //                   fontSize: FontSize.body2,
+                          //                   fontFamily: FontFamily.lexendMedium,
+                          //                   fontWeight: FontWeight.w500,
+                          //                   color: darkModeController
+                          //                           .isLightTheme.value
+                          //                       ? ColorsConfig.primaryColor
+                          //                       : ColorsConfig.secondaryColor,
+                          //                 ),
+                          //               );
+                          //             },
+                          //           ),
+                          //           const SizedBox(
+                          //             height: SizeConfig.height10,
+                          //           ),
+                          //           GridView.builder(
+                          //             padding: EdgeInsets.zero,
+                          //             gridDelegate:
+                          //                 const SliverGridDelegateWithFixedCrossAxisCount(
+                          //               crossAxisCount: 7,
+                          //               mainAxisExtent: SizeConfig.height35,
+                          //             ),
+                          //             physics:
+                          //                 const NeverScrollableScrollPhysics(),
+                          //             shrinkWrap: true,
+                          //             itemCount: fashionController
+                          //                 .sizesListpant.length,
+                          //             itemBuilder: (context, index) {
+                          //               return GestureDetector(
+                          //                 onTap: () {
+                          //                   fashionController.selectSize(index);
+                          //                 },
+                          //                 child: Obx(
+                          //                   () {
+                          //                     final isSelected =
+                          //                         fashionController
+                          //                                 .selectedSizeIndex
+                          //                                 .value ==
+                          //                             index;
+                          //                     return Padding(
+                          //                       padding: const EdgeInsets.only(
+                          //                         right: SizeConfig.padding10,
+                          //                       ),
+                          //                       child: Container(
+                          //                         width: SizeConfig.width45,
+                          //                         height: SizeConfig.height45,
+                          //                         decoration: BoxDecoration(
+                          //                           color: isSelected
+                          //                               ? darkModeController
+                          //                                       .isLightTheme
+                          //                                       .value
+                          //                                   ? ColorsConfig
+                          //                                       .primaryColor
+                          //                                   : ColorsConfig
+                          //                                       .secondaryColor
+                          //                               : darkModeController
+                          //                                       .isLightTheme
+                          //                                       .value
+                          //                                   ? ColorsConfig
+                          //                                       .secondaryColor
+                          //                                   : ColorsConfig
+                          //                                       .primaryColor,
+                          //                           borderRadius: BorderRadius
+                          //                               .circular(SizeConfig
+                          //                                   .borderRadius08),
+                          //                         ),
+                          //                         child: Center(
+                          //                           child: Text(
+                          //                             fashionController
+                          //                                 .sizesListpant[index],
+                          //                             style: TextStyle(
+                          //                               fontSize:
+                          //                                   FontSize.body3,
+                          //                               fontFamily: isSelected
+                          //                                   ? FontFamily
+                          //                                       .lexendMedium
+                          //                                   : FontFamily
+                          //                                       .lexendLight,
+                          //                               fontWeight: isSelected
+                          //                                   ? FontWeight.w500
+                          //                                   : FontWeight.w300,
+                          //                               color: isSelected
+                          //                                   ? darkModeController
+                          //                                           .isLightTheme
+                          //                                           .value
+                          //                                       ? ColorsConfig
+                          //                                           .secondaryColor
+                          //                                       : ColorsConfig
+                          //                                           .primaryColor
+                          //                                   : darkModeController
+                          //                                           .isLightTheme
+                          //                                           .value
+                          //                                       ? ColorsConfig
+                          //                                           .primaryColor
+                          //                                       : ColorsConfig
+                          //                                           .secondaryColor,
+                          //                             ),
+                          //                           ),
+                          //                         ),
+                          //                       ),
+                          //                     );
+                          //                   },
+                          //                 ),
+                          //               );
+                          //             },
+                          //           ),
+                          //         ]),
                           //   ),
-                          //   color: darkModeController.isLightTheme.value
-                          //       ? ColorsConfig.secondaryColor
-                          //       : ColorsConfig.primaryColor,
-                          //   child: IntrinsicHeight(
-                          //     child: Row(
-                          //       mainAxisAlignment:
-                          //           MainAxisAlignment.spaceBetween,
-                          //       children: [
-                          //         Row(
-                          //           children: [
-                          //             Text(
-                          //               TextString.shoulder,
-                          //               style: TextStyle(
-                          //                 fontSize: FontSize.body3,
-                          //                 fontFamily: FontFamily.lexendLight,
-                          //                 fontWeight: FontWeight.w300,
-                          //                 color: darkModeController
-                          //                         .isLightTheme.value
-                          //                     ? ColorsConfig.textColor
-                          //                     : ColorsConfig.modeInactiveColor,
-                          //               ),
-                          //             ),
-                          //             Text(
-                          //               TextString.shoulder20,
-                          //               style: TextStyle(
-                          //                 fontSize: FontSize.body3,
-                          //                 fontFamily: FontFamily.lexendRegular,
-                          //                 fontWeight: FontWeight.w400,
-                          //                 color: darkModeController
-                          //                         .isLightTheme.value
-                          //                     ? ColorsConfig.primaryColor
-                          //                     : ColorsConfig.secondaryColor,
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //         VerticalDivider(
-                          //           color: darkModeController.isLightTheme.value
-                          //               ? ColorsConfig.lineColor
-                          //               : ColorsConfig.lineDarkColor2,
-                          //           indent: 5,
-                          //           endIndent: 5,
-                          //         ),
-                          //         Row(
-                          //           children: [
-                          //             Text(
-                          //               TextString.chest,
-                          //               style: TextStyle(
-                          //                 fontSize: FontSize.body3,
-                          //                 fontFamily: FontFamily.lexendLight,
-                          //                 fontWeight: FontWeight.w300,
-                          //                 color: darkModeController
-                          //                         .isLightTheme.value
-                          //                     ? ColorsConfig.textColor
-                          //                     : ColorsConfig.modeInactiveColor,
-                          //               ),
-                          //             ),
-                          //             Text(
-                          //               TextString.chest36,
-                          //               style: TextStyle(
-                          //                 fontSize: FontSize.body3,
-                          //                 fontFamily: FontFamily.lexendRegular,
-                          //                 fontWeight: FontWeight.w400,
-                          //                 color: darkModeController
-                          //                         .isLightTheme.value
-                          //                     ? ColorsConfig.primaryColor
-                          //                     : ColorsConfig.secondaryColor,
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

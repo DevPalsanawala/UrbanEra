@@ -109,4 +109,12 @@ class FashionController extends GetxController {
     TextString.sizeXXL,
     TextString.size3XL,
   ];
+  List<String> sizesListpant = [
+    "32",
+    "34",
+    "36",
+    "38",
+    "40",
+    "42",
+  ];
 }
