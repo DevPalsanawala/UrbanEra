@@ -562,6 +562,7 @@ class FashionDetailsView extends StatelessWidget {
                             () {
                               final selectedSize =
                                   fashionController.selectedSize.value;
+
                               return Text(
                                 "${TextString.selectSize}($selectedSize)",
                                 style: TextStyle(
@@ -655,88 +656,88 @@ class FashionDetailsView extends StatelessWidget {
                           const SizedBox(
                             height: SizeConfig.height10,
                           ),
-                          Container(
-                            width: SizeConfig.width167,
-                            height: SizeConfig.height22,
-                            padding: const EdgeInsets.only(
-                              left: SizeConfig.padding06,
-                              right: SizeConfig.padding06,
-                            ),
-                            color: darkModeController.isLightTheme.value
-                                ? ColorsConfig.secondaryColor
-                                : ColorsConfig.primaryColor,
-                            child: IntrinsicHeight(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        TextString.shoulder,
-                                        style: TextStyle(
-                                          fontSize: FontSize.body3,
-                                          fontFamily: FontFamily.lexendLight,
-                                          fontWeight: FontWeight.w300,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.textColor
-                                              : ColorsConfig.modeInactiveColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        TextString.shoulder20,
-                                        style: TextStyle(
-                                          fontSize: FontSize.body3,
-                                          fontFamily: FontFamily.lexendRegular,
-                                          fontWeight: FontWeight.w400,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  VerticalDivider(
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.lineColor
-                                        : ColorsConfig.lineDarkColor2,
-                                    indent: 5,
-                                    endIndent: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        TextString.chest,
-                                        style: TextStyle(
-                                          fontSize: FontSize.body3,
-                                          fontFamily: FontFamily.lexendLight,
-                                          fontWeight: FontWeight.w300,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.textColor
-                                              : ColorsConfig.modeInactiveColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        TextString.chest36,
-                                        style: TextStyle(
-                                          fontSize: FontSize.body3,
-                                          fontFamily: FontFamily.lexendRegular,
-                                          fontWeight: FontWeight.w400,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   width: SizeConfig.width167,
+                          //   height: SizeConfig.height22,
+                          //   padding: const EdgeInsets.only(
+                          //     left: SizeConfig.padding06,
+                          //     right: SizeConfig.padding06,
+                          //   ),
+                          //   color: darkModeController.isLightTheme.value
+                          //       ? ColorsConfig.secondaryColor
+                          //       : ColorsConfig.primaryColor,
+                          //   child: IntrinsicHeight(
+                          //     child: Row(
+                          //       mainAxisAlignment:
+                          //           MainAxisAlignment.spaceBetween,
+                          //       children: [
+                          //         Row(
+                          //           children: [
+                          //             Text(
+                          //               TextString.shoulder,
+                          //               style: TextStyle(
+                          //                 fontSize: FontSize.body3,
+                          //                 fontFamily: FontFamily.lexendLight,
+                          //                 fontWeight: FontWeight.w300,
+                          //                 color: darkModeController
+                          //                         .isLightTheme.value
+                          //                     ? ColorsConfig.textColor
+                          //                     : ColorsConfig.modeInactiveColor,
+                          //               ),
+                          //             ),
+                          //             Text(
+                          //               TextString.shoulder20,
+                          //               style: TextStyle(
+                          //                 fontSize: FontSize.body3,
+                          //                 fontFamily: FontFamily.lexendRegular,
+                          //                 fontWeight: FontWeight.w400,
+                          //                 color: darkModeController
+                          //                         .isLightTheme.value
+                          //                     ? ColorsConfig.primaryColor
+                          //                     : ColorsConfig.secondaryColor,
+                          //               ),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //         VerticalDivider(
+                          //           color: darkModeController.isLightTheme.value
+                          //               ? ColorsConfig.lineColor
+                          //               : ColorsConfig.lineDarkColor2,
+                          //           indent: 5,
+                          //           endIndent: 5,
+                          //         ),
+                          //         Row(
+                          //           children: [
+                          //             Text(
+                          //               TextString.chest,
+                          //               style: TextStyle(
+                          //                 fontSize: FontSize.body3,
+                          //                 fontFamily: FontFamily.lexendLight,
+                          //                 fontWeight: FontWeight.w300,
+                          //                 color: darkModeController
+                          //                         .isLightTheme.value
+                          //                     ? ColorsConfig.textColor
+                          //                     : ColorsConfig.modeInactiveColor,
+                          //               ),
+                          //             ),
+                          //             Text(
+                          //               TextString.chest36,
+                          //               style: TextStyle(
+                          //                 fontSize: FontSize.body3,
+                          //                 fontFamily: FontFamily.lexendRegular,
+                          //                 fontWeight: FontWeight.w400,
+                          //                 color: darkModeController
+                          //                         .isLightTheme.value
+                          //                     ? ColorsConfig.primaryColor
+                          //                     : ColorsConfig.secondaryColor,
+                          //               ),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -1725,49 +1726,50 @@ class FashionDetailsView extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.paymentView);
-                    },
-                    child: Container(
-                      height: SizeConfig.height52,
-                      width: SizeConfig.width116,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(SizeConfig.borderRadius14),
-                        border: Border.all(
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          TextString.textButtonBuyNow,
-                          style: TextStyle(
-                            fontSize: FontSize.body1,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: FontFamily.lexendRegular,
-                            color: darkModeController.isLightTheme.value
-                                ? ColorsConfig.primaryColor
-                                : ColorsConfig.secondaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Get.toNamed(AppRoutes.paymentView);
+                  //   },
+                  //   child: Container(
+                  //     height: SizeConfig.height52,
+                  //     width: SizeConfig.width116,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius:
+                  //           BorderRadius.circular(SizeConfig.borderRadius14),
+                  //       border: Border.all(
+                  //         color: darkModeController.isLightTheme.value
+                  //             ? ColorsConfig.primaryColor
+                  //             : ColorsConfig.secondaryColor,
+                  //       ),
+                  //     ),
+                  //     child: Center(
+                  //       child: Text(
+                  //         TextString.textButtonBuyNow,
+                  //         style: TextStyle(
+                  //           fontSize: FontSize.body1,
+                  //           fontWeight: FontWeight.w400,
+                  //           fontFamily: FontFamily.lexendRegular,
+                  //           color: darkModeController.isLightTheme.value
+                  //               ? ColorsConfig.primaryColor
+                  //               : ColorsConfig.secondaryColor,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(
                     width: SizeConfig.width14,
                   ),
                   Obx(() {
                     final isInBag =
                         bagcontroller.isAddedMap[product['id']] ?? false;
+                    final selectedSize = fashionController.selectedSize.value;
                     return !isInBag
                         ? Expanded(
                             child: GestureDetector(
                               onTap: () {
                                 bagcontroller.toggleaddToBag(
-                                    user!.uid, product, qty);
+                                    user!.uid, product, qty, selectedSize);
                               },
                               child: Obx(
                                 () {

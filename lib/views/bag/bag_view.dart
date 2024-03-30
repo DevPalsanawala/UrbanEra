@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/bag_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/bag_controller.dart';
@@ -31,11 +32,12 @@ class BagView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   ButtonController buttonController = Get.put(ButtonController());
   Bagcontroller bagcontroller = Get.put(Bagcontroller());
+  FashionController fashionController = Get.put(FashionController());
 
   double getTotalPrice(List<Map<String, dynamic>> items) {
     double totalPrice = 0.0;
     for (var item in items) {
-      totalPrice += double.parse(item['price']);
+      totalPrice += double.parse(item['price']) * item['qty'];
     }
     return totalPrice;
   }
@@ -45,6 +47,8 @@ class BagView extends StatelessWidget {
     return Obx(
       () {
         var qty = 0;
+        final selectedSize = fashionController.selectedSize.value;
+
         final UserController userController = Get.find();
         User? user = userController.currentUser.value;
         Map<String, dynamic> userData = userController.userData.value;
@@ -244,6 +248,9 @@ class BagView extends StatelessWidget {
                     ),
                   );
                 } else {
+                  final price = getTotalPrice(snapshot.data!);
+                  final discount = getTotalPrice(snapshot.data!) * 5 / 100;
+                  final payamount = getTotalPrice(snapshot.data!) - discount;
                   return SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     child: Column(
@@ -383,20 +390,48 @@ class BagView extends StatelessWidget {
                                               SizedBox(
                                                 width: 20,
                                               ),
-                                              Text(
-                                                'Quntity: ${item['qty'].toString().substring(0, 1)}',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily:
-                                                      FontFamily.lexendRegular,
-                                                  fontSize: FontSize.body2,
-                                                  color: darkModeController
-                                                          .isLightTheme.value
-                                                      ? ColorsConfig
-                                                          .primaryColor
-                                                      : ColorsConfig
-                                                          .secondaryColor,
-                                                ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Size: ${item['size']}',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: FontFamily
+                                                          .lexendRegular,
+                                                      fontSize: FontSize.body2,
+                                                      color: darkModeController
+                                                              .isLightTheme
+                                                              .value
+                                                          ? ColorsConfig
+                                                              .primaryColor
+                                                          : ColorsConfig
+                                                              .secondaryColor,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    'Quntity: ${item['qty'].toString().substring(0, 1)}',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: FontFamily
+                                                          .lexendRegular,
+                                                      fontSize: FontSize.body2,
+                                                      color: darkModeController
+                                                              .isLightTheme
+                                                              .value
+                                                          ? ColorsConfig
+                                                              .primaryColor
+                                                          : ColorsConfig
+                                                              .secondaryColor,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
 
                                               // Obx(
@@ -502,7 +537,10 @@ class BagView extends StatelessWidget {
                                           GestureDetector(
                                             onTap: () {
                                               bagcontroller.toggleaddToBag(
-                                                  user!.uid, item, qty);
+                                                  user!.uid,
+                                                  item,
+                                                  qty,
+                                                  selectedSize);
                                             },
                                             child: Text(
                                               TextString.remove,
@@ -620,7 +658,7 @@ class BagView extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '\u{20B9} ${getTotalPrice(snapshot.data!)}',
+                                        '\u{20B9} ${price}',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: FontFamily.lexendRegular,
@@ -641,7 +679,7 @@ class BagView extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        TextString.discount,
+                                        "${TextString.discount} (5%)",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontFamily: FontFamily.lexendLight,
@@ -653,7 +691,7 @@ class BagView extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '\u{20B9} 20.0',
+                                        '\u{20B9} ${discount}',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontFamily: FontFamily.lexendRegular,
@@ -723,7 +761,7 @@ class BagView extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '\u{20B9} ${getTotalPrice(snapshot.data!) - 20.00}',
+                                    '\u{20B9} ${payamount} ',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontFamily: FontFamily.lexendMedium,
@@ -781,7 +819,7 @@ class BagView extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '\u{20B9} ${getTotalPrice(snapshot.data!)}',
+                                        '\u{20B9} ${price}',
                                         style: TextStyle(
                                           fontSize: FontSize.body3,
                                           fontWeight: FontWeight.w300,
@@ -795,7 +833,7 @@ class BagView extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '\u{20B9} ${getTotalPrice(snapshot.data!) - 20.00}',
+                                        '\u{20B9} ${payamount}',
                                         style: TextStyle(
                                           fontSize: FontSize.heading5,
                                           fontWeight: FontWeight.w500,

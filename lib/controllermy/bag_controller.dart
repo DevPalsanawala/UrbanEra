@@ -62,8 +62,8 @@ class Bagcontroller extends GetxController {
     }
   }
 
-  Future<void> toggleaddToBag(
-      String userId, Map<String, dynamic> productData, int qty) async {
+  Future<void> toggleaddToBag(String userId, Map<String, dynamic> productData,
+      int qty, String size) async {
     try {
       final collectionRef = _firestore.collection('bag');
       final itemId = productData['id'];
@@ -108,6 +108,7 @@ class Bagcontroller extends GetxController {
           'subtitle': productData['subtitle'],
           'title': productData['title'],
           'qty': qty,
+          'size': size,
           'userId': userId,
         });
       }
