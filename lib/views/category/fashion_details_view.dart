@@ -556,7 +556,8 @@ class FashionDetailsView extends StatelessWidget {
                           ),
 
                           if (product["sub_category"] == "Tshirt" ||
-                              product["sub_category"] == "Shirt")
+                              product["sub_category"] == "Shirt" ||
+                              product["sub_category"] == "Pants")
                             Container(
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -679,7 +680,7 @@ class FashionDetailsView extends StatelessWidget {
                                     ),
                                   ]),
                             ),
-                          // if (product["sub_category"] == "Pants")
+                          // if (product["sub_category"] == "Shoes")
                           //   Container(
                           //     child: Column(
                           //         crossAxisAlignment: CrossAxisAlignment.start,
