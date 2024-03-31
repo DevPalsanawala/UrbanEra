@@ -15,7 +15,6 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/bag_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/bag/widget/remove_bag_bottom_sheet.dart';
 import '../../config/colors.dart';
 import '../../config/font_family.dart';
 import '../../config/font_size.dart';
