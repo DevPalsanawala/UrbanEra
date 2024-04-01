@@ -249,7 +249,8 @@ class BagView extends StatelessWidget {
                 } else {
                   final price = getTotalPrice(snapshot.data!);
                   final discount = getTotalPrice(snapshot.data!) * 5 / 100;
-                  final payamount = getTotalPrice(snapshot.data!) - discount;
+                  bagcontroller.payamount.value =
+                      (getTotalPrice(snapshot.data!) - discount) as double;
                   return SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     child: Column(
@@ -772,7 +773,7 @@ class BagView extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '\u{20B9} ${payamount} ',
+                                    '\u{20B9} ${bagcontroller.payamount.value}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontFamily: FontFamily.lexendMedium,
@@ -844,7 +845,7 @@ class BagView extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '\u{20B9} ${payamount}',
+                                        '\u{20B9} ${bagcontroller.payamount.value}',
                                         style: TextStyle(
                                           fontSize: FontSize.heading5,
                                           fontWeight: FontWeight.w500,

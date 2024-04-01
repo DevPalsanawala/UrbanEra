@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
@@ -11,6 +12,7 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_contr
 class Bagcontroller extends GetxController {
   final _firestore = FirebaseFirestore.instance;
   RxMap isAddedMap = {}.obs;
+  RxDouble payamount = 0.0.obs;
   RxList<Map<String, dynamic>> items = <Map<String, dynamic>>[].obs;
 
   Stream<List<Map<String, dynamic>>> bagStream(String userId) {
@@ -118,5 +120,30 @@ class Bagcontroller extends GetxController {
     } catch (error) {
       print('Error toggling wishlist item: $error');
     }
+  }
+
+// order
+
+  void storeBagData(String userId) {
+    Stream<List<Map<String, dynamic>>> bagItemsStream = bagStream(userId);
+
+    bagItemsStream.listen((List<Map<String, dynamic>> bagItems) {
+      // Save bag items to another collection in Firestore
+      print(bagItems);
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('d MMM yyyy').format(now);
+      for (var item in bagItems) {
+        item['date'] = formattedDate;
+        FirebaseFirestore.instance.collection('Order').add(item);
+      }
+    });
+  }
+
+  Stream<List<Map<String, dynamic>>> orderStream(String userId) {
+    return _firestore
+        .collection('Order')
+        .where('userId', isEqualTo: userId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
   }
 }

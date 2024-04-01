@@ -17,7 +17,8 @@ import '../../routes/app_routes.dart';
 class PaymentSuccessfulView extends StatelessWidget {
   PaymentSuccessfulView({Key? key}) : super(key: key);
 
-  BottomNavigationController bottomNavigationController = Get.put(BottomNavigationController());
+  BottomNavigationController bottomNavigationController =
+      Get.put(BottomNavigationController());
   MyOrdersController myOrdersController = Get.put(MyOrdersController());
   DarkModeController darkModeController = Get.put(DarkModeController());
 
@@ -72,7 +73,8 @@ class PaymentSuccessfulView extends StatelessWidget {
                         color: darkModeController.isLightTheme.value
                             ? ColorsConfig.secondaryColor
                             : ColorsConfig.buttonColor,
-                        borderRadius: BorderRadius.circular(SizeConfig.borderRadius14),
+                        borderRadius:
+                            BorderRadius.circular(SizeConfig.borderRadius14),
                       ),
                       child: Column(
                         children: [
@@ -152,7 +154,8 @@ class PaymentSuccessfulView extends StatelessWidget {
                                       ? ColorsConfig.buttonColor
                                       : ColorsConfig.secondaryColor,
                                 ),
-                                borderRadius: BorderRadius.circular(SizeConfig.borderRadius14),
+                                borderRadius: BorderRadius.circular(
+                                    SizeConfig.borderRadius14),
                               ),
                               child: Center(
                                 child: Text(
@@ -188,7 +191,8 @@ class PaymentSuccessfulView extends StatelessWidget {
                                 color: darkModeController.isLightTheme.value
                                     ? ColorsConfig.buttonColor
                                     : ColorsConfig.secondaryColor,
-                                borderRadius: BorderRadius.circular(SizeConfig.borderRadius14),
+                                borderRadius: BorderRadius.circular(
+                                    SizeConfig.borderRadius14),
                               ),
                               child: Center(
                                 child: Text(

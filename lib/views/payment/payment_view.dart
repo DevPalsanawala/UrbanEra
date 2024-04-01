@@ -1,9 +1,12 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/payment_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/bag_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/payment/payment_successful_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/payment/phonepepayment.dart';
 
@@ -20,9 +23,13 @@ class PaymentView extends StatelessWidget {
 
   PaymentController paymentController = Get.put(PaymentController());
   DarkModeController darkModeController = Get.put(DarkModeController());
+  Bagcontroller bagcontroller = Get.put(Bagcontroller());
 
   @override
   Widget build(BuildContext context) {
+    final UserController userController = Get.find();
+    User? user = userController.currentUser.value;
+    Map<String, dynamic> userData = userController.userData.value;
     return Obx(() => Scaffold(
           backgroundColor: darkModeController.isLightTheme.value
               ? ColorsConfig.backgroundColor
@@ -77,7 +84,7 @@ class PaymentView extends StatelessWidget {
                   bottom: SizeConfig.padding15,
                 ),
                 child: Text(
-                  TextString.dollar200,
+                  '\u{20B9} ${bagcontroller.payamount.value}',
                   style: TextStyle(
                     fontFamily: FontFamily.lexendMedium,
                     fontSize: FontSize.body1,
@@ -606,6 +613,7 @@ class PaymentView extends StatelessWidget {
                           return PaymentSuccessfulView();
                         },
                       );
+                      bagcontroller.storeBagData(user!.uid);
                     },
                     child: Container(
                       height: SizeConfig.height52,
