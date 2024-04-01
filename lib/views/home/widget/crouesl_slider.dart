@@ -22,9 +22,8 @@ class _CrouselState extends State<Crousel> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 185,
-              viewportFraction: 0.81,
-              aspectRatio: 2.0,
+              height: 188,
+              viewportFraction: 0.9,
               autoPlay: true,
               autoPlayInterval: Duration(milliseconds: 2000),
               scrollPhysics: BouncingScrollPhysics(),
@@ -36,7 +35,7 @@ class _CrouselState extends State<Crousel> {
           items: crouselcontroller.Mylist,
         ),
         const SizedBox(
-          height: 10,
+          height: 8,
         ),
         AnimatedSmoothIndicator(
           activeIndex: crouselcontroller.currentindex.value,

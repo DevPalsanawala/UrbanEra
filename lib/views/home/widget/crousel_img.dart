@@ -14,12 +14,14 @@ class CarosulItems extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
+        width: 600,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: Image(
             image: AssetImage(imgurl) as ImageProvider,
             fit: BoxFit.fill,
+            width: 600,
             // fit: BoxFit.cover,
           ),
         ),
