@@ -393,30 +393,29 @@ class BagView extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  if (item["sub_category"] ==
-                                                          "Tshirt" ||
-                                                      item["sub_category"] ==
-                                                          "Shirt" ||
-                                                      item["sub_category"] ==
-                                                          "Pants")
-                                                    Text(
-                                                      'Size: ${item['size']}',
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontFamily: FontFamily
-                                                            .lexendRegular,
-                                                        fontSize:
-                                                            FontSize.body2,
-                                                        color: darkModeController
-                                                                .isLightTheme
-                                                                .value
-                                                            ? ColorsConfig
-                                                                .primaryColor
-                                                            : ColorsConfig
-                                                                .secondaryColor,
-                                                      ),
+                                                  // if (item["sub_category"] ==
+                                                  //         "Tshirt" ||
+                                                  //     item["sub_category"] ==
+                                                  //         "Shirt" ||
+                                                  //     item["sub_category"] ==
+                                                  //         "Pants")
+                                                  Text(
+                                                    'Size: ${item['size']}',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: FontFamily
+                                                          .lexendRegular,
+                                                      fontSize: FontSize.body2,
+                                                      color: darkModeController
+                                                              .isLightTheme
+                                                              .value
+                                                          ? ColorsConfig
+                                                              .primaryColor
+                                                          : ColorsConfig
+                                                              .secondaryColor,
                                                     ),
+                                                  ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),

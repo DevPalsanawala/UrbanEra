@@ -36,6 +36,8 @@ class FashionController extends GetxController {
       currentPage.value = (pageFashionController.page?.round() ?? 0);
     });
     selectedSize.value = sizesList.isNotEmpty ? sizesList[0] : '';
+    selectedSizeshoes.value =
+        sizesListshoes.isNotEmpty ? sizesListshoes[0] : '';
   }
 
   RxInt selectedColorIndex = (-1).obs;
@@ -50,6 +52,14 @@ class FashionController extends GetxController {
   void selectSize(int index) {
     selectedSizeIndex.value = index;
     selectedSize.value = sizesList[index];
+  }
+
+  RxInt selectedSizeIndexShoes = (-1).obs;
+  RxString selectedSizeshoes = RxString('');
+
+  void selectSizeshoes(int index) {
+    selectedSizeIndexShoes.value = index;
+    selectedSizeshoes.value = sizesListshoes[index];
   }
 
   List<String> fashionImageList = [

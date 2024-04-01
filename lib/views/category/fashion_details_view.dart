@@ -53,6 +53,7 @@ class FashionDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var qty = 1;
+    var selectedSize = "";
     final UserController userController = Get.find();
     User? user = userController.currentUser.value;
     Map<String, dynamic> userData = userController.userData.value;
@@ -567,7 +568,7 @@ class FashionDetailsView extends StatelessWidget {
                                     ),
                                     Obx(
                                       () {
-                                        final selectedSize = fashionController
+                                        selectedSize = fashionController
                                             .selectedSize.value;
 
                                         return Text(
@@ -680,129 +681,131 @@ class FashionDetailsView extends StatelessWidget {
                                     ),
                                   ]),
                             ),
-                          // if (product["sub_category"] == "Shoes")
-                          //   Container(
-                          //     child: Column(
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         children: [
-                          //           const SizedBox(
-                          //             height: SizeConfig.height24,
-                          //           ),
-                          //           Obx(
-                          //             () {
-                          //               final selectedSize = fashionController
-                          //                   .selectedSize.value;
+                          if (product["sub_category"] == "Shoes")
+                            Container(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: SizeConfig.height24,
+                                    ),
+                                    Obx(
+                                      () {
+                                        selectedSize = fashionController
+                                            .selectedSizeshoes.value;
 
-                          //               return Text(
-                          //                 "${TextString.selectSize}($selectedSize)",
-                          //                 style: TextStyle(
-                          //                   fontSize: FontSize.body2,
-                          //                   fontFamily: FontFamily.lexendMedium,
-                          //                   fontWeight: FontWeight.w500,
-                          //                   color: darkModeController
-                          //                           .isLightTheme.value
-                          //                       ? ColorsConfig.primaryColor
-                          //                       : ColorsConfig.secondaryColor,
-                          //                 ),
-                          //               );
-                          //             },
-                          //           ),
-                          //           const SizedBox(
-                          //             height: SizeConfig.height10,
-                          //           ),
-                          //           GridView.builder(
-                          //             padding: EdgeInsets.zero,
-                          //             gridDelegate:
-                          //                 const SliverGridDelegateWithFixedCrossAxisCount(
-                          //               crossAxisCount: 7,
-                          //               mainAxisExtent: SizeConfig.height35,
-                          //             ),
-                          //             physics:
-                          //                 const NeverScrollableScrollPhysics(),
-                          //             shrinkWrap: true,
-                          //             itemCount: fashionController
-                          //                 .sizesListpant.length,
-                          //             itemBuilder: (context, index) {
-                          //               return GestureDetector(
-                          //                 onTap: () {
-                          //                   fashionController.selectSize(index);
-                          //                 },
-                          //                 child: Obx(
-                          //                   () {
-                          //                     final isSelected =
-                          //                         fashionController
-                          //                                 .selectedSizeIndex
-                          //                                 .value ==
-                          //                             index;
-                          //                     return Padding(
-                          //                       padding: const EdgeInsets.only(
-                          //                         right: SizeConfig.padding10,
-                          //                       ),
-                          //                       child: Container(
-                          //                         width: SizeConfig.width45,
-                          //                         height: SizeConfig.height45,
-                          //                         decoration: BoxDecoration(
-                          //                           color: isSelected
-                          //                               ? darkModeController
-                          //                                       .isLightTheme
-                          //                                       .value
-                          //                                   ? ColorsConfig
-                          //                                       .primaryColor
-                          //                                   : ColorsConfig
-                          //                                       .secondaryColor
-                          //                               : darkModeController
-                          //                                       .isLightTheme
-                          //                                       .value
-                          //                                   ? ColorsConfig
-                          //                                       .secondaryColor
-                          //                                   : ColorsConfig
-                          //                                       .primaryColor,
-                          //                           borderRadius: BorderRadius
-                          //                               .circular(SizeConfig
-                          //                                   .borderRadius08),
-                          //                         ),
-                          //                         child: Center(
-                          //                           child: Text(
-                          //                             fashionController
-                          //                                 .sizesListpant[index],
-                          //                             style: TextStyle(
-                          //                               fontSize:
-                          //                                   FontSize.body3,
-                          //                               fontFamily: isSelected
-                          //                                   ? FontFamily
-                          //                                       .lexendMedium
-                          //                                   : FontFamily
-                          //                                       .lexendLight,
-                          //                               fontWeight: isSelected
-                          //                                   ? FontWeight.w500
-                          //                                   : FontWeight.w300,
-                          //                               color: isSelected
-                          //                                   ? darkModeController
-                          //                                           .isLightTheme
-                          //                                           .value
-                          //                                       ? ColorsConfig
-                          //                                           .secondaryColor
-                          //                                       : ColorsConfig
-                          //                                           .primaryColor
-                          //                                   : darkModeController
-                          //                                           .isLightTheme
-                          //                                           .value
-                          //                                       ? ColorsConfig
-                          //                                           .primaryColor
-                          //                                       : ColorsConfig
-                          //                                           .secondaryColor,
-                          //                             ),
-                          //                           ),
-                          //                         ),
-                          //                       ),
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               );
-                          //             },
-                          //           ),
-                          //         ]),
-                          //   ),
+                                        return Text(
+                                          "${TextString.selectSize}($selectedSize)",
+                                          style: TextStyle(
+                                            fontSize: FontSize.body2,
+                                            fontFamily: FontFamily.lexendMedium,
+                                            fontWeight: FontWeight.w500,
+                                            color: darkModeController
+                                                    .isLightTheme.value
+                                                ? ColorsConfig.primaryColor
+                                                : ColorsConfig.secondaryColor,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: SizeConfig.height10,
+                                    ),
+                                    GridView.builder(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 7,
+                                        mainAxisExtent: SizeConfig.height35,
+                                      ),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: fashionController
+                                          .sizesListshoes.length,
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            fashionController
+                                                .selectSizeshoes(index);
+                                          },
+                                          child: Obx(
+                                            () {
+                                              final isSelected =
+                                                  fashionController
+                                                          .selectedSizeIndexShoes
+                                                          .value ==
+                                                      index;
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                  right: SizeConfig.padding10,
+                                                ),
+                                                child: Container(
+                                                  width: SizeConfig.width45,
+                                                  height: SizeConfig.height45,
+                                                  decoration: BoxDecoration(
+                                                    color: isSelected
+                                                        ? darkModeController
+                                                                .isLightTheme
+                                                                .value
+                                                            ? ColorsConfig
+                                                                .primaryColor
+                                                            : ColorsConfig
+                                                                .secondaryColor
+                                                        : darkModeController
+                                                                .isLightTheme
+                                                                .value
+                                                            ? ColorsConfig
+                                                                .secondaryColor
+                                                            : ColorsConfig
+                                                                .primaryColor,
+                                                    borderRadius: BorderRadius
+                                                        .circular(SizeConfig
+                                                            .borderRadius08),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      fashionController
+                                                              .sizesListshoes[
+                                                          index],
+                                                      style: TextStyle(
+                                                        fontSize:
+                                                            FontSize.body3,
+                                                        fontFamily: isSelected
+                                                            ? FontFamily
+                                                                .lexendMedium
+                                                            : FontFamily
+                                                                .lexendLight,
+                                                        fontWeight: isSelected
+                                                            ? FontWeight.w500
+                                                            : FontWeight.w300,
+                                                        color: isSelected
+                                                            ? darkModeController
+                                                                    .isLightTheme
+                                                                    .value
+                                                                ? ColorsConfig
+                                                                    .secondaryColor
+                                                                : ColorsConfig
+                                                                    .primaryColor
+                                                            : darkModeController
+                                                                    .isLightTheme
+                                                                    .value
+                                                                ? ColorsConfig
+                                                                    .primaryColor
+                                                                : ColorsConfig
+                                                                    .secondaryColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ]),
+                            ),
                         ],
                       ),
                     ),
@@ -1828,7 +1831,6 @@ class FashionDetailsView extends StatelessWidget {
                   Obx(() {
                     final isInBag =
                         bagcontroller.isAddedMap[product['id']] ?? false;
-                    final selectedSize = fashionController.selectedSize.value;
                     return !isInBag
                         ? Expanded(
                             child: GestureDetector(
