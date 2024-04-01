@@ -79,7 +79,7 @@ class HomeView extends StatelessWidget {
                           Text(
                             userData['name'] != null
                                 ? 'Hi ${userData['name']}'
-                                : usergoogle!.displayName!,
+                                : "Hi",
                             style: TextStyle(
                               fontSize: FontSize.heading4,
                               fontWeight: FontWeight.w500,

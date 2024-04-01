@@ -300,7 +300,7 @@ class _LoginPageState extends State<LoginPage> {
               // Google Sign-in Button
               TextButton.icon(
                 onPressed: () {
-                  GoogleSignInProvider.googleLogin(context);
+                  // GoogleSignInProvider.googleLogin(context);
                 },
                 icon: Image.asset(
                   'assets/images/google.png', // Replace with your Google logo
