@@ -128,11 +128,15 @@ class MyOrdersView extends StatelessWidget {
             child: StreamBuilder<List<Map<String, dynamic>>>(
                 stream: bagcontroller.orderStream(user!.uid),
                 builder: (context, snapshot) {
-                  //   if (controller.isLoading.value) {
-                  //   return Center(
-                  //     child: CircularProgressIndicator(),
-                  //   );
-                  // }
+                  if (bagcontroller.isLoading.value) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: darkModeController.isLightTheme.value
+                            ? ColorsConfig.primaryColor
+                            : ColorsConfig.secondaryColor,
+                      ),
+                    );
+                  }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return Center(
@@ -248,11 +252,11 @@ class MyOrdersView extends StatelessWidget {
                             bottom: SizeConfig.padding16,
                           ),
                           child: GestureDetector(
-                            onTap: () {
-                              // Get.toNamed(AppRoutes.orderDetailsView);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => OrderDetailsView()));
-                            },
+                            // onTap: () {
+                            //   // Get.toNamed(AppRoutes.orderDetailsView);
+                            //   Navigator.of(context).push(MaterialPageRoute(
+                            //       builder: (context) => OrderDetailsView()));
+                            // },
                             child: Container(
                               height: SizeConfig.height98,
                               width: MediaQuery.of(context).size.width,
@@ -274,8 +278,8 @@ class MyOrdersView extends StatelessWidget {
                                       Image(
                                         image: AssetImage(
                                             'assets/admin_site_images/all final images with background removed/${item['img']}'),
-                                        width: SizeConfig.width65,
-                                        height: SizeConfig.height70,
+                                        // width: SizeConfig.width65,
+                                        height: 100,
                                         fit: BoxFit.fill,
                                       ),
                                       const SizedBox(
@@ -324,7 +328,7 @@ class MyOrdersView extends StatelessWidget {
                                             height: SizeConfig.height08,
                                           ),
                                           Text(
-                                            'Deliver by ${formattedDate}',
+                                            'Delivered on ${formattedDate}',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w300,
                                               fontFamily:
@@ -341,15 +345,51 @@ class MyOrdersView extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Image(
-                                    image:
-                                        const AssetImage(ImageConfig.nextArrow),
-                                    width: SizeConfig.width18,
-                                    height: SizeConfig.height18,
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.primaryColor
-                                        : ColorsConfig.secondaryColor,
-                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      if (item['sub_category'] != "none")
+                                        Text(
+                                          'Szie: ${item['size'].toString()}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontFamily: FontFamily.lexendLight,
+                                            fontSize: FontSize.body3,
+                                            color: darkModeController
+                                                    .isLightTheme.value
+                                                ? ColorsConfig.textColor
+                                                : ColorsConfig
+                                                    .modeInactiveColor,
+                                          ),
+                                        ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Quntity: ${item['qty'].toString()}',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontFamily: FontFamily.lexendLight,
+                                          fontSize: FontSize.body3,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  // Image(
+                                  //   image:
+                                  //       const AssetImage(ImageConfig.nextArrow),
+                                  //   width: SizeConfig.width18,
+                                  //   height: SizeConfig.height18,
+                                  //   color: darkModeController.isLightTheme.value
+                                  //       ? ColorsConfig.primaryColor
+                                  //       : ColorsConfig.secondaryColor,
+                                  // ),
                                 ],
                               ),
                             ),

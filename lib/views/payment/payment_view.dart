@@ -1,8 +1,14 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:phonepe_payment_sdk/phonepe_payment_sdk.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/payment_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/bag_controller.dart';
@@ -18,12 +24,155 @@ import '../../config/size.dart';
 import '../../config/text_string.dart';
 import '../../routes/app_routes.dart';
 
-class PaymentView extends StatelessWidget {
+class PaymentView extends StatefulWidget {
   PaymentView({Key? key}) : super(key: key);
 
+  @override
+  State<PaymentView> createState() => _PaymentViewState();
+}
+
+class _PaymentViewState extends State<PaymentView> {
   PaymentController paymentController = Get.put(PaymentController());
+
   DarkModeController darkModeController = Get.put(DarkModeController());
+
   Bagcontroller bagcontroller = Get.put(Bagcontroller());
+
+  String environment = "SANDBOX";
+  // comment
+  String appId = "";
+
+  String transactionId = DateTime.now().millisecondsSinceEpoch.toString();
+
+  String merchantId = "PGTESTPAYUAT";
+  //aapre jo merchant id change karie toh real payment thai sake
+  bool enableLoggingk = true;
+
+  String checksum = "";
+
+  String saltkey = "099eb0cd-02cf-4e2a-8aca-3e6c6aff0399";
+
+  String saltIndex = "1";
+
+  String callbackurl =
+      "https://webhook.site/df450f01-e8a7-49c5-b593-cb5fce47f334";
+
+  String body = "";
+
+  Object? result;
+
+  getChecksum() {
+    final requestData = {
+      "merchantId": merchantId,
+      "merchantTransactionId": transactionId,
+      "merchantUserId": "MUID123",
+      "amount": 100 * 100,
+      "callbackUrl": callbackurl,
+      "mobileNumber": "9173848696@paytm",
+      "paymentInstrument": {"type": "PAY_PAGE"}
+    };
+    String base64Body = base64.encode(utf8.encode(json.encode(requestData)));
+    checksum =
+        '${sha256.convert(utf8.encode(base64Body + apiEndPoint + saltkey)).toString()}###$saltIndex';
+
+    return base64Body;
+  }
+
+  String apiEndPoint = "/pg/v1/pay";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    phonepeInit();
+    body = getChecksum().toString();
+  }
+
+  void phonepeInit() {
+    PhonePePaymentSdk.init(environment, appId, merchantId, enableLoggingk)
+        .then((val) => {
+              setState(() {
+                result = 'PhonePe SDK Initialized - $val';
+              })
+            })
+        .catchError((error) {
+      handleError(error);
+      return <dynamic>{};
+    });
+  }
+
+  void startPgTransaction() async {
+    PhonePePaymentSdk.startTransaction(body, callbackurl, checksum, "")
+        .then((response) => {
+              setState(() {
+                if (response != null) {
+                  String status = response['status'].toString();
+                  String error = response['error'].toString();
+                  if (status == 'SUCCESS') {
+                    PaymentSuccessfulView();
+                    result = "Flow Completed - Status: Success!";
+
+                    checkStatus();
+                  } else {
+                    /* String result */ result =
+                        "Transaction Completed - Status: $status and Error: $error";
+                  }
+                } else {
+                  result = "transacrtion Incomplete";
+                }
+              })
+            })
+        .catchError((error) {
+      // handleError(error)
+      return <dynamic>{};
+    });
+  }
+
+  void handleError(error) {
+    setState(() {
+      result = "error" + error.toString();
+    });
+  }
+
+  checkStatus() async {
+    try {
+      String url =
+          'https://apps-uat.phonepe.com/v3/transaction/status/$merchantId/$transactionId';
+
+      String concateString =
+          "/v3/transaction/$merchantId/$transactionId$saltkey"; // kadach error aave toh status bhusi nakhvu
+      var bytes = utf8.encode(concateString);
+      var digest = sha256.convert(bytes).toString();
+
+      String xVerify = "$digest###$saltIndex";
+
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        "X-VERIFY": xVerify,
+        "X-MERCHANT-ID": merchantId
+      }; //error aave toh merchantId kadhi nakhvu kemke documentation ma nathi
+
+      await http.get(Uri.parse(url), headers: headers).then((value) {
+        Map<String, dynamic> res = jsonDecode(value.body);
+
+        print("SUBH $res");
+        try {
+          if (res["success"] &&
+              res["code"] == "PAYMENT_SUCCESS" &&
+              res['data']['state'] == "COMPLETED") {
+            Fluttertoast.showToast(msg: res["message"]);
+          } else {
+            Fluttertoast.showToast(msg: "SOmething went wrong");
+          }
+        } on Exception catch (e) {
+          Fluttertoast.showToast(msg: "Error of catch" + e.toString());
+        }
+      });
+    } on Exception catch (e) {
+      Fluttertoast.showToast(msg: "Error of final catch" + e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,13 +254,14 @@ class PaymentView extends StatelessWidget {
             ),
             child: Column(
               children: [
+                Image(
+                  image: const AssetImage(
+                      "assets/admin_site_images/all final images with background removed/Money income-pana.png"),
+                ),
+
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PhonePepayment()),
-                    );
+                    startPgTransaction();
                   },
                   child: Container(
                     height: SizeConfig.height46,
@@ -152,393 +302,11 @@ class PaymentView extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const SizedBox(
                   height: SizeConfig.height16,
                 ),
-                Container(
-                  height: SizeConfig.height118,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(SizeConfig.padding12),
-                  decoration: BoxDecoration(
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.secondaryColor
-                        : ColorsConfig.primaryColor,
-                    borderRadius:
-                        BorderRadius.circular(SizeConfig.borderRadius14),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Text(
-                      //   TextString.upi,
-                      //   style: TextStyle(
-                      //     fontFamily: FontFamily.lexendRegular,
-                      //     fontSize: FontSize.body2,
-                      //     fontWeight: FontWeight.w400,
-                      //     color: darkModeController.isLightTheme.value
-                      //         ? ColorsConfig.primaryColor
-                      //         : ColorsConfig.secondaryColor,
-                      //   ),
-                      // ),
-                      // Divider(
-                      //   color: darkModeController.isLightTheme.value
-                      //       ? ColorsConfig.lineColor
-                      //       : ColorsConfig.lineDarkColor,
-                      //   height: SizeConfig.height24,
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: SizeConfig.padding10,
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Image(
-                                    image: AssetImage(ImageConfig.googlePay),
-                                    width: SizeConfig.width29,
-                                    height: SizeConfig.height26,
-                                  ),
-                                  Text(
-                                    TextString.gPay,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: SizeConfig.width32,
-                            ),
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(
-                                      top: SizeConfig.padding05,
-                                    ),
-                                    child: Image(
-                                      image: AssetImage(ImageConfig.paytm),
-                                      width: SizeConfig.width42,
-                                      height: SizeConfig.height13,
-                                    ),
-                                  ),
-                                  Text(
-                                    TextString.paytm,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: SizeConfig.width32,
-                            ),
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Image(
-                                    image: AssetImage(ImageConfig.phonePe),
-                                    width: SizeConfig.width22,
-                                    height: SizeConfig.height22,
-                                  ),
-                                  Text(
-                                    TextString.phonePe,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: SizeConfig.height16,
-                ),
-                Container(
-                  height: SizeConfig.height118,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(SizeConfig.padding12),
-                  decoration: BoxDecoration(
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.secondaryColor
-                        : ColorsConfig.primaryColor,
-                    borderRadius:
-                        BorderRadius.circular(SizeConfig.borderRadius14),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            TextString.netBanking,
-                            style: TextStyle(
-                              fontFamily: FontFamily.lexendRegular,
-                              fontSize: FontSize.body2,
-                              fontWeight: FontWeight.w400,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ),
-                          Image(
-                            image: const AssetImage(ImageConfig.add),
-                            width: SizeConfig.width16,
-                            height: SizeConfig.height16,
-                            color: darkModeController.isLightTheme.value
-                                ? ColorsConfig.primaryColor
-                                : ColorsConfig.secondaryColor,
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.lineColor
-                            : ColorsConfig.lineDarkColor,
-                        height: SizeConfig.height24,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: SizeConfig.padding10,
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Image(
-                                    image: AssetImage(ImageConfig.hdfc),
-                                    width: SizeConfig.width28,
-                                    height: SizeConfig.height28,
-                                  ),
-                                  Text(
-                                    TextString.hdfc,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: SizeConfig.width32,
-                            ),
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Image(
-                                    image: AssetImage(ImageConfig.icic),
-                                    width: SizeConfig.width20,
-                                    height: SizeConfig.height22,
-                                  ),
-                                  Text(
-                                    TextString.icic,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: SizeConfig.width32,
-                            ),
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Image(
-                                    image: AssetImage(ImageConfig.axis),
-                                    width: SizeConfig.width26,
-                                    height: SizeConfig.height22,
-                                  ),
-                                  Text(
-                                    TextString.axis,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: SizeConfig.height16,
-                ),
-                Container(
-                  height: SizeConfig.height118,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(SizeConfig.padding12),
-                  decoration: BoxDecoration(
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.secondaryColor
-                        : ColorsConfig.primaryColor,
-                    borderRadius:
-                        BorderRadius.circular(SizeConfig.borderRadius14),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        TextString.wallet,
-                        style: TextStyle(
-                          fontFamily: FontFamily.lexendRegular,
-                          fontSize: FontSize.body2,
-                          fontWeight: FontWeight.w400,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor,
-                        ),
-                      ),
-                      Divider(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.lineColor
-                            : ColorsConfig.lineDarkColor,
-                        height: SizeConfig.height24,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: SizeConfig.padding10,
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(
-                                      top: SizeConfig.padding05,
-                                    ),
-                                    child: Image(
-                                      image: AssetImage(ImageConfig.paytm),
-                                      width: SizeConfig.width42,
-                                      height: SizeConfig.height13,
-                                    ),
-                                  ),
-                                  Text(
-                                    TextString.paytm,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: SizeConfig.width32,
-                            ),
-                            SizedBox(
-                              height: SizeConfig.height48,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Image(
-                                    image: AssetImage(ImageConfig.mobikwik),
-                                    width: SizeConfig.width26,
-                                    height: SizeConfig.height22,
-                                  ),
-                                  Text(
-                                    TextString.mobikwik,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.lexendLight,
-                                      fontSize: FontSize.body3,
-                                      fontWeight: FontWeight.w300,
-                                      color:
-                                          darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: SizeConfig.height16,
-                ),
+                //
                 Container(
                   height: SizeConfig.height46,
                   width: MediaQuery.of(context).size.width,

@@ -1,12 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/my_orders_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
+
 import '../../../../config/colors.dart';
 import '../../../../config/font_family.dart';
 import '../../../../config/font_size.dart';
@@ -15,7 +18,9 @@ import '../../../../config/size.dart';
 import '../../../../config/text_string.dart';
 
 class OrderDetailsView extends StatelessWidget {
-  OrderDetailsView({Key? key}) : super(key: key);
+  OrderDetailsView({
+    Key? key,
+  }) : super(key: key);
 
   HomeController homeController = Get.put(HomeController());
   MyOrdersController myOrdersController = Get.put(MyOrdersController());

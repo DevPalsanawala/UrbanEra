@@ -124,26 +124,56 @@ class Bagcontroller extends GetxController {
 
 // order
 
-  void storeBagData(String userId) {
-    Stream<List<Map<String, dynamic>>> bagItemsStream = bagStream(userId);
+  // void storeBagData(String userId) {
+  //   Stream<List<Map<String, dynamic>>> bagItemsStream = bagStream(userId);
 
-    bagItemsStream.listen((List<Map<String, dynamic>> bagItems) {
-      // Save bag items to another collection in Firestore
-      print(bagItems);
-      DateTime now = DateTime.now();
-      String formattedDate = DateFormat('d MMM yyyy').format(now);
-      for (var item in bagItems) {
-        item['date'] = formattedDate;
-        FirebaseFirestore.instance.collection('Order').add(item);
-      }
-    });
+  //   bagItemsStream.listen((List<Map<String, dynamic>> bagItems) {
+  //     // Save bag items to another collection in Firestore
+  //     print(bagItems);
+  //     DateTime now = DateTime.now();
+  //     String formattedDate = DateFormat('d MMM yyyy').format(now);
+  //     for (var item in bagItems) {
+  //       item['date'] = formattedDate;
+  //       FirebaseFirestore.instance.collection('Order').add(item);
+  //     }
+  //   });
+  // }
+
+  void storeBagData(String userId) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('bag')
+        .where('userId', isEqualTo: userId)
+        .get();
+
+    List<Map<String, dynamic>> bagItems = querySnapshot.docs
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+
+    // Save bag items to the "Order" collection in Firestore
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('d MMM yyyy').format(now);
+    for (var item in bagItems) {
+      item['date'] = formattedDate;
+      await FirebaseFirestore.instance.collection('Order').add(item);
+    }
+
+    // Delete bag items from the "bag" collection
+    for (var doc in querySnapshot.docs) {
+      isAddedMap[doc['id']] = false;
+      await doc.reference.delete();
+    }
   }
 
+  RxBool isLoading = true.obs;
   Stream<List<Map<String, dynamic>>> orderStream(String userId) {
+    isLoading.value = true;
     return _firestore
         .collection('Order')
         .where('userId', isEqualTo: userId)
         .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
+        .map((snapshot) {
+      isLoading.value = false;
+      return snapshot.docs.map((doc) => doc.data()).toList();
+    });
   }
 }
