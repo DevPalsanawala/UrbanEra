@@ -164,15 +164,12 @@ class Bagcontroller extends GetxController {
     }
   }
 
-  RxBool isLoading = true.obs;
   Stream<List<Map<String, dynamic>>> orderStream(String userId) {
-    isLoading.value = true;
     return _firestore
         .collection('Order')
         .where('userId', isEqualTo: userId)
         .snapshots()
         .map((snapshot) {
-      isLoading.value = false;
       return snapshot.docs.map((doc) => doc.data()).toList();
     });
   }

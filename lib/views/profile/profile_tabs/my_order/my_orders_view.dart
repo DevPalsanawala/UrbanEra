@@ -128,7 +128,16 @@ class MyOrdersView extends StatelessWidget {
             child: StreamBuilder<List<Map<String, dynamic>>>(
                 stream: bagcontroller.orderStream(user!.uid),
                 builder: (context, snapshot) {
-                  if (bagcontroller.isLoading.value) {
+                  // if (bagcontroller.isLoading.value) {
+                  //   return Center(
+                  //     child: CircularProgressIndicator(
+                  //       color: darkModeController.isLightTheme.value
+                  //           ? ColorsConfig.primaryColor
+                  //           : ColorsConfig.secondaryColor,
+                  //     ),
+                  //   );
+                  // }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
                         color: darkModeController.isLightTheme.value
