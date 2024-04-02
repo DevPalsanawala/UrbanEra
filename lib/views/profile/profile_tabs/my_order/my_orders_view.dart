@@ -258,10 +258,10 @@ class MyOrdersView extends StatelessWidget {
                             //       builder: (context) => OrderDetailsView()));
                             // },
                             child: Container(
-                              height: SizeConfig.height98,
+                              height: SizeConfig.height110,
                               width: MediaQuery.of(context).size.width,
                               padding:
-                                  const EdgeInsets.all(SizeConfig.padding16),
+                                  const EdgeInsets.all(SizeConfig.padding20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
                                     SizeConfig.borderRadius14),
@@ -270,8 +270,8 @@ class MyOrdersView extends StatelessWidget {
                                     : ColorsConfig.primaryColor,
                               ),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                // mainAxisAlignment:
+                                //     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -290,7 +290,7 @@ class MyOrdersView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            width: 200,
+                                            width: 180,
                                             child: Text(
                                               item['title'],
                                               style: TextStyle(
