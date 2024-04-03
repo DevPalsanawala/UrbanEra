@@ -255,7 +255,8 @@ class ProfileView extends StatelessWidget {
                       // ),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.myAddressView);
+                          Get.toNamed(AppRoutes.myAddressView,
+                              arguments: 'profile');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

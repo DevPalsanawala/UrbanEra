@@ -26,6 +26,8 @@ class MyAddressView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sourcePage = Get.arguments as String?;
+    final showButton = sourcePage != 'profile';
     return Obx(() => Scaffold(
         backgroundColor: darkModeController.isLightTheme.value
             ? ColorsConfig.backgroundColor
@@ -168,24 +170,27 @@ class MyAddressView extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                 top: SizeConfig.padding02,
                               ),
-                              child: GestureDetector(
-                                onTap: () {
-                                  paymentController.toggleImage();
-                                },
-                                child: Obx(
-                                  () => Image(
-                                    image: AssetImage(
-                                      paymentController.isImageToggled.value
-                                          ? darkModeController
-                                                  .isLightTheme.value
-                                              ? ImageConfig.fillRound
-                                              : ImageConfig.fillRoundDark
-                                          : darkModeController
-                                                  .isLightTheme.value
-                                              ? ImageConfig.emptyRound
-                                              : ImageConfig.emptyRoundDark,
+                              child: Visibility(
+                                visible: showButton,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    paymentController.toggleImage();
+                                  },
+                                  child: Obx(
+                                    () => Image(
+                                      image: AssetImage(
+                                        paymentController.isImageToggled.value
+                                            ? darkModeController
+                                                    .isLightTheme.value
+                                                ? ImageConfig.fillRound
+                                                : ImageConfig.fillRoundDark
+                                            : darkModeController
+                                                    .isLightTheme.value
+                                                ? ImageConfig.emptyRound
+                                                : ImageConfig.emptyRoundDark,
+                                      ),
+                                      width: SizeConfig.width16,
                                     ),
-                                    width: SizeConfig.width16,
                                   ),
                                 ),
                               ),
