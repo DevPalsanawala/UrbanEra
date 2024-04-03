@@ -61,12 +61,12 @@ class _PaymentViewState extends State<PaymentView> {
 
   Object? result;
 
-  getChecksum() {
+  getChecksum(int amount) {
     final requestData = {
       "merchantId": merchantId,
       "merchantTransactionId": transactionId,
       "merchantUserId": "MUID123",
-      "amount": 100 * 100,
+      "amount": amount,
       "callbackUrl": callbackurl,
       "mobileNumber": "9173848696@paytm",
       "paymentInstrument": {"type": "PAY_PAGE"}
@@ -86,7 +86,8 @@ class _PaymentViewState extends State<PaymentView> {
     super.initState();
 
     phonepeInit();
-    body = getChecksum().toString();
+    body =
+        getChecksum((bagcontroller.payamount.value * 100).toInt()).toString();
   }
 
   void phonepeInit() {

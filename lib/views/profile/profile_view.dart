@@ -167,7 +167,7 @@ class ProfileView extends StatelessWidget {
                   height: SizeConfig.height16,
                 ),
                 Container(
-                  height: SizeConfig.height176,
+                  height: SizeConfig.height134,
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(
                     bottom: SizeConfig.padding14,
@@ -219,40 +219,40 @@ class ProfileView extends StatelessWidget {
                             ? ColorsConfig.lineColor
                             : ColorsConfig.lineDarkColor,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.myReviewsView);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              TextString.myReviews,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontFamily: FontFamily.lexendLight,
-                                fontSize: FontSize.body2,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.primaryColor
-                                    : ColorsConfig.secondaryColor,
-                              ),
-                            ),
-                            Image(
-                              image: const AssetImage(ImageConfig.nextArrow),
-                              width: SizeConfig.width18,
-                              height: SizeConfig.height18,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.lineColor
-                            : ColorsConfig.lineDarkColor,
-                      ),
+                      // GestureDetector(
+                      //   // onTap: () {
+                      //   //   Get.toNamed(AppRoutes.myReviewsView);
+                      //   // },
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Text(
+                      //         TextString.myReviews,
+                      //         style: TextStyle(
+                      //           fontWeight: FontWeight.w300,
+                      //           fontFamily: FontFamily.lexendLight,
+                      //           fontSize: FontSize.body2,
+                      //           color: darkModeController.isLightTheme.value
+                      //               ? ColorsConfig.primaryColor
+                      //               : ColorsConfig.secondaryColor,
+                      //         ),
+                      //       ),
+                      //       Image(
+                      //         image: const AssetImage(ImageConfig.nextArrow),
+                      //         width: SizeConfig.width18,
+                      //         height: SizeConfig.height18,
+                      //         color: darkModeController.isLightTheme.value
+                      //             ? ColorsConfig.primaryColor
+                      //             : ColorsConfig.secondaryColor,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Divider(
+                      //   color: darkModeController.isLightTheme.value
+                      //       ? ColorsConfig.lineColor
+                      //       : ColorsConfig.lineDarkColor,
+                      // ),
                       GestureDetector(
                         onTap: () {
                           Get.toNamed(AppRoutes.myAddressView);
@@ -289,60 +289,6 @@ class ProfileView extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.saveForLaterView);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              TextString.saveForLater,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontFamily: FontFamily.lexendLight,
-                                fontSize: FontSize.body2,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.primaryColor
-                                    : ColorsConfig.secondaryColor,
-                              ),
-                            ),
-                            Image(
-                              image: const AssetImage(ImageConfig.nextArrow),
-                              width: SizeConfig.width18,
-                              height: SizeConfig.height18,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: SizeConfig.height16,
-                ),
-                Container(
-                  height: SizeConfig.height88,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.only(
-                    bottom: SizeConfig.padding14,
-                    top: SizeConfig.padding14,
-                    right: SizeConfig.padding16,
-                    left: SizeConfig.padding16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.secondaryColor
-                        : ColorsConfig.primaryColor,
-                    borderRadius:
-                        BorderRadius.circular(SizeConfig.borderRadius14),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
                           Get.toNamed(AppRoutes.notificationsView);
                         },
                         child: Row(
@@ -370,43 +316,97 @@ class ProfileView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Divider(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.lineColor
-                            : ColorsConfig.lineDarkColor,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.languagesView);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              TextString.languages,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontFamily: FontFamily.lexendLight,
-                                fontSize: FontSize.body2,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.primaryColor
-                                    : ColorsConfig.secondaryColor,
-                              ),
-                            ),
-                            Image(
-                              image: const AssetImage(ImageConfig.nextArrow),
-                              width: SizeConfig.width18,
-                              height: SizeConfig.height18,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ],
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   // onTap: () {
+                      //   //   Get.toNamed(AppRoutes.saveForLaterView);
+                      //   // },
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Text(
+                      //         TextString.saveForLater,
+                      //         style: TextStyle(
+                      //           fontWeight: FontWeight.w300,
+                      //           fontFamily: FontFamily.lexendLight,
+                      //           fontSize: FontSize.body2,
+                      //           color: darkModeController.isLightTheme.value
+                      //               ? ColorsConfig.primaryColor
+                      //               : ColorsConfig.secondaryColor,
+                      //         ),
+                      //       ),
+                      //       Image(
+                      //         image: const AssetImage(ImageConfig.nextArrow),
+                      //         width: SizeConfig.width18,
+                      //         height: SizeConfig.height18,
+                      //         color: darkModeController.isLightTheme.value
+                      //             ? ColorsConfig.primaryColor
+                      //             : ColorsConfig.secondaryColor,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
+                // const SizedBox(
+                //   height: SizeConfig.height16,
+                // ),
+                // Container(
+                //   height: SizeConfig.height88,
+                //   width: MediaQuery.of(context).size.width,
+                //   padding: const EdgeInsets.only(
+                //     bottom: SizeConfig.padding14,
+                //     top: SizeConfig.padding14,
+                //     right: SizeConfig.padding16,
+                //     left: SizeConfig.padding16,
+                //   ),
+                //   decoration: BoxDecoration(
+                //     color: darkModeController.isLightTheme.value
+                //         ? ColorsConfig.secondaryColor
+                //         : ColorsConfig.primaryColor,
+                //     borderRadius:
+                //         BorderRadius.circular(SizeConfig.borderRadius14),
+                //   ),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Divider(
+                //         color: darkModeController.isLightTheme.value
+                //             ? ColorsConfig.lineColor
+                //             : ColorsConfig.lineDarkColor,
+                //       ),
+                //       GestureDetector(
+                //         onTap: () {
+                //           Get.toNamed(AppRoutes.languagesView);
+                //         },
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               TextString.languages,
+                //               style: TextStyle(
+                //                 fontWeight: FontWeight.w300,
+                //                 fontFamily: FontFamily.lexendLight,
+                //                 fontSize: FontSize.body2,
+                //                 color: darkModeController.isLightTheme.value
+                //                     ? ColorsConfig.primaryColor
+                //                     : ColorsConfig.secondaryColor,
+                //               ),
+                //             ),
+                //             Image(
+                //               image: const AssetImage(ImageConfig.nextArrow),
+                //               width: SizeConfig.width18,
+                //               height: SizeConfig.height18,
+                //               color: darkModeController.isLightTheme.value
+                //                   ? ColorsConfig.primaryColor
+                //                   : ColorsConfig.secondaryColor,
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 const SizedBox(
                   height: SizeConfig.height16,
                 ),
