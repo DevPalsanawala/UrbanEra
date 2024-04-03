@@ -159,7 +159,9 @@ class AddAddressController extends GetxController {
   void addAddress() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> addressesStringList = prefs.getStringList('addresses') ?? [];
+    int id = DateTime.now().millisecondsSinceEpoch;
     addressesStringList.add(jsonEncode({
+      'id': id,
       'name': nameController.text,
       'mobileNumber': mobileNumberController.text,
       'pinCode': pinCodeController.text,
@@ -182,10 +184,15 @@ class AddAddressController extends GetxController {
         .toList();
   }
 
-  void clearAddresses() async {
+  void clearAddresses(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('addresses');
-    addresses.clear();
+    List<String> addressesStringList = prefs.getStringList('addresses') ?? [];
+    addressesStringList.removeWhere((address) {
+      Map<String, dynamic> parsedAddress = jsonDecode(address);
+      return parsedAddress['id'] == id;
+    });
+    await prefs.setStringList('addresses', addressesStringList);
+    getAddresses();
   }
 
   void clearControllers() {

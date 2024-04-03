@@ -265,22 +265,22 @@ class MyAddressView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     Get.toNamed(AppRoutes.editAddressView);
-                        //   },
-                        //   child: Text(
-                        //     TextString.editAddress,
-                        //     style: TextStyle(
-                        //       fontWeight: FontWeight.w300,
-                        //       fontFamily: FontFamily.lexendLight,
-                        //       fontSize: FontSize.body3,
-                        //       color: darkModeController.isLightTheme.value
-                        //           ? ColorsConfig.primaryColor
-                        //           : ColorsConfig.secondaryColor,
-                        //     ),
-                        //   ),
-                        // ),
+                        GestureDetector(
+                          onTap: () {
+                            addAddressController.clearAddresses(address['id']);
+                          },
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontFamily: FontFamily.lexendLight,
+                              fontSize: FontSize.body3,
+                              color: darkModeController.isLightTheme.value
+                                  ? ColorsConfig.primaryColor
+                                  : ColorsConfig.secondaryColor,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
