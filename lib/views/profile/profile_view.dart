@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -65,6 +66,7 @@ class ProfileView extends StatelessWidget {
             top: SizeConfig.padding24,
           ),
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: [
                 GestureDetector(
@@ -101,18 +103,46 @@ class ProfileView extends StatelessWidget {
                                     ? ColorsConfig.primaryColor
                                     : ColorsConfig.secondaryColor,
                               ),
-                              child: Center(
-                                child: Text(
-                                  "${userData['name'].toString().substring(0, 1).toUpperCase()}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: FontFamily.lexendRegular,
-                                    fontSize: FontSize.fontSize30,
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.secondaryColor
-                                        : ColorsConfig.buttonColor,
-                                  ),
-                                ),
+                              // child: Center(
+                              //   child: Text(
+                              //     "${userData['name'].toString().substring(0, 1).toUpperCase()}",
+                              //     style: TextStyle(
+                              //       fontWeight: FontWeight.w400,
+                              //       fontFamily: FontFamily.lexendRegular,
+                              //       fontSize: FontSize.fontSize30,
+                              //       color: darkModeController.isLightTheme.value
+                              //           ? ColorsConfig.secondaryColor
+                              //           : ColorsConfig.buttonColor,
+                              //     ),
+                              //   ),
+                              // ),
+                              child: Obx(
+                                () => editProfileController
+                                        .pickedImagePath.value.isEmpty
+                                    ? Center(
+                                        child: Text(
+                                          "${userData['name'].toString().substring(0, 1).toUpperCase()}",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily:
+                                                FontFamily.lexendRegular,
+                                            fontSize: FontSize.fontSize30,
+                                            color: darkModeController
+                                                    .isLightTheme.value
+                                                ? ColorsConfig.secondaryColor
+                                                : ColorsConfig.buttonColor,
+                                          ),
+                                        ),
+                                      )
+                                    : ClipOval(
+                                        child: Image.file(
+                                          File(editProfileController
+                                              .pickedImagePath.value),
+                                          width: SizeConfig.width100,
+                                          height: SizeConfig.width100,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                               ),
                             ),
                             const SizedBox(
