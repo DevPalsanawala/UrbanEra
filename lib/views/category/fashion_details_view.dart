@@ -560,7 +560,8 @@ class FashionDetailsView extends StatelessWidget {
                               product["sub_category"] == "Shirt" ||
                               product["sub_category"] == "Pants" ||
                               product["sub_category"] == "Shorts" ||
-                              product["sub_category"] == "Dress")
+                              product["sub_category"] == "Dress" ||
+                              product["sub_category"] == "Kurta")
                             Container(
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

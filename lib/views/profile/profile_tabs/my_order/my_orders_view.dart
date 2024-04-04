@@ -363,42 +363,42 @@ class MyOrdersView extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      if (item['sub_category'] != "none")
-                                        Text(
-                                          'Szie: ${item['size'].toString()}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontFamily: FontFamily.lexendLight,
-                                            fontSize: FontSize.body3,
-                                            color: darkModeController
-                                                    .isLightTheme.value
-                                                ? ColorsConfig.textColor
-                                                : ColorsConfig
-                                                    .modeInactiveColor,
-                                          ),
-                                        ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Quntity: ${item['qty'].toString()}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          fontFamily: FontFamily.lexendLight,
-                                          fontSize: FontSize.body3,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.textColor
-                                              : ColorsConfig.modeInactiveColor,
-                                        ),
-                                      ),
-                                    ],
-                                  )
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   children: [
+                                  //     if (item['sub_category'] != "none")
+                                  //       Text(
+                                  //         'Szie: ${item['size'].toString()}',
+                                  //         style: TextStyle(
+                                  //           fontWeight: FontWeight.w300,
+                                  //           fontFamily: FontFamily.lexendLight,
+                                  //           fontSize: FontSize.body3,
+                                  //           color: darkModeController
+                                  //                   .isLightTheme.value
+                                  //               ? ColorsConfig.textColor
+                                  //               : ColorsConfig
+                                  //                   .modeInactiveColor,
+                                  //         ),
+                                  //       ),
+                                  //     SizedBox(
+                                  //       height: 5,
+                                  //     ),
+                                  //     Text(
+                                  //       'Quntity: ${item['qty'].toString()}',
+                                  //       style: TextStyle(
+                                  //         fontWeight: FontWeight.w300,
+                                  //         fontFamily: FontFamily.lexendLight,
+                                  //         fontSize: FontSize.body3,
+                                  //         color: darkModeController
+                                  //                 .isLightTheme.value
+                                  //             ? ColorsConfig.textColor
+                                  //             : ColorsConfig.modeInactiveColor,
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // )
                                   // Image(
                                   //   image:
                                   //       const AssetImage(ImageConfig.nextArrow),
