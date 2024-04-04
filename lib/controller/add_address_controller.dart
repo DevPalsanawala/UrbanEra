@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 
 import '../config/image.dart';
@@ -34,6 +37,14 @@ class AddAddressController extends GetxController {
   final isButtonEnabled = RxBool(false);
   final Geolocator geolocator = Geolocator();
   Position? currentPosition;
+
+  RxList<Map<String, dynamic>> addresses = <Map<String, dynamic>>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAddresses();
+  }
 
   void resetFocus() {
     focusNode.unfocus();
@@ -144,4 +155,54 @@ class AddAddressController extends GetxController {
     TextString.work,
     TextString.office,
   ];
+
+  void addAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> addressesStringList = prefs.getStringList('addresses') ?? [];
+    int id = DateTime.now().millisecondsSinceEpoch;
+    addressesStringList.add(jsonEncode({
+      'id': id,
+      'name': nameController.text,
+      'mobileNumber': mobileNumberController.text,
+      'pinCode': pinCodeController.text,
+      'state': stateController.text,
+      'city': cityController.text,
+      'house': houseController.text,
+      'area': areaController.text,
+      'landMark': landMarkController.text,
+    }));
+    await prefs.setStringList('addresses', addressesStringList);
+    getAddresses();
+    clearControllers();
+  }
+
+  void getAddresses() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> addressesStringList = prefs.getStringList('addresses') ?? [];
+    addresses.value = addressesStringList
+        .map((address) => jsonDecode(address) as Map<String, dynamic>)
+        .toList();
+  }
+
+  void clearAddresses(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> addressesStringList = prefs.getStringList('addresses') ?? [];
+    addressesStringList.removeWhere((address) {
+      Map<String, dynamic> parsedAddress = jsonDecode(address);
+      return parsedAddress['id'] == id;
+    });
+    await prefs.setStringList('addresses', addressesStringList);
+    getAddresses();
+  }
+
+  void clearControllers() {
+    nameController.clear();
+    mobileNumberController.clear();
+    pinCodeController.clear();
+    stateController.clear();
+    cityController.clear();
+    houseController.clear();
+    areaController.clear();
+    landMarkController.clear();
+  }
 }

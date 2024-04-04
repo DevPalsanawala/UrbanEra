@@ -1083,6 +1083,7 @@ class _AddAddressViewState extends State<AddAddressView> {
                       GestureDetector(
                         onTap: () {
                           if (addAddressController.isButtonEnabled.value) {
+                            addAddressController.addAddress();
                             Get.back();
                           } else {}
                         },
