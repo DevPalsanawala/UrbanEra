@@ -245,11 +245,20 @@ class MyOrdersView extends StatelessWidget {
                       ),
                     );
                   } else {
+                    List<Map<String, dynamic>> sortedData = snapshot.data!
+                      ..sort((a, b) {
+                        String dateStringA = a['date'];
+                        String dateStringB = b['date'];
+                        DateFormat format = DateFormat('d MMM yyyy');
+                        DateTime dateA = format.parse(dateStringA);
+                        DateTime dateB = format.parse(dateStringB);
+                        return dateA.compareTo(dateB);
+                      });
                     return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
+                      itemCount: sortedData.length,
                       itemBuilder: (context, index) {
-                        Map<String, dynamic> item = snapshot.data![index];
+                        Map<String, dynamic> item = sortedData[index];
                         String dateString = item['date'];
                         DateFormat format = DateFormat('d MMM yyyy');
                         DateTime date = format.parse(dateString);
