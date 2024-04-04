@@ -174,12 +174,16 @@ class MyAddressView extends StatelessWidget {
                                 visible: showButton,
                                 child: GestureDetector(
                                   onTap: () {
-                                    paymentController.toggleImage();
+                                    myAddressController
+                                        .selectContainer(address['id']);
                                   },
                                   child: Obx(
                                     () => Image(
                                       image: AssetImage(
-                                        paymentController.isImageToggled.value
+                                        myAddressController
+                                                    .selectedContainerIndex
+                                                    .value ==
+                                                address['id']
                                             ? darkModeController
                                                     .isLightTheme.value
                                                 ? ImageConfig.fillRound
@@ -296,7 +300,7 @@ class MyAddressView extends StatelessWidget {
         }),
         bottomNavigationBar: Obx(
           () => Visibility(
-            visible: paymentController.isImageToggled.value,
+            visible: myAddressController.selectedContainerIndex.value != -1,
             child: Padding(
               padding: const EdgeInsets.only(
                 left: SizeConfig.padding24,

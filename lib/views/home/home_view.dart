@@ -663,10 +663,10 @@ class HomeView extends StatelessWidget {
                 Obx(() {
                   final List<Map<String, dynamic>> newarrived =
                       productcontroller.produts
-                          .where((product) => product['sub_category'] == 'none')
+                          .where((product) => product['sub_category'] == 'Cap')
                           .toList()
                           .sublist(
-                            6,
+                            1,
                           );
                   return SizedBox(
                     child: GridView.builder(

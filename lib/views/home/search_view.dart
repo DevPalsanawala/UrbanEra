@@ -38,7 +38,7 @@ class _SearchViewState extends State<SearchView> {
     "Shoes",
     "Socks",
     "Dress",
-    "Caps",
+    "Cap",
     "Kurta",
   ];
 
