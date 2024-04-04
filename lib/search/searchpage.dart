@@ -20,7 +20,6 @@ class Searchpage extends StatelessWidget {
   var data;
   Productcontroller productcontroller = Get.put(Productcontroller());
   WishlistController1 wishlistController1 = Get.put(WishlistController1());
-
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.find();
