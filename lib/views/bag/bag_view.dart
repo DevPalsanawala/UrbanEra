@@ -141,7 +141,7 @@ class BagView extends StatelessWidget {
               right: SizeConfig.padding24,
             ),
             child: StreamBuilder<List<Map<String, dynamic>>>(
-              stream: bagcontroller.bagStream(user!.uid),
+              stream: bagcontroller.bagStream(user?.uid ?? ''),
               builder: (context, snapshot) {
                 //   if (controller.isLoading.value) {
                 //   return Center(

@@ -3,12 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/Login/otp.dart';
 
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/config/size.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 
 final _firebase = FirebaseAuth.instance;
@@ -131,10 +133,14 @@ class _accountState extends State<account> {
       backgroundColor: darkModeController.isLightTheme.value
           ? ColorsConfig.backgroundColor
           : ColorsConfig.buttonColor,
+      // appBar: AppBar(),
       body: Form(
         key: _formkey,
         child: Container(
-          margin: EdgeInsets.only(left: 25, right: 25),
+          padding: EdgeInsets.only(
+            left: 25,
+            right: 25,
+          ),
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             child: Column(
@@ -145,8 +151,8 @@ class _accountState extends State<account> {
                 Column(
                   children: [
                     Container(
-                      width: 200,
-                      height: 200,
+                      width: 230,
+                      height: 230,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -158,11 +164,11 @@ class _accountState extends State<account> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Create Account',
+                      'Start Your Journey!',
                       style: TextStyle(
                         fontFamily: FontFamily.lexendRegular,
-                        fontSize: FontSize.body2,
-                        fontWeight: FontWeight.w400,
+                        fontSize: FontSize.heading5,
+                        fontWeight: FontWeight.w500,
                         color: darkModeController.isLightTheme.value
                             ? ColorsConfig.primaryColor
                             : ColorsConfig.secondaryColor,
@@ -171,7 +177,7 @@ class _accountState extends State<account> {
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 // Username text field
                 TextFormField(
                   cursorColor: darkModeController.isLightTheme.value
@@ -275,6 +281,10 @@ class _accountState extends State<account> {
                                 : ColorsConfig.secondaryColor,
                           ),
                           keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(
+                                SizeConfig.lengthSize10),
+                          ],
                           onChanged: (value) {
                             _enteredphone = value;
                           },
@@ -400,57 +410,43 @@ class _accountState extends State<account> {
                     _enteredpassword = newValue!;
                   },
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 30),
                 // Create account button
-                SizedBox(
-                  height: 53,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      _submit();
-                      // Navigator.pushNamedAndRemoveUntil(
-                      //   context,
-                      //   "home_view",
-                      //   (route) => false,
-                      // );
-                      // Navigator.pushNamedAndRemoveUntil(
-                      //   context,
-                      //   "bottom_navigation_bar_view",
-                      //   (route) => false,
-                      // );
-                      // Add your signup logic here
-                    },
-                    child: _isLoading
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CircularProgressIndicator(
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.secondaryColor
-                                    : ColorsConfig.primaryColor,
-                              ),
-                            ),
-                          )
-                        : Text(
-                            'Create Account',
-                            style: TextStyle(
+                MaterialButton(
+                  minWidth: MediaQuery.of(context).size.width * 0.87,
+                  height: 55,
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+                    _submit();
+                  },
+                  color: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: _isLoading
+                      ? Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(
                               color: darkModeController.isLightTheme.value
                                   ? ColorsConfig.secondaryColor
                                   : ColorsConfig.primaryColor,
-                              // fontWeight: FontWeight.w600,
-                              fontSize: 18,
                             ),
                           ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: darkModeController.isLightTheme.value
-                          ? ColorsConfig.primaryColor
-                          : ColorsConfig.secondaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                  ),
+                        )
+                      : Text(
+                          "Create Account",
+                          style: TextStyle(
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.secondaryColor
+                                : ColorsConfig.primaryColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                        ),
                 ),
               ],
             ),

@@ -69,9 +69,9 @@ class EditProfileController extends GetxController {
   void navigateBackAndReset() {
     resetFocus();
     Get.back();
-    firstNameController.clear();
-    lastNameController.clear();
-    mobileNumberController.clear();
+    // firstNameController.clear();
+    // lastNameController.clear();
+    // mobileNumberController.clear();
   }
 
   void selectContainer(int index) {

@@ -491,27 +491,27 @@ class _EditProfileViewState extends State<EditProfileView> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            right: SizeConfig.padding20,
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              changeMobileNumberBottomSheet(context);
-                            },
-                            child: Text(
-                              TextString.change,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: FontSize.body3,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.textColor
-                                    : ColorsConfig.modeInactiveColor,
-                                fontFamily: FontFamily.lexendLight,
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(
+                        //     right: SizeConfig.padding20,
+                        //   ),
+                        //   child: GestureDetector(
+                        //     onTap: () {
+                        //       changeMobileNumberBottomSheet(context);
+                        //     },
+                        //     child: Text(
+                        //       TextString.change,
+                        //       style: TextStyle(
+                        //         fontWeight: FontWeight.w300,
+                        //         fontSize: FontSize.body3,
+                        //         color: darkModeController.isLightTheme.value
+                        //             ? ColorsConfig.textColor
+                        //             : ColorsConfig.modeInactiveColor,
+                        //         fontFamily: FontFamily.lexendLight,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
