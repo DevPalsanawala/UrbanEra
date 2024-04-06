@@ -570,13 +570,17 @@ class HomeView extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 175,
+                                          // width: 130,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.38,
                                           child: Text(
                                             mostpopular[index]['title'],
                                             style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               fontWeight: FontWeight.w500,
-                                              fontSize: FontSize.body1,
+                                              fontSize: FontSize.body2,
                                               fontFamily:
                                                   FontFamily.lexendMedium,
                                               color: darkModeController
@@ -593,7 +597,7 @@ class HomeView extends StatelessWidget {
                                           mostpopular[index]['subtitle'],
                                           style: TextStyle(
                                             fontWeight: FontWeight.w300,
-                                            fontSize: FontSize.body2,
+                                            fontSize: FontSize.body3,
                                             fontFamily: FontFamily.lexendLight,
                                             color: darkModeController
                                                     .isLightTheme.value
@@ -606,11 +610,14 @@ class HomeView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Text(
                                   ('\u{20B9} ${mostpopular[index]['price']}'),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: FontSize.body1,
+                                    fontSize: FontSize.body3,
                                     fontFamily: FontFamily.lexendMedium,
                                     color: darkModeController.isLightTheme.value
                                         ? ColorsConfig.primaryColor

@@ -129,6 +129,8 @@ class _accountState extends State<account> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: darkModeController.isLightTheme.value
           ? ColorsConfig.backgroundColor
@@ -137,10 +139,7 @@ class _accountState extends State<account> {
       body: Form(
         key: _formkey,
         child: Container(
-          padding: EdgeInsets.only(
-            left: 25,
-            right: 25,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             child: Column(
@@ -151,8 +150,8 @@ class _accountState extends State<account> {
                 Column(
                   children: [
                     Container(
-                      width: 230,
-                      height: 230,
+                      width: screenWidth * 0.5,
+                      height: screenWidth * 0.5,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,

@@ -313,7 +313,11 @@ class BagView extends StatelessWidget {
                                                               .start,
                                                       children: [
                                                         Container(
-                                                          width: 150,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.38,
                                                           child: Text(
                                                             item['title'],
                                                             // maxLines: 2,
@@ -389,7 +393,7 @@ class BagView extends StatelessWidget {
                                                 ],
                                               ),
                                               SizedBox(
-                                                width: 20,
+                                                width: 10,
                                               ),
                                               Column(
                                                 crossAxisAlignment:
@@ -416,7 +420,7 @@ class BagView extends StatelessWidget {
                                                         fontFamily: FontFamily
                                                             .lexendRegular,
                                                         fontSize:
-                                                            FontSize.body2,
+                                                            FontSize.body3,
                                                         color: darkModeController
                                                                 .isLightTheme
                                                                 .value
@@ -436,7 +440,7 @@ class BagView extends StatelessWidget {
                                                           FontWeight.w400,
                                                       fontFamily: FontFamily
                                                           .lexendRegular,
-                                                      fontSize: FontSize.body2,
+                                                      fontSize: FontSize.body3,
                                                       color: darkModeController
                                                               .isLightTheme
                                                               .value

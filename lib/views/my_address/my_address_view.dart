@@ -240,7 +240,7 @@ class MyAddressView extends StatelessWidget {
                                 ),
                                 Flexible(
                                   child: SizedBox(
-                                    width: SizeConfig.width220,
+                                    width: SizeConfig.width200,
                                     child: Text(
                                       '${address['house']}, ${address['area']}, ${address['city']}, ${address['state']},${address['pinCode']}',
                                       style: TextStyle(

@@ -307,22 +307,18 @@ class MyOrdersView extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            width: 180,
-                                            child: Text(
-                                              item['title'],
-                                              style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily:
-                                                    FontFamily.lexendMedium,
-                                                fontSize: FontSize.body2,
-                                                color: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig.primaryColor
-                                                    : ColorsConfig
-                                                        .secondaryColor,
-                                              ),
+                                          Text(
+                                            item['title'],
+                                            style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily:
+                                                  FontFamily.lexendMedium,
+                                              fontSize: FontSize.body2,
+                                              color: darkModeController
+                                                      .isLightTheme.value
+                                                  ? ColorsConfig.primaryColor
+                                                  : ColorsConfig.secondaryColor,
                                             ),
                                           ),
                                           const SizedBox(
