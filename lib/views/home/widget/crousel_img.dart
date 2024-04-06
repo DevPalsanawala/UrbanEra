@@ -11,17 +11,19 @@ class CarosulItems extends StatelessWidget {
   final BoxFit? fit;
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        width: 600,
+        width: screenWidth,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: Image(
             image: AssetImage(imgurl) as ImageProvider,
             fit: BoxFit.fill,
-            width: 600,
+            width: screenWidth,
             // fit: BoxFit.cover,
           ),
         ),

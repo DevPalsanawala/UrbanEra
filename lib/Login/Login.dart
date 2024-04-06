@@ -96,6 +96,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: darkModeController.isLightTheme.value
           ? ColorsConfig.backgroundColor
@@ -104,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Form(
         key: _formKey,
         child: Container(
-          margin: EdgeInsets.only(left: 25, right: 25),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             child: Column(
@@ -117,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       SizedBox(height: 50),
                       Container(
-                        width: 230,
-                        height: 230,
+                        width: screenWidth * 0.5,
+                        height: screenWidth * 0.5,
                         padding: const EdgeInsets.all(20.0),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,

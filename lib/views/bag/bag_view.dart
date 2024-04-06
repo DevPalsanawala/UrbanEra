@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/bag_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
@@ -312,7 +313,11 @@ class BagView extends StatelessWidget {
                                                               .start,
                                                       children: [
                                                         Container(
-                                                          width: 150,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.38,
                                                           child: Text(
                                                             item['title'],
                                                             // maxLines: 2,
@@ -388,7 +393,7 @@ class BagView extends StatelessWidget {
                                                 ],
                                               ),
                                               SizedBox(
-                                                width: 20,
+                                                width: 10,
                                               ),
                                               Column(
                                                 crossAxisAlignment:
@@ -404,7 +409,9 @@ class BagView extends StatelessWidget {
                                                       item["sub_category"] ==
                                                           "Shorts" ||
                                                       item["sub_category"] ==
-                                                          "Dress")
+                                                          "Dress" ||
+                                                      item["sub_category"] ==
+                                                          "Kurta")
                                                     Text(
                                                       'Size: ${item['size']}',
                                                       style: TextStyle(
@@ -413,7 +420,7 @@ class BagView extends StatelessWidget {
                                                         fontFamily: FontFamily
                                                             .lexendRegular,
                                                         fontSize:
-                                                            FontSize.body2,
+                                                            FontSize.body3,
                                                         color: darkModeController
                                                                 .isLightTheme
                                                                 .value
@@ -433,7 +440,7 @@ class BagView extends StatelessWidget {
                                                           FontWeight.w400,
                                                       fontFamily: FontFamily
                                                           .lexendRegular,
-                                                      fontSize: FontSize.body2,
+                                                      fontSize: FontSize.body3,
                                                       color: darkModeController
                                                               .isLightTheme
                                                               .value
@@ -554,62 +561,83 @@ class BagView extends StatelessWidget {
                                                   qty,
                                                   selectedSize);
                                             },
-                                            child: Text(
-                                              TextString.remove,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                fontFamily:
-                                                    FontFamily.lexendLight,
-                                                fontSize: FontSize.body3,
-                                                color: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig.primaryColor
-                                                    : ColorsConfig
-                                                        .secondaryColor,
-                                              ),
-                                            ),
-                                          ),
-                                          VerticalDivider(
-                                            color: darkModeController
-                                                    .isLightTheme.value
-                                                ? ColorsConfig.lineColor
-                                                : ColorsConfig.lineDarkColor,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                msg: TextString.saved,
-                                                gravity: ToastGravity.BOTTOM,
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                backgroundColor:
-                                                    darkModeController
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  TextString.remove,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontFamily:
+                                                        FontFamily.lexendLight,
+                                                    fontSize: FontSize.body2,
+                                                    color: darkModeController
                                                             .isLightTheme.value
                                                         ? ColorsConfig
-                                                            .buttonColor
+                                                            .primaryColor
                                                         : ColorsConfig
                                                             .secondaryColor,
-                                                textColor: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig
-                                                        .secondaryColor
-                                                    : ColorsConfig.buttonColor,
-                                              );
-                                            },
-                                            child: Text(
-                                              TextString.saveForLater,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                fontFamily:
-                                                    FontFamily.lexendLight,
-                                                fontSize: FontSize.body3,
-                                                color: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig.primaryColor
-                                                    : ColorsConfig
-                                                        .secondaryColor,
-                                              ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 3,
+                                                ),
+                                                Image(
+                                                  image: AssetImage(
+                                                    ImageConfig.delete,
+                                                  ),
+                                                  height: SizeConfig.height18,
+                                                  width: SizeConfig.width20,
+                                                  color: darkModeController
+                                                          .isLightTheme.value
+                                                      ? ColorsConfig
+                                                          .primaryColor
+                                                      : ColorsConfig
+                                                          .secondaryColor,
+                                                ),
+                                              ],
                                             ),
                                           ),
+                                          // VerticalDivider(
+                                          //   color: darkModeController
+                                          //           .isLightTheme.value
+                                          //       ? ColorsConfig.lineColor
+                                          //       : ColorsConfig.lineDarkColor,
+                                          // ),
+                                          // GestureDetector(
+                                          //   onTap: () {
+                                          //     Fluttertoast.showToast(
+                                          //       msg: TextString.saved,
+                                          //       gravity: ToastGravity.BOTTOM,
+                                          //       toastLength: Toast.LENGTH_SHORT,
+                                          //       backgroundColor:
+                                          //           darkModeController
+                                          //                   .isLightTheme.value
+                                          //               ? ColorsConfig
+                                          //                   .buttonColor
+                                          //               : ColorsConfig
+                                          //                   .secondaryColor,
+                                          //       textColor: darkModeController
+                                          //               .isLightTheme.value
+                                          //           ? ColorsConfig
+                                          //               .secondaryColor
+                                          //           : ColorsConfig.buttonColor,
+                                          //     );
+                                          //   },
+                                          //   child: Text(
+                                          //     TextString.saveForLater,
+                                          //     style: TextStyle(
+                                          //       fontWeight: FontWeight.w300,
+                                          //       fontFamily:
+                                          //           FontFamily.lexendLight,
+                                          //       fontSize: FontSize.body3,
+                                          //       color: darkModeController
+                                          //               .isLightTheme.value
+                                          //           ? ColorsConfig.primaryColor
+                                          //           : ColorsConfig
+                                          //               .secondaryColor,
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),

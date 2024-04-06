@@ -22,7 +22,6 @@ class _CrouselState extends State<Crousel> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 188,
               viewportFraction: 0.9,
               autoPlay: true,
               autoPlayInterval: Duration(milliseconds: 2000),

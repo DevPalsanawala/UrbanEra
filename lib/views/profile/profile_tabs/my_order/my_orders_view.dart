@@ -245,11 +245,20 @@ class MyOrdersView extends StatelessWidget {
                       ),
                     );
                   } else {
+                    List<Map<String, dynamic>> sortedData = snapshot.data!
+                      ..sort((a, b) {
+                        String dateStringA = a['date'];
+                        String dateStringB = b['date'];
+                        DateFormat format = DateFormat('d MMM yyyy');
+                        DateTime dateA = format.parse(dateStringA);
+                        DateTime dateB = format.parse(dateStringB);
+                        return dateA.compareTo(dateB);
+                      });
                     return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
+                      itemCount: sortedData.length,
                       itemBuilder: (context, index) {
-                        Map<String, dynamic> item = snapshot.data![index];
+                        Map<String, dynamic> item = sortedData[index];
                         String dateString = item['date'];
                         DateFormat format = DateFormat('d MMM yyyy');
                         DateTime date = format.parse(dateString);
@@ -298,22 +307,18 @@ class MyOrdersView extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            width: 180,
-                                            child: Text(
-                                              item['title'],
-                                              style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily:
-                                                    FontFamily.lexendMedium,
-                                                fontSize: FontSize.body2,
-                                                color: darkModeController
-                                                        .isLightTheme.value
-                                                    ? ColorsConfig.primaryColor
-                                                    : ColorsConfig
-                                                        .secondaryColor,
-                                              ),
+                                          Text(
+                                            item['title'],
+                                            style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily:
+                                                  FontFamily.lexendMedium,
+                                              fontSize: FontSize.body2,
+                                              color: darkModeController
+                                                      .isLightTheme.value
+                                                  ? ColorsConfig.primaryColor
+                                                  : ColorsConfig.secondaryColor,
                                             ),
                                           ),
                                           const SizedBox(
@@ -354,42 +359,42 @@ class MyOrdersView extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      if (item['sub_category'] != "none")
-                                        Text(
-                                          'Szie: ${item['size'].toString()}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontFamily: FontFamily.lexendLight,
-                                            fontSize: FontSize.body3,
-                                            color: darkModeController
-                                                    .isLightTheme.value
-                                                ? ColorsConfig.textColor
-                                                : ColorsConfig
-                                                    .modeInactiveColor,
-                                          ),
-                                        ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Quntity: ${item['qty'].toString()}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          fontFamily: FontFamily.lexendLight,
-                                          fontSize: FontSize.body3,
-                                          color: darkModeController
-                                                  .isLightTheme.value
-                                              ? ColorsConfig.textColor
-                                              : ColorsConfig.modeInactiveColor,
-                                        ),
-                                      ),
-                                    ],
-                                  )
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   children: [
+                                  //     if (item['sub_category'] != "none")
+                                  //       Text(
+                                  //         'Szie: ${item['size'].toString()}',
+                                  //         style: TextStyle(
+                                  //           fontWeight: FontWeight.w300,
+                                  //           fontFamily: FontFamily.lexendLight,
+                                  //           fontSize: FontSize.body3,
+                                  //           color: darkModeController
+                                  //                   .isLightTheme.value
+                                  //               ? ColorsConfig.textColor
+                                  //               : ColorsConfig
+                                  //                   .modeInactiveColor,
+                                  //         ),
+                                  //       ),
+                                  //     SizedBox(
+                                  //       height: 5,
+                                  //     ),
+                                  //     Text(
+                                  //       'Quntity: ${item['qty'].toString()}',
+                                  //       style: TextStyle(
+                                  //         fontWeight: FontWeight.w300,
+                                  //         fontFamily: FontFamily.lexendLight,
+                                  //         fontSize: FontSize.body3,
+                                  //         color: darkModeController
+                                  //                 .isLightTheme.value
+                                  //             ? ColorsConfig.textColor
+                                  //             : ColorsConfig.modeInactiveColor,
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // )
                                   // Image(
                                   //   image:
                                   //       const AssetImage(ImageConfig.nextArrow),

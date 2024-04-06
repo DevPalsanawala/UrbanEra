@@ -225,7 +225,7 @@ class FashionDetailsView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 270,
+                                width: MediaQuery.of(context).size.width * 0.6,
                                 child: Text(
                                   product['title'],
                                   maxLines: 2,
@@ -560,7 +560,8 @@ class FashionDetailsView extends StatelessWidget {
                               product["sub_category"] == "Shirt" ||
                               product["sub_category"] == "Pants" ||
                               product["sub_category"] == "Shorts" ||
-                              product["sub_category"] == "Dress")
+                              product["sub_category"] == "Dress" ||
+                              product["sub_category"] == "Kurta")
                             Container(
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

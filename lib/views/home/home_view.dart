@@ -1,14 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Login.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/gogle_sign_in_provider.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
@@ -18,15 +14,15 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/fashion_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/controller/order_summary_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
+import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/category_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/fashion_details_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/search_view.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/crouesl_slider.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/filter_bottom_sheet.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/search_with_image_bottom_sheet.dart';
 
 class HomeView extends StatelessWidget {
@@ -40,9 +36,16 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void goToTab(int tabIndex) {
+      bottomNavigationController.changePage(tabIndex);
+      bottomNavigationController.showBottomBar = true;
+      Get.toNamed(AppRoutes.bottomView);
+    }
+
     User? usergoogle = FirebaseAuth
         .instance.currentUser; //for user authentication data by google id
     // int randomNumber = Random().nextInt(178 - 7);
+    int randomNumber = Random().nextInt(10) + 6;
     final UserController userController = Get.find();
     return Obx(() {
       User? user = userController.currentUser.value;
@@ -299,7 +302,7 @@ class HomeView extends StatelessWidget {
                                     product['sub_category'] == 'Tshirt')
                                 .toList()
                                 .sublist(
-                                  41,
+                                  42,
                                 );
                         if (productcontroller.isLoading.value) {
                           return Center(
@@ -484,15 +487,20 @@ class HomeView extends StatelessWidget {
                             : ColorsConfig.secondaryColor,
                       ),
                     ),
-                    Text(
-                      TextString.seeMore,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: FontSize.body3,
-                        fontFamily: FontFamily.lexendRegular,
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.textColor
-                            : ColorsConfig.modeInactiveColor,
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(CategoryView());
+                      },
+                      child: Text(
+                        TextString.seeMore,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: FontSize.body3,
+                          fontFamily: FontFamily.lexendRegular,
+                          color: darkModeController.isLightTheme.value
+                              ? ColorsConfig.textColor
+                              : ColorsConfig.modeInactiveColor,
+                        ),
                       ),
                     ),
                   ],
@@ -561,13 +569,17 @@ class HomeView extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 175,
+                                          // width: 130,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.38,
                                           child: Text(
                                             mostpopular[index]['title'],
                                             style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               fontWeight: FontWeight.w500,
-                                              fontSize: FontSize.body1,
+                                              fontSize: FontSize.body2,
                                               fontFamily:
                                                   FontFamily.lexendMedium,
                                               color: darkModeController
@@ -584,7 +596,7 @@ class HomeView extends StatelessWidget {
                                           mostpopular[index]['subtitle'],
                                           style: TextStyle(
                                             fontWeight: FontWeight.w300,
-                                            fontSize: FontSize.body2,
+                                            fontSize: FontSize.body3,
                                             fontFamily: FontFamily.lexendLight,
                                             color: darkModeController
                                                     .isLightTheme.value
@@ -597,11 +609,14 @@ class HomeView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Text(
                                   ('\u{20B9} ${mostpopular[index]['price']}'),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: FontSize.body1,
+                                    fontSize: FontSize.body3,
                                     fontFamily: FontFamily.lexendMedium,
                                     color: darkModeController.isLightTheme.value
                                         ? ColorsConfig.primaryColor
@@ -643,15 +658,20 @@ class HomeView extends StatelessWidget {
                             : ColorsConfig.secondaryColor,
                       ),
                     ),
-                    Text(
-                      TextString.seeMore,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: FontSize.body3,
-                        fontFamily: FontFamily.lexendRegular,
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.textColor
-                            : ColorsConfig.modeInactiveColor,
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(CategoryView());
+                      },
+                      child: Text(
+                        TextString.seeMore,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: FontSize.body3,
+                          fontFamily: FontFamily.lexendRegular,
+                          color: darkModeController.isLightTheme.value
+                              ? ColorsConfig.textColor
+                              : ColorsConfig.modeInactiveColor,
+                        ),
                       ),
                     ),
                   ],

@@ -143,7 +143,7 @@ class PaymentSuccessfulView extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                               myOrdersController.contentChanged.value = true;
-                              Get.toNamed(AppRoutes.myOrdersView);
+                              Get.offNamed(AppRoutes.myOrdersView);
                             },
                             child: Container(
                               height: SizeConfig.height52,
@@ -182,7 +182,8 @@ class PaymentSuccessfulView extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                               myOrdersController.toggleContent();
-                              goToTab(0);
+                              // goToTab(0);
+                              Get.offAllNamed(AppRoutes.bottomView);
                             },
                             child: Container(
                               height: SizeConfig.height52,

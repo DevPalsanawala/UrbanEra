@@ -64,42 +64,42 @@ class CategoryView extends StatelessWidget {
                   )
                 : _searchTextField(),
           ),
-          actions: [
-            Obx(
-              () => Padding(
-                padding: const EdgeInsets.only(
-                  top: SizeConfig.padding10,
-                  right: SizeConfig.padding24,
-                ),
-                child: !categoryController.searchBoolean.value
-                    ? GestureDetector(
-                        onTap: () {
-                          categoryController.searchBoolean.value = true;
-                        },
-                        child: Image(
-                          image: const AssetImage(ImageConfig.search),
-                          width: SizeConfig.width20,
-                          height: SizeConfig.height20,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor,
-                        ),
-                      )
-                    : GestureDetector(
-                        onTap: () {
-                          categoryController.searchBoolean.value = false;
-                        },
-                        child: Icon(
-                          Icons.clear_rounded,
-                          size: SizeConfig.width25,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor,
-                        ),
-                      ),
-              ),
-            ),
-          ],
+          // actions: [
+          //   Obx(
+          //     () => Padding(
+          //       padding: const EdgeInsets.only(
+          //         top: SizeConfig.padding10,
+          //         right: SizeConfig.padding24,
+          //       ),
+          //       child: !categoryController.searchBoolean.value
+          //           ? GestureDetector(
+          //               onTap: () {
+          //                 categoryController.searchBoolean.value = true;
+          //               },
+          //               child: Image(
+          //                 image: const AssetImage(ImageConfig.search),
+          //                 width: SizeConfig.width20,
+          //                 height: SizeConfig.height20,
+          //                 color: darkModeController.isLightTheme.value
+          //                     ? ColorsConfig.primaryColor
+          //                     : ColorsConfig.secondaryColor,
+          //               ),
+          //             )
+          //           : GestureDetector(
+          //               onTap: () {
+          //                 categoryController.searchBoolean.value = false;
+          //               },
+          //               child: Icon(
+          //                 Icons.clear_rounded,
+          //                 size: SizeConfig.width25,
+          //                 color: darkModeController.isLightTheme.value
+          //                     ? ColorsConfig.primaryColor
+          //                     : ColorsConfig.secondaryColor,
+          //               ),
+          //             ),
+          //     ),
+          //   ),
+          // ],
         ),
         body: Obx(() {
           if (categorycontroller.categories.isEmpty) {
