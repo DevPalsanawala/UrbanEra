@@ -36,7 +36,6 @@ class HomeView extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());
   Productcontroller productcontroller = Get.put(Productcontroller());
   FashionController fashionController = Get.put(FashionController());
-
   WishlistController1 wishlistController1 = Get.put(WishlistController1());
 
   @override

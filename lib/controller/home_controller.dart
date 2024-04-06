@@ -8,7 +8,6 @@ import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 
 class HomeController extends GetxController {
   TextEditingController searchController = TextEditingController();
-
   RxString keyword = ''.obs;
   RxBool hasKeyword = false.obs;
 
@@ -56,7 +55,7 @@ class HomeController extends GetxController {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      print('Image path: '+pickedFile.path);
+      print('Image path: ${pickedFile.path}');
     } else {
       print('No image selected.');
     }
