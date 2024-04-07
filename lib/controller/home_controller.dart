@@ -1,15 +1,32 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
 import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
 
 class HomeController extends GetxController {
   TextEditingController searchController = TextEditingController();
+
   RxString keyword = ''.obs;
   RxBool hasKeyword = false.obs;
+
+  List<String> imageSearchTerms = <String>[
+    "Tshirt",
+    "Shirt",
+    "Pants",
+    "Shorts",
+    "Shoes",
+    "Socks",
+    "Dress",
+    "Cap",
+    "Kurta"
+  ];
 
   void updateKeyword(String value) {
     keyword.value = value;
@@ -50,26 +67,98 @@ class HomeController extends GetxController {
         !isFavouriteArrival2List[imageArrival2Index].value;
   }
 
-  Future<void> openGallery() async {
+  String getClothCategory(String phrase) {
+    phrase = phrase.replaceAll('T-shirt', 'Tshirt');
+    phrase = phrase.replaceAll('T-Shirt', 'Tshirt');
+    int index = imageSearchTerms.indexWhere((element) {
+      debugPrint(
+          '${phrase.toLowerCase()} | ${element.toLowerCase()} || ${phrase.toLowerCase().contains(element.toLowerCase())}');
+
+      return phrase.toLowerCase().contains(element.toLowerCase());
+    });
+
+    return imageSearchTerms[index];
+  }
+
+  Future<String> openGallery() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       print('Image path: ${pickedFile.path}');
+      String phrase = await uploadImageAndGeneratePhrase(pickedFile.path);
+      if (phrase.isEmpty) return '';
+
+      return getClothCategory(phrase);
     } else {
-      print('No image selected.');
+      print('No image taken.');
+      return '';
     }
   }
 
-  Future<void> openCamera() async {
+  Future<String> openCamera() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 30,
+        maxHeight: 500,
+        maxWidth: 500);
 
     if (pickedFile != null) {
       print('Image path: ${pickedFile.path}');
+      String phrase = await uploadImageAndGeneratePhrase(pickedFile.path);
+      if (phrase.isEmpty) return '';
+
+      return getClothCategory(phrase);
     } else {
       print('No image taken.');
+      return "";
     }
+  }
+
+  Future<String> uploadImageAndGeneratePhrase(String imagePath) async {
+    File imageFile = File(imagePath);
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String imageB64 = base64Encode(imageBytes);
+
+    Map<String, String> headers = {
+      "Authorization":
+          "Bearer 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",
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    };
+    Map<String, dynamic> payload = {
+      "messages": [
+        {
+          "role": "user",
+          // What category of cloth does this image relates the best from these categories
+          // I have categories of clothes or attire, now u have to decide from scale 1 to 10. What categories from these ("Tshirt", "Dress", "Kurta", "Cap", "Shirt", "Pants", "Shorts", "Shoes", "Socks"), matches the cloth in the image and name only one category, keep only that category and make the output response of one word only, remove everything else?
+          "content":
+              'Which type of cloth, attire or apparel (shoes, socks etc..) category this image contains or matches the most? Respond in only word <img src="data:image/png;base64,$imageB64" />'
+        }
+      ],
+      "max_tokens": 500,
+      "temperature": 0.20,
+      "top_p": 0.20
+    };
+
+    http.Response response = await http.post(
+        Uri.parse('https://ai.api.nvidia.com/v1/vlm/microsoft/kosmos-2'),
+        headers: headers,
+        body: json.encode(payload));
+
+    debugPrint('response --> ${response.body}');
+
+    if (response.statusCode != 200) return '';
+
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+    List<dynamic> choices = jsonResponse['choices'];
+    if (choices.isNotEmpty) {
+      String content = choices[0]['message']['content'];
+      return content;
+    }
+
+    return '';
   }
 
   List<String> trendingProductsImage = [

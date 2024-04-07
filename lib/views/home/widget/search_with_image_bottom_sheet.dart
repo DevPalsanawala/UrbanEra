@@ -9,11 +9,14 @@ import '../../../config/font_family.dart';
 import '../../../config/font_size.dart';
 import '../../../config/size.dart';
 import '../../../config/text_string.dart';
+import '../../../search/searchpage.dart';
 
 DarkModeController darkModeController = Get.put(DarkModeController());
 
 searchWithImageBottomSheet(BuildContext context) {
   HomeController homeController = Get.put(HomeController());
+  RxBool _isLoading = false.obs;
+
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     shape: const OutlineInputBorder(
@@ -61,151 +64,199 @@ searchWithImageBottomSheet(BuildContext context) {
                     ? ColorsConfig.backgroundColor
                     : ColorsConfig.buttonColor,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    TextString.searchWithNewImages,
-                    style: TextStyle(
-                      fontSize: FontSize.heading4,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: FontFamily.lexendMedium,
-                      color: darkModeController.isLightTheme.value
-                          ? ColorsConfig.primaryColor
-                          : ColorsConfig.secondaryColor,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: SizeConfig.height08,
-                  ),
-                  Text(
-                    TextString.searchImagesDescription,
-                    style: TextStyle(
-                      fontSize: FontSize.body2,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: FontFamily.lexendLight,
-                      color: darkModeController.isLightTheme.value
-                          ? ColorsConfig.textColor
-                          : ColorsConfig.modeInactiveColor,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: SizeConfig.height24,
-                  ),
-                  Text(
-                    TextString.howWouldYouLikeToSearch,
-                    style: TextStyle(
-                      fontSize: FontSize.body1,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: FontFamily.lexendRegular,
-                      color: darkModeController.isLightTheme.value
-                          ? ColorsConfig.primaryColor
-                          : ColorsConfig.secondaryColor,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: SizeConfig.height16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            homeController.openGallery();
-                          },
-                          child: Container(
-                            height: SizeConfig.height84,
-                            width: SizeConfig.width164,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(SizeConfig.borderRadius14),
-                              border: Border.all(
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.textColor
-                                    : ColorsConfig.modeInactiveColor,
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image(
-                                  image: const AssetImage(ImageConfig.album),
-                                  width: SizeConfig.width24,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.textColor
-                                      : ColorsConfig.modeInactiveColor,
-                                ),
-                                const SizedBox(
-                                  height: SizeConfig.height06,
-                                ),
-                                Text(
-                                  TextString.searchByPhoto,
-                                  style: TextStyle(
-                                    fontSize: FontSize.body2,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: FontFamily.lexendRegular,
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.textColor
-                                        : ColorsConfig.modeInactiveColor,
-                                  ),
-                                ),
-                              ],
-                            ),
+              child: Obx(() => _isLoading.value
+                  ? Center(
+                      child: CircularProgressIndicator(color: Colors.black),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          TextString.searchWithNewImages,
+                          style: TextStyle(
+                            fontSize: FontSize.heading4,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: FontFamily.lexendMedium,
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.primaryColor
+                                : ColorsConfig.secondaryColor,
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: SizeConfig.width14,
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            homeController.openCamera();
-                          },
-                          child: Container(
-                            height: SizeConfig.height84,
-                            width: SizeConfig.width164,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(SizeConfig.borderRadius14),
-                              border: Border.all(
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.textColor
-                                    : ColorsConfig.modeInactiveColor,
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image(
-                                  image: const AssetImage(ImageConfig.camera2),
-                                  width: SizeConfig.width24,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.textColor
-                                      : ColorsConfig.modeInactiveColor,
-                                ),
-                                const SizedBox(
-                                  height: SizeConfig.height06,
-                                ),
-                                Text(
-                                  TextString.searchByCamera,
-                                  style: TextStyle(
-                                    fontSize: FontSize.body2,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: FontFamily.lexendRegular,
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.textColor
-                                        : ColorsConfig.modeInactiveColor,
-                                  ),
-                                ),
-                              ],
-                            ),
+                        const SizedBox(
+                          height: SizeConfig.height08,
+                        ),
+                        Text(
+                          TextString.searchImagesDescription,
+                          style: TextStyle(
+                            fontSize: FontSize.body2,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: FontFamily.lexendLight,
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.textColor
+                                : ColorsConfig.modeInactiveColor,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                        const SizedBox(
+                          height: SizeConfig.height24,
+                        ),
+                        Text(
+                          TextString.howWouldYouLikeToSearch,
+                          style: TextStyle(
+                            fontSize: FontSize.body1,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: FontFamily.lexendRegular,
+                            color: darkModeController.isLightTheme.value
+                                ? ColorsConfig.primaryColor
+                                : ColorsConfig.secondaryColor,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: SizeConfig.height16,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  _isLoading.value = true;
+                                  final imageContent =
+                                      await homeController.openGallery();
+                                  _isLoading.value = false;
+
+                                  if (imageContent.isEmpty) {
+                                    Get.snackbar('Oops!',
+                                        'Something went wrong while doing image search');
+                                    return;
+                                  }
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return Searchpage(txt: imageContent);
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  height: SizeConfig.height84,
+                                  width: SizeConfig.width164,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        SizeConfig.borderRadius14),
+                                    border: Border.all(
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image(
+                                        image:
+                                            const AssetImage(ImageConfig.album),
+                                        width: SizeConfig.width24,
+                                        color: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.textColor
+                                            : ColorsConfig.modeInactiveColor,
+                                      ),
+                                      const SizedBox(
+                                        height: SizeConfig.height06,
+                                      ),
+                                      Text(
+                                        TextString.searchByPhoto,
+                                        style: TextStyle(
+                                          fontSize: FontSize.body2,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: FontFamily.lexendRegular,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: SizeConfig.width14),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  _isLoading.value = true;
+                                  final imageContent =
+                                      await homeController.openCamera();
+                                  _isLoading.value = false;
+
+                                  if (imageContent.isEmpty) {
+                                    Get.snackbar('Oops!',
+                                        'Something went wrong while doing image search');
+                                    return;
+                                  }
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return Searchpage(txt: imageContent);
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  height: SizeConfig.height84,
+                                  width: SizeConfig.width164,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        SizeConfig.borderRadius14),
+                                    border: Border.all(
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image(
+                                        image: const AssetImage(
+                                            ImageConfig.camera2),
+                                        width: SizeConfig.width24,
+                                        color: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.textColor
+                                            : ColorsConfig.modeInactiveColor,
+                                      ),
+                                      const SizedBox(
+                                        height: SizeConfig.height06,
+                                      ),
+                                      Text(
+                                        TextString.searchByCamera,
+                                        style: TextStyle(
+                                          fontSize: FontSize.body2,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: FontFamily.lexendRegular,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
             ),
           ],
         ),
