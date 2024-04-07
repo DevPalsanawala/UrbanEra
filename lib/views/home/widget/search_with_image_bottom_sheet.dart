@@ -66,7 +66,11 @@ searchWithImageBottomSheet(BuildContext context) {
               ),
               child: Obx(() => _isLoading.value
                   ? Center(
-                      child: CircularProgressIndicator(color: Colors.black),
+                      child: CircularProgressIndicator(
+                        color: darkModeController.isLightTheme.value
+                            ? ColorsConfig.primaryColor
+                            : ColorsConfig.secondaryColor,
+                      ),
                     )
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
