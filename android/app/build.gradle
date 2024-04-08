@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.shoppers_ecommerce_flutter_ui_kit"
+    namespace "com.example.UrbanEraFashion"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
@@ -42,7 +42,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.shoppers_ecommerce_flutter_ui_kit"
+        applicationId "com.example.UrbanEraFashion"
         
 
         // You can update the following values to match your application needs.

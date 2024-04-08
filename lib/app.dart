@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/splash/splash_view.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/routes/app_routes.dart';
+import 'package:UrbanEraFashion/views/splash/splash_view.dart';
 
 import 'binding/bindingdata.dart';
 
-class ShoppersEcommerceApp extends StatelessWidget {
-  ShoppersEcommerceApp({super.key}) {
+class UrbanEraFashion extends StatelessWidget {
+  UrbanEraFashion({super.key}) {
     darkModeController.getThemeStatus();
   }
 
@@ -27,7 +27,7 @@ class ShoppersEcommerceApp extends StatelessWidget {
       home: SplashView(),
       initialBinding: GeneralBindings(),
       getPages: AppRoutes.pages,
-      title: "Shoppers Ecommerce UI",
+      title: "UrbanEraFashion",
     );
   }
 }

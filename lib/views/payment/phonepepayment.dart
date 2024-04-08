@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:phonepe_payment_sdk/phonepe_payment_sdk.dart';
 import 'package:http/http.dart' as http;
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/payment/payment_successful_view.dart';
+import 'package:UrbanEraFashion/views/payment/payment_successful_view.dart';
 
 class PhonePepayment extends StatefulWidget {
   const PhonePepayment({super.key});

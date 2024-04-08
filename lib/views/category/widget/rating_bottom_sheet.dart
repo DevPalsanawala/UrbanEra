@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/category_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/rating_and_review_controller.dart';
+import 'package:UrbanEraFashion/controller/category_controller.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/controller/rating_and_review_controller.dart';
 import '../../../config/colors.dart';
 import '../../../config/font_family.dart';
 import '../../../config/font_size.dart';

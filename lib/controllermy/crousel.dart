@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/crousel_img.dart';
+import 'package:UrbanEraFashion/views/home/widget/crousel_img.dart';
 
 class Crouselcontroller extends GetxController {
   RxInt currentindex = 0.obs;

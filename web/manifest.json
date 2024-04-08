@@ -1,11 +1,11 @@
 {
-    "name": "shoppers_ecommerce_flutter_ui_kit",
-    "short_name": "shoppers_ecommerce_flutter_ui_kit",
+    "name": "UrbanEraFashion",
+    "short_name": "UrbanEraFashion",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Shoppers Ecommerce Flutter UI Kit",
+    "description": "Urban Era Fashion",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

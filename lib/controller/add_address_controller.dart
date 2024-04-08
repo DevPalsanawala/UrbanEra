@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
 
 import '../config/image.dart';
 

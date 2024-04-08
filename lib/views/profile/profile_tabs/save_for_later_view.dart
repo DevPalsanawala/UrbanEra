@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/bottom_navigation_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/save_for_later_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/profile/widget/remove_save_later_bottom_sheet.dart';
+import 'package:UrbanEraFashion/controller/bottom_navigation_controller.dart';
+import 'package:UrbanEraFashion/controller/save_for_later_controller.dart';
+import 'package:UrbanEraFashion/views/profile/widget/remove_save_later_bottom_sheet.dart';
 import '../../../config/colors.dart';
 import '../../../config/font_family.dart';
 import '../../../config/font_size.dart';

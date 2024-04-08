@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/otp.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
+import 'package:UrbanEraFashion/Login/otp.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
 
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/widget/filter_bottom_sheet.dart';
+import 'package:UrbanEraFashion/views/home/widget/filter_bottom_sheet.dart';
 
 class MyPhone extends StatefulWidget {
   static String verify = "";

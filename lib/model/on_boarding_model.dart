@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
 
 import '../config/image.dart';
 

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
 
 class NotificationController extends GetxController {
   RxBool searchBoolean = false.obs;

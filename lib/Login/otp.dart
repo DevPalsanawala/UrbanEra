@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/account.dart';
+import 'package:UrbanEraFashion/Login/account.dart';
 
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/phone.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
+import 'package:UrbanEraFashion/Login/phone.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/controller/button_controller.dart';
 
 class MyOtp extends StatefulWidget {
   @override

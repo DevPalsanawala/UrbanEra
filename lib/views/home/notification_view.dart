@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/notification_controller.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/config/font_family.dart';
+import 'package:UrbanEraFashion/config/font_size.dart';
+import 'package:UrbanEraFashion/config/image.dart';
+import 'package:UrbanEraFashion/config/size.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/controller/notification_controller.dart';
 
 class NotificationView extends StatelessWidget {
   NotificationView({Key? key}) : super(key: key);

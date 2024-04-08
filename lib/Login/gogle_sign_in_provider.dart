@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/bottom_bar/bottom_navigation_bar_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/home_view.dart';
+import 'package:UrbanEraFashion/views/bottom_bar/bottom_navigation_bar_view.dart';
+import 'package:UrbanEraFashion/views/home/home_view.dart';
 
 class GoogleSignInProvider {
   static final FirebaseAuth _auth = FirebaseAuth.instance;

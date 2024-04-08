@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
+import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
 
 import '../config/image.dart';
 import '../config/text_string.dart';

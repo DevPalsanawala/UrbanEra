@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
+import 'package:UrbanEraFashion/config/image.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
 
 class WishlistController extends GetxController {
 

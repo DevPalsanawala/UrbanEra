@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/bag/bag_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/category_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/home/home_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/profile/profile_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/wishlist/wishlist_view.dart';
+import 'package:UrbanEraFashion/views/bag/bag_view.dart';
+import 'package:UrbanEraFashion/views/category/category_view.dart';
+import 'package:UrbanEraFashion/views/home/home_view.dart';
+import 'package:UrbanEraFashion/views/profile/profile_view.dart';
+import 'package:UrbanEraFashion/views/wishlist/wishlist_view.dart';
 
 class BottomNavigationController extends GetxController {
   int selectedIndex = 0;

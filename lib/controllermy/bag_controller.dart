@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
+import 'package:UrbanEraFashion/controller/button_controller.dart';
+import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
 
 class Bagcontroller extends GetxController {
   final _firestore = FirebaseFirestore.instance;

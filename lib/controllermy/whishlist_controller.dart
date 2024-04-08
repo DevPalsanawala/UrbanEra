@@ -2,8 +2,8 @@
 // import 'package:get/get.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
-// import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/wishdata_controller.dart';
+// import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
+// import 'package:UrbanEraFashion/controllermy/wishdata_controller.dart';
 
 // class WishlistController1 extends GetxController {
 //   final _firestore = FirebaseFirestore.instance;
@@ -70,7 +70,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
+import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
 
 class WishlistController1 extends GetxController {
   final _firestore = FirebaseFirestore.instance;

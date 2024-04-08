@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/returns_policy_controller.dart';
+import 'package:UrbanEraFashion/controller/returns_policy_controller.dart';
 
 import '../../../config/colors.dart';
 import '../../../config/font_family.dart';

@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-// import 'package:shoppers_ecommerce_flutter_ui_kit/controller/wishlist_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/category_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/product_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/whishlist_controller.dart';
+// import 'package:UrbanEraFashion/controller/wishlist_controller.dart';
+import 'package:UrbanEraFashion/controllermy/category_controller.dart';
+import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
+import 'package:UrbanEraFashion/controllermy/product_controller.dart';
+import 'package:UrbanEraFashion/controllermy/whishlist_controller.dart';
 
 class GeneralBindings extends Bindings {
   @override

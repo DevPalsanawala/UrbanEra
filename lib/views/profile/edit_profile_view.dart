@@ -5,10 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/edit_profile_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/profile/widget/change_mobile_number_bottom_sheet.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/controller/edit_profile_controller.dart';
+import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
+import 'package:UrbanEraFashion/views/profile/widget/change_mobile_number_bottom_sheet.dart';
 
 import '../../config/colors.dart';
 import '../../config/font_family.dart';

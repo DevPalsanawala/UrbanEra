@@ -3,15 +3,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/category_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/category_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/model/category_model.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/category/top_fashion_view.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/config/font_family.dart';
+import 'package:UrbanEraFashion/config/font_size.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
+import 'package:UrbanEraFashion/controller/category_controller.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/controllermy/category_controller.dart';
+import 'package:UrbanEraFashion/model/category_model.dart';
+import 'package:UrbanEraFashion/views/category/top_fashion_view.dart';
 
 import '../../config/image.dart';
 import '../../config/size.dart';

@@ -5,12 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/edit_profile_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/profile/widget/logout_bottom_sheet.dart';
+import 'package:UrbanEraFashion/config/image.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/controller/edit_profile_controller.dart';
+import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
+import 'package:UrbanEraFashion/routes/app_routes.dart';
+import 'package:UrbanEraFashion/views/profile/widget/logout_bottom_sheet.dart';
 
 import '../../config/colors.dart';
 import '../../config/font_family.dart';

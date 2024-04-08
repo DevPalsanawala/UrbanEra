@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/home_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/my_orders_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/controller/home_controller.dart';
+import 'package:UrbanEraFashion/controller/my_orders_controller.dart';
+import 'package:UrbanEraFashion/routes/app_routes.dart';
 
 import '../../../../config/colors.dart';
 import '../../../../config/font_family.dart';

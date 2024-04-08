@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/crousel.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/controller/button_controller.dart';
+import 'package:UrbanEraFashion/controllermy/crousel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Crousel extends StatefulWidget {

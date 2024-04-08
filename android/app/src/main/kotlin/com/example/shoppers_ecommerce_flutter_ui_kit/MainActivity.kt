@@ -1,4 +1,4 @@
-package com.example.shoppers_ecommerce_flutter_ui_kit
+package com.example.UrbanEraFashion
 
 import io.flutter.embedding.android.FlutterActivity
 

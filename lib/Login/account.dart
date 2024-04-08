@@ -5,13 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/otp.dart';
+import 'package:UrbanEraFashion/Login/otp.dart';
 
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/config/font_family.dart';
+import 'package:UrbanEraFashion/config/font_size.dart';
+import 'package:UrbanEraFashion/config/size.dart';
+import 'package:UrbanEraFashion/controller/button_controller.dart';
 
 final _firebase = FirebaseAuth.instance;
 

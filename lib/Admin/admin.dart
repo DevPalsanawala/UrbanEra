@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Admin/data/opretiondata.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_family.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/button_controller.dart';
+import 'package:UrbanEraFashion/Admin/data/opretiondata.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/config/font_family.dart';
+import 'package:UrbanEraFashion/config/font_size.dart';
+import 'package:UrbanEraFashion/config/size.dart';
+import 'package:UrbanEraFashion/controller/button_controller.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});

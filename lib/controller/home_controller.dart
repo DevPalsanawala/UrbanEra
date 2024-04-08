@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
+import 'package:UrbanEraFashion/config/image.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
 
 class HomeController extends GetxController {
   TextEditingController searchController = TextEditingController();

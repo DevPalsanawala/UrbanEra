@@ -1,7 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/bottom_navigation_controller.dart';
+import 'package:UrbanEraFashion/controller/bottom_navigation_controller.dart';
 import '../routes/app_routes.dart';
 
 BottomNavigationController bottomNavigationController = Get.put(BottomNavigationController());

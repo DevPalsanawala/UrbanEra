@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/model/category_model.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/services/category_service.dart';
+import 'package:UrbanEraFashion/model/category_model.dart';
+import 'package:UrbanEraFashion/services/category_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Categorycontroller extends GetxController {

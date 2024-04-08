@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Login.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/account.dart';
+import 'package:UrbanEraFashion/Login/Login.dart';
+import 'package:UrbanEraFashion/Login/account.dart';
 
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/phone.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/colors.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/bottom_bar/bottom_navigation_bar_view.dart';
+import 'package:UrbanEraFashion/Login/phone.dart';
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/views/bottom_bar/bottom_navigation_bar_view.dart';
 
 class Welcome extends StatelessWidget {
   DarkModeController darkModeController = Get.put(DarkModeController());

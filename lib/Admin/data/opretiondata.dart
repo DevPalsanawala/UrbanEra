@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Admin/models/opretions.dart';
+import 'package:UrbanEraFashion/Admin/models/opretions.dart';
 
 final data = [
   Category(

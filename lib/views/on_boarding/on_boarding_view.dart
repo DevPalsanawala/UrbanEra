@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/Login/Welcome.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/font_size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/image.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/size.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/config/text_string.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/Login/Welcome.dart';
+import 'package:UrbanEraFashion/config/font_size.dart';
+import 'package:UrbanEraFashion/config/image.dart';
+import 'package:UrbanEraFashion/config/size.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
 
 import '../../config/colors.dart';
 import '../../config/font_family.dart';

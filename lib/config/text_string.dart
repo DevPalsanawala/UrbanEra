@@ -36,7 +36,7 @@ class TextString {
   static const String onBoard2 =
       "Congratulations on your purchase! Your order\nis on its way, and we can't wait for you to enjoy\nyour new [product]. Happy shopping!";
   static const String onBoard3 =
-      "Your order is on its way! Expect it to arrive\nsoon. Thanks for choosing shoppers for your\nshopping needs!";
+      "Your order is on its way! Expect it to arrive\nsoon. Thanks for choosing UrbanEraFashion for your\nshopping needs!";
 
   ///LogIn
   static const String welcomeBack = "Welcome Back";

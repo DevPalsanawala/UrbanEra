@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/model/product_model.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/services/product_service.dart';
+import 'package:UrbanEraFashion/model/product_model.dart';
+import 'package:UrbanEraFashion/services/product_service.dart';
 
 class Productcontroller extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/add_address_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/my_address_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/payment_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/routes/app_routes.dart';
+import 'package:UrbanEraFashion/controller/add_address_controller.dart';
+import 'package:UrbanEraFashion/controller/my_address_controller.dart';
+import 'package:UrbanEraFashion/controller/payment_controller.dart';
+import 'package:UrbanEraFashion/routes/app_routes.dart';
 
 import '../../config/colors.dart';
 import '../../config/font_family.dart';

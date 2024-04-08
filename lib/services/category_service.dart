@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:shoppers_ecommerce_flutter_ui_kit/model/category_model.dart';
+import 'package:UrbanEraFashion/model/category_model.dart';
 
 class Categoryservices {
   static Future<List<Category>> fetchdata() async {

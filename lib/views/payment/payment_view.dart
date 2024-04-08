@@ -9,12 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:phonepe_payment_sdk/phonepe_payment_sdk.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/dark_mode_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controller/payment_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/bag_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/controllermy/currentuser_controller.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/payment/payment_successful_view.dart';
-import 'package:shoppers_ecommerce_flutter_ui_kit/views/payment/phonepepayment.dart';
+import 'package:UrbanEraFashion/controller/dark_mode_controller.dart';
+import 'package:UrbanEraFashion/controller/payment_controller.dart';
+import 'package:UrbanEraFashion/controllermy/bag_controller.dart';
+import 'package:UrbanEraFashion/controllermy/currentuser_controller.dart';
+import 'package:UrbanEraFashion/views/payment/payment_successful_view.dart';
+import 'package:UrbanEraFashion/views/payment/phonepepayment.dart';
 
 import '../../config/colors.dart';
 import '../../config/font_family.dart';
