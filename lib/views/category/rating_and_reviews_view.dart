@@ -77,108 +77,109 @@ class RatingAndReviewsView extends StatelessWidget {
           right: SizeConfig.padding24,
         ),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: SizeConfig.height48,
-                      child: TextFormField(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.searchView);
-                        },
-                        cursorColor: darkModeController.isLightTheme.value
-                            ? ColorsConfig.primaryColor
-                            : ColorsConfig.secondaryColor,
-                        style: TextStyle(
-                          fontFamily: FontFamily.lexendRegular,
-                          fontSize: FontSize.body2,
-                          fontWeight: FontWeight.w400,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                            left: SizeConfig.padding16,
-                            right: SizeConfig.padding16,
-                          ),
-                          hintText: TextString.searchHere,
-                          hintStyle: TextStyle(
-                            fontFamily: FontFamily.lexendLight,
-                            fontSize: FontSize.body3,
-                            fontWeight: FontWeight.w300,
-                            color: darkModeController.isLightTheme.value
-                                ? ColorsConfig.textLightColor
-                                : ColorsConfig.modeInactiveColor,
-                          ),
-                          filled: true,
-                          fillColor: darkModeController.isLightTheme.value
-                              ? ColorsConfig.secondaryColor
-                              : ColorsConfig.primaryColor,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.borderRadius14),
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.borderRadius14),
-                            borderSide: BorderSide.none,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.borderRadius14),
-                            borderSide: BorderSide.none,
-                          ),
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.only(
-                              top: SizeConfig.padding15,
-                              bottom: SizeConfig.padding15,
-                            ),
-                            child: Image(
-                              image: const AssetImage(ImageConfig.search),
-                              width: SizeConfig.width18,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: SizeConfig.width10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      selectRatingBottomSheet(context);
-                    },
-                    child: Container(
-                      width: SizeConfig.width48,
-                      height: SizeConfig.height48,
-                      decoration: BoxDecoration(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.secondaryColor
-                            : ColorsConfig.primaryColor,
-                        borderRadius:
-                        BorderRadius.circular(SizeConfig.borderRadius14),
-                      ),
-                      child: Center(
-                        child: Image(
-                          image: const AssetImage(ImageConfig.filterData),
-                          width: SizeConfig.width20,
-                          color: darkModeController.isLightTheme.value
-                              ? ColorsConfig.primaryColor
-                              : ColorsConfig.secondaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: SizedBox(
+              //         height: SizeConfig.height48,
+              //         child: TextFormField(
+              //           onTap: () {
+              //             Get.toNamed(AppRoutes.searchView);
+              //           },
+              //           cursorColor: darkModeController.isLightTheme.value
+              //               ? ColorsConfig.primaryColor
+              //               : ColorsConfig.secondaryColor,
+              //           style: TextStyle(
+              //             fontFamily: FontFamily.lexendRegular,
+              //             fontSize: FontSize.body2,
+              //             fontWeight: FontWeight.w400,
+              //             color: darkModeController.isLightTheme.value
+              //                 ? ColorsConfig.primaryColor
+              //                 : ColorsConfig.secondaryColor,
+              //           ),
+              //           decoration: InputDecoration(
+              //             contentPadding: const EdgeInsets.only(
+              //               left: SizeConfig.padding16,
+              //               right: SizeConfig.padding16,
+              //             ),
+              //             hintText: TextString.searchHere,
+              //             hintStyle: TextStyle(
+              //               fontFamily: FontFamily.lexendLight,
+              //               fontSize: FontSize.body3,
+              //               fontWeight: FontWeight.w300,
+              //               color: darkModeController.isLightTheme.value
+              //                   ? ColorsConfig.textLightColor
+              //                   : ColorsConfig.modeInactiveColor,
+              //             ),
+              //             filled: true,
+              //             fillColor: darkModeController.isLightTheme.value
+              //                 ? ColorsConfig.secondaryColor
+              //                 : ColorsConfig.primaryColor,
+              //             border: OutlineInputBorder(
+              //               borderRadius: BorderRadius.circular(
+              //                   SizeConfig.borderRadius14),
+              //               borderSide: BorderSide.none,
+              //             ),
+              //             focusedBorder: OutlineInputBorder(
+              //               borderRadius: BorderRadius.circular(
+              //                   SizeConfig.borderRadius14),
+              //               borderSide: BorderSide.none,
+              //             ),
+              //             enabledBorder: OutlineInputBorder(
+              //               borderRadius: BorderRadius.circular(
+              //                   SizeConfig.borderRadius14),
+              //               borderSide: BorderSide.none,
+              //             ),
+              //             prefixIcon: Padding(
+              //               padding: const EdgeInsets.only(
+              //                 top: SizeConfig.padding15,
+              //                 bottom: SizeConfig.padding15,
+              //               ),
+              //               child: Image(
+              //                 image: const AssetImage(ImageConfig.search),
+              //                 width: SizeConfig.width18,
+              //                 color: darkModeController.isLightTheme.value
+              //                     ? ColorsConfig.primaryColor
+              //                     : ColorsConfig.secondaryColor,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: SizeConfig.width10,
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         selectRatingBottomSheet(context);
+              //       },
+              //       child: Container(
+              //         width: SizeConfig.width48,
+              //         height: SizeConfig.height48,
+              //         decoration: BoxDecoration(
+              //           color: darkModeController.isLightTheme.value
+              //               ? ColorsConfig.secondaryColor
+              //               : ColorsConfig.primaryColor,
+              //           borderRadius:
+              //           BorderRadius.circular(SizeConfig.borderRadius14),
+              //         ),
+              //         child: Center(
+              //           child: Image(
+              //             image: const AssetImage(ImageConfig.filterData),
+              //             width: SizeConfig.width20,
+              //             color: darkModeController.isLightTheme.value
+              //                 ? ColorsConfig.primaryColor
+              //                 : ColorsConfig.secondaryColor,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(
                 height: SizeConfig.height16,
               ),
@@ -203,7 +204,7 @@ class RatingAndReviewsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              TextString.rating4point9,
+                              "4.1",
                               style: TextStyle(
                                 fontSize: FontSize.heading2,
                                 fontFamily: FontFamily.lexendRegular,
@@ -229,7 +230,7 @@ class RatingAndReviewsView extends StatelessWidget {
                               height: SizeConfig.height10,
                             ),
                             Text(
-                              TextString.reviews4959,
+                              "1227 reviews",
                               style: TextStyle(
                                 fontSize: FontSize.body3,
                                 fontFamily: FontFamily.lexendLight,

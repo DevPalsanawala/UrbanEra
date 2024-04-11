@@ -369,7 +369,7 @@ class FashionDetailsView extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      TextString.rating4point5,
+                                      "4.1",
                                       style: TextStyle(
                                         fontSize: FontSize.body3,
                                         fontFamily: FontFamily.lexendRegular,
@@ -1035,7 +1035,7 @@ class FashionDetailsView extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  TextString.shirt1,
+                                  '1 pack of ${product['sub_category']}',
                                   style: TextStyle(
                                     fontSize: FontSize.body2,
                                     fontFamily: FontFamily.lexendRegular,
@@ -1109,6 +1109,7 @@ class FashionDetailsView extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   Get.toNamed(AppRoutes.ratingAndReviewsView);
+
                                 },
                                 child: Text(
                                   TextString.seeMore,
