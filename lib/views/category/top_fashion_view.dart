@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:UrbanEraFashion/views/category/category_search.dart';
 import 'package:UrbanEraFashion/views/category/fashion_search_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,6 +91,7 @@ class _TopFashionViewState extends State<TopFashionView> {
 
   @override
   Widget build(BuildContext context) {
+    final cat = widget.category;
     final UserController userController = Get.find();
     User? user = userController.currentUser.value;
     Map<String, dynamic> userData = userController.userData.value;
@@ -159,7 +161,9 @@ class _TopFashionViewState extends State<TopFashionView> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoutes.fashionSearchView);
+                                Get.to(CategorySearchView(
+                                  category: cat,
+                                ));
                               },
                               child: Image(
                                 image: const AssetImage(ImageConfig.search),
