@@ -84,11 +84,14 @@ class Searchpage extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Obx(() {
-            final List<Map<String, dynamic>> newarrived = productcontroller
-                .produts
+            List<Map<String, dynamic>> newarrived = productcontroller.produts
                 .where((product) => product['sub_category'] == '${txt}')
                 .toList();
-
+            if (txt == "Shoes" ||
+                txt == "Dress" ||
+                txt == "Pants" ||
+                txt == "Shorts" ||
+                txt == "Socks") newarrived = newarrived.reversed.toList();
             if (newarrived.isEmpty) {
               return Center(
                 child: Text(

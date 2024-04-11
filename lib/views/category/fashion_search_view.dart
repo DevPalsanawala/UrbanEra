@@ -24,7 +24,7 @@ class FashionSearchView extends StatefulWidget {
 class _FashionSearchViewState extends State<FashionSearchView> {
   HomeController homeController = Get.put(HomeController());
   SearchProductController searchProductController =
-  Get.put(SearchProductController());
+      Get.put(SearchProductController());
   DarkModeController darkModeController = Get.put(DarkModeController());
 
   @override
@@ -101,17 +101,17 @@ class _FashionSearchViewState extends State<FashionSearchView> {
                             : ColorsConfig.primaryColor,
                         border: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(SizeConfig.borderRadius14),
+                              BorderRadius.circular(SizeConfig.borderRadius14),
                           borderSide: BorderSide.none,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(SizeConfig.borderRadius14),
+                              BorderRadius.circular(SizeConfig.borderRadius14),
                           borderSide: BorderSide.none,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(SizeConfig.borderRadius14),
+                              BorderRadius.circular(SizeConfig.borderRadius14),
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Padding(
@@ -135,7 +135,8 @@ class _FashionSearchViewState extends State<FashionSearchView> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                if (homeController.searchController.text.isNotEmpty) {
+                                if (homeController
+                                    .searchController.text.isNotEmpty) {
                                   homeController.updateKeyword("");
                                   homeController.searchController.clear();
                                 } else {
@@ -147,7 +148,7 @@ class _FashionSearchViewState extends State<FashionSearchView> {
                               image: AssetImage(
                                 homeController.searchController.text.isNotEmpty
                                     ? ImageConfig.cancel
-                                    :ImageConfig.camera,
+                                    : ImageConfig.camera,
                               ),
                               width: SizeConfig.width18,
                               color: darkModeController.isLightTheme.value
@@ -171,226 +172,243 @@ class _FashionSearchViewState extends State<FashionSearchView> {
         ),
       ),
       body: Obx(
-            () {
+        () {
           return homeController.hasKeyword.value
               ? Column(
-            children: [
-              Container(
-                height: SizeConfig.height10,
-                width: double.infinity,
-                color: darkModeController.isLightTheme.value
-                    ? ColorsConfig.backgroundColor
-                    : ColorsConfig.buttonColor,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      top: SizeConfig.padding15,
-                      bottom: SizeConfig.padding24,
-                    ),
-                    color: darkModeController.isLightTheme.value
-                        ? ColorsConfig.secondaryColor
-                        : ColorsConfig.primaryColor,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: searchProductController
-                          .searchMainContent.length,
-                      itemBuilder: (context, index) {
-                        final isLastItem = index == searchProductController.searchMainContent.length - 1;
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            left: SizeConfig.padding24,
-                            right: SizeConfig.padding24,
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image(
-                                        image: const AssetImage(
-                                            ImageConfig.search),
-                                        width: SizeConfig.width18,
-                                        height: SizeConfig.height18,
-                                        color: darkModeController.isLightTheme.value
-                                            ? ColorsConfig.textColor
-                                            : ColorsConfig.modeInactiveColor,
-                                      ),
-                                      const SizedBox(
-                                        width: SizeConfig.width16,
-                                      ),
-                                      Text(
-                                        searchProductController
-                                            .searchMainContent[index],
-                                        style: TextStyle(
-                                          fontSize: FontSize.body3,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily:
-                                          FontFamily.lexendMedium,
-                                          color: darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        searchProductController
-                                            .searchSubContent[index],
-                                        style: TextStyle(
-                                          fontSize: FontSize.body3,
-                                          fontWeight: FontWeight.w300,
-                                          fontFamily:
-                                          FontFamily.lexendRegular,
-                                          color: darkModeController.isLightTheme.value
-                                              ? ColorsConfig.primaryColor
-                                              : ColorsConfig.secondaryColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Image(
-                                    image: const AssetImage(
-                                        ImageConfig.searchUpArrow),
-                                    width: SizeConfig.width14,
-                                    height: SizeConfig.height14,
-                                    color: darkModeController.isLightTheme.value
-                                        ? ColorsConfig.textColor
-                                        : ColorsConfig.modeInactiveColor,
-                                  ),
-                                ],
-                              ),
-                              if(!isLastItem)
-                                Divider(
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.lineColor
-                                      : ColorsConfig.lineDarkColor,
-                                  height: SizeConfig.height30,
-                                ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          )
-              : Padding(
-            padding: const EdgeInsets.only(
-              left: SizeConfig.padding24,
-              right: SizeConfig.padding24,
-              bottom: SizeConfig.padding12,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          homeController.openGallery();
-                        },
-                        child: Container(
-                          height: SizeConfig.height84,
-                          width: SizeConfig.width164,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.borderRadius14),
-                            border: Border.all(
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.textColor
-                                  : ColorsConfig.modeInactiveColor,
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(
-                                image: const AssetImage(ImageConfig.album),
-                                width: SizeConfig.width24,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.textColor
-                                    : ColorsConfig.modeInactiveColor,
-                              ),
-                              const SizedBox(
-                                height: SizeConfig.height06,
-                              ),
-                              Text(
-                                TextString.searchByPhoto,
-                                style: TextStyle(
-                                  fontSize: FontSize.body2,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: FontFamily.lexendRegular,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.textColor
-                                      : ColorsConfig.modeInactiveColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: SizeConfig.width14,
+                    Container(
+                      height: SizeConfig.height10,
+                      width: double.infinity,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.backgroundColor
+                          : ColorsConfig.buttonColor,
                     ),
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          homeController.openCamera();
-                        },
+                      child: SingleChildScrollView(
                         child: Container(
-                          height: SizeConfig.height84,
-                          width: SizeConfig.width164,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.borderRadius14),
-                            border: Border.all(
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.textColor
-                                  : ColorsConfig.modeInactiveColor,
-                            ),
+                          padding: const EdgeInsets.only(
+                            top: SizeConfig.padding15,
+                            bottom: SizeConfig.padding24,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(
-                                image: const AssetImage(ImageConfig.camera2),
-                                width: SizeConfig.width24,
-                                color: darkModeController.isLightTheme.value
-                                    ? ColorsConfig.textColor
-                                    : ColorsConfig.modeInactiveColor,
-                              ),
-                              const SizedBox(
-                                height: SizeConfig.height06,
-                              ),
-                              Text(
-                                TextString.searchByCamera,
-                                style: TextStyle(
-                                  fontSize: FontSize.body2,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: FontFamily.lexendRegular,
-                                  color: darkModeController.isLightTheme.value
-                                      ? ColorsConfig.textColor
-                                      : ColorsConfig.modeInactiveColor,
+                          color: darkModeController.isLightTheme.value
+                              ? ColorsConfig.secondaryColor
+                              : ColorsConfig.primaryColor,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: searchProductController
+                                .searchMainContent.length,
+                            itemBuilder: (context, index) {
+                              final isLastItem = index ==
+                                  searchProductController
+                                          .searchMainContent.length -
+                                      1;
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  left: SizeConfig.padding24,
+                                  right: SizeConfig.padding24,
                                 ),
-                              ),
-                            ],
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image(
+                                              image: const AssetImage(
+                                                  ImageConfig.search),
+                                              width: SizeConfig.width18,
+                                              height: SizeConfig.height18,
+                                              color: darkModeController
+                                                      .isLightTheme.value
+                                                  ? ColorsConfig.textColor
+                                                  : ColorsConfig
+                                                      .modeInactiveColor,
+                                            ),
+                                            const SizedBox(
+                                              width: SizeConfig.width16,
+                                            ),
+                                            Text(
+                                              searchProductController
+                                                  .searchMainContent[index],
+                                              style: TextStyle(
+                                                fontSize: FontSize.body3,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily:
+                                                    FontFamily.lexendMedium,
+                                                color: darkModeController
+                                                        .isLightTheme.value
+                                                    ? ColorsConfig.primaryColor
+                                                    : ColorsConfig
+                                                        .secondaryColor,
+                                              ),
+                                            ),
+                                            Text(
+                                              searchProductController
+                                                  .searchSubContent[index],
+                                              style: TextStyle(
+                                                fontSize: FontSize.body3,
+                                                fontWeight: FontWeight.w300,
+                                                fontFamily:
+                                                    FontFamily.lexendRegular,
+                                                color: darkModeController
+                                                        .isLightTheme.value
+                                                    ? ColorsConfig.primaryColor
+                                                    : ColorsConfig
+                                                        .secondaryColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Image(
+                                          image: const AssetImage(
+                                              ImageConfig.searchUpArrow),
+                                          width: SizeConfig.width14,
+                                          height: SizeConfig.height14,
+                                          color: darkModeController
+                                                  .isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                        ),
+                                      ],
+                                    ),
+                                    if (!isLastItem)
+                                      Divider(
+                                        color: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.lineColor
+                                            : ColorsConfig.lineDarkColor,
+                                        height: SizeConfig.height30,
+                                      ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),
                     ),
                   ],
-                ),
-              ],
-            ),
-          );
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(
+                    left: SizeConfig.padding24,
+                    right: SizeConfig.padding24,
+                    bottom: SizeConfig.padding12,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                homeController.openGallery();
+                              },
+                              child: Container(
+                                height: SizeConfig.height84,
+                                width: SizeConfig.width164,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.borderRadius14),
+                                  border: Border.all(
+                                    color: darkModeController.isLightTheme.value
+                                        ? ColorsConfig.textColor
+                                        : ColorsConfig.modeInactiveColor,
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image(
+                                      image:
+                                          const AssetImage(ImageConfig.album),
+                                      width: SizeConfig.width24,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                    ),
+                                    const SizedBox(
+                                      height: SizeConfig.height06,
+                                    ),
+                                    Text(
+                                      TextString.searchByPhoto,
+                                      style: TextStyle(
+                                        fontSize: FontSize.body2,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: FontFamily.lexendRegular,
+                                        color: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.textColor
+                                            : ColorsConfig.modeInactiveColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: SizeConfig.width14,
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                homeController.openCamera();
+                              },
+                              child: Container(
+                                height: SizeConfig.height84,
+                                width: SizeConfig.width164,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.borderRadius14),
+                                  border: Border.all(
+                                    color: darkModeController.isLightTheme.value
+                                        ? ColorsConfig.textColor
+                                        : ColorsConfig.modeInactiveColor,
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image(
+                                      image:
+                                          const AssetImage(ImageConfig.camera2),
+                                      width: SizeConfig.width24,
+                                      color:
+                                          darkModeController.isLightTheme.value
+                                              ? ColorsConfig.textColor
+                                              : ColorsConfig.modeInactiveColor,
+                                    ),
+                                    const SizedBox(
+                                      height: SizeConfig.height06,
+                                    ),
+                                    Text(
+                                      TextString.searchByCamera,
+                                      style: TextStyle(
+                                        fontSize: FontSize.body2,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: FontFamily.lexendRegular,
+                                        color: darkModeController
+                                                .isLightTheme.value
+                                            ? ColorsConfig.textColor
+                                            : ColorsConfig.modeInactiveColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
         },
       ),
     );
