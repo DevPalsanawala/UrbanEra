@@ -48,7 +48,9 @@ class _CategorySearchViewState extends State<CategorySearchView> {
     setState(() {
       _resultList = listofproducts.where((product) {
         String subtitle = product['subtitle'].toString().toLowerCase();
-        return subtitle.contains(_searchController.text.toLowerCase());
+        String title = product['title'].toString().toLowerCase();
+        String searchText = _searchController.text.toLowerCase();
+        return subtitle.contains(searchText) || title.contains(searchText);
       }).toList();
     });
   }
