@@ -38,6 +38,7 @@ class _accountState extends State<account> {
   var _issecure = true;
   var _isLoading = false;
   var _enteredname = "";
+
   var _enteredemail = "";
   var _enteredpassword = "";
   var _enteredphone = "";

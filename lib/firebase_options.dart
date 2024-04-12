@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBkJ5WYtFOOS1LVrLtjaXat4uI6zQBskFA',
-    appId: '1:1033064514046:web:428019c9739af649b0c0af',
-    messagingSenderId: '1033064514046',
-    projectId: 'urbanera-79bfc',
-    authDomain: 'urbanera-79bfc.firebaseapp.com',
-    storageBucket: 'urbanera-79bfc.appspot.com',
-    measurementId: 'G-QCVL49922X',
+    apiKey: 'AIzaSyAEaQmPY4V3IJ2_zKhtEN3M4UjcUYIpkLA',
+    appId: '1:984424053023:web:916927220dd3f2e3eed82a',
+    messagingSenderId: '984424053023',
+    projectId: 'urbanerafashion-428e7',
+    authDomain: 'urbanerafashion-428e7.firebaseapp.com',
+    storageBucket: 'urbanerafashion-428e7.appspot.com',
+    measurementId: 'G-GWSBLR5L9M',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCRLPQmLuY8XJ1qZsq4lhPEQK4v55XcXlA',
-    appId: '1:1033064514046:android:30abca37c3e8606cb0c0af',
-    messagingSenderId: '1033064514046',
-    projectId: 'urbanera-79bfc',
-    storageBucket: 'urbanera-79bfc.appspot.com',
+    apiKey: 'AIzaSyAcaQwnL_n8gbRJMfYIvbw6idXokrY-bkg',
+    appId: '1:984424053023:android:673c57a1ebc6c96beed82a',
+    messagingSenderId: '984424053023',
+    projectId: 'urbanerafashion-428e7',
+    storageBucket: 'urbanerafashion-428e7.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAgdtxOvDaeqnMQfHFe9mfGs7CiFOZjrrU',
-    appId: '1:1033064514046:ios:bd13d6b1f93ac552b0c0af',
-    messagingSenderId: '1033064514046',
-    projectId: 'urbanera-79bfc',
-    storageBucket: 'urbanera-79bfc.appspot.com',
+    apiKey: 'AIzaSyDybOPIKcXVXkAlpDsYh0GBnopj5709QRI',
+    appId: '1:984424053023:ios:f9855b2c217ffe43eed82a',
+    messagingSenderId: '984424053023',
+    projectId: 'urbanerafashion-428e7',
+    storageBucket: 'urbanerafashion-428e7.appspot.com',
     iosBundleId: 'com.example.shoppersEcommerceFlutterUiKit',
   );
 }

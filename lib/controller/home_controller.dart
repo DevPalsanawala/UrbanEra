@@ -77,6 +77,12 @@ class HomeController extends GetxController {
       return phrase.toLowerCase().contains(element.toLowerCase());
     });
 
+    if (index == -1) {
+      Get.back();
+      Get.snackbar('Oops!', 'Clothes category not found!');
+      return '';
+    }
+
     return imageSearchTerms[index];
   }
 
@@ -87,7 +93,7 @@ class HomeController extends GetxController {
     if (pickedFile != null) {
       print('Image path: ${pickedFile.path}');
       String phrase = await uploadImageAndGeneratePhrase(pickedFile.path);
-      if (phrase.isEmpty) return '';
+      if (phrase == 'Error') return '';
 
       return getClothCategory(phrase);
     } else {
@@ -107,58 +113,65 @@ class HomeController extends GetxController {
     if (pickedFile != null) {
       print('Image path: ${pickedFile.path}');
       String phrase = await uploadImageAndGeneratePhrase(pickedFile.path);
-      if (phrase.isEmpty) return '';
+      if (phrase == 'Error') return '';
 
       return getClothCategory(phrase);
     } else {
       print('No image taken.');
-      return "";
+      return '';
     }
   }
 
   Future<String> uploadImageAndGeneratePhrase(String imagePath) async {
-    File imageFile = File(imagePath);
-    List<int> imageBytes = await imageFile.readAsBytes();
-    String imageB64 = base64Encode(imageBytes);
+    try {
+      File imageFile = File(imagePath);
+      List<int> imageBytes = await imageFile.readAsBytes();
+      String imageB64 = base64Encode(imageBytes);
 
-    Map<String, String> headers = {
-      "Authorization":
-          "Bearer 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",
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-    };
-    Map<String, dynamic> payload = {
-      "messages": [
-        {
-          "role": "user",
-          // What category of cloth does this image relates the best from these categories
-          // I have categories of clothes or attire, now u have to decide from scale 1 to 10. What categories from these ("Tshirt", "Dress", "Kurta", "Cap", "Shirt", "Pants", "Shorts", "Shoes", "Socks"), matches the cloth in the image and name only one category, keep only that category and make the output response of one word only, remove everything else?
-          "content":
-              'Which type of cloth, attire or apparel (shoes, socks etc..) category this image contains or matches the most? Respond in only word <img src="data:image/png;base64,$imageB64" />'
-        }
-      ],
-      "max_tokens": 500,
-      "temperature": 0.20,
-      "top_p": 0.20
-    };
+      debugPrint('image size --> ${imageFile.lengthSync()}');
 
-    http.Response response = await http.post(
-        Uri.parse('https://ai.api.nvidia.com/v1/vlm/microsoft/kosmos-2'),
-        headers: headers,
-        body: json.encode(payload));
+      Map<String, String> headers = {
+        "Authorization":
+            "Bearer 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",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      };
+      Map<String, dynamic> payload = {
+        "messages": [
+          {
+            "role": "user",
+            // What category of cloth does this image relates the best from these categories
+            // I have categories of clothes or attire, now u have to decide from scale 1 to 10. What categories from these ("Tshirt", "Dress", "Kurta", "Cap", "Shirt", "Pants", "Shorts", "Shoes", "Socks"), matches the cloth in the image and name only one category, keep only that category and make the output response of one word only, remove everything else?
+            "content":
+                'Which type of cloth, attire or apparel (shoes, socks etc..) category this image contains or matches the most? Respond in only word <img src="data:image/png;base64,$imageB64" />'
+          }
+        ],
+        "max_tokens": 500,
+        "temperature": 0.20,
+        "top_p": 0.20
+      };
 
-    debugPrint('response --> ${response.body}');
+      http.Response response = await http.post(
+          Uri.parse('https://ai.api.nvidia.com/v1/vlm/microsoft/kosmos-2'),
+          headers: headers,
+          body: json.encode(payload));
 
-    if (response.statusCode != 200) return '';
+      debugPrint('response --> ${response.body}');
 
-    Map<String, dynamic> jsonResponse = json.decode(response.body);
-    List<dynamic> choices = jsonResponse['choices'];
-    if (choices.isNotEmpty) {
+      if (response.statusCode != 200) throw response.reasonPhrase ?? '';
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> choices = jsonResponse['choices'];
+      if (choices.isEmpty) throw response.reasonPhrase ?? '';
+
       String content = choices[0]['message']['content'];
       return content;
+    } catch (error) {
+      Get.back();
+      Get.snackbar('Oops!', 'Something went wrong while doing image search');
+      debugPrint('Error ---> $error');
+      return 'Error';
     }
-
-    return '';
   }
 
   List<String> trendingProductsImage = [

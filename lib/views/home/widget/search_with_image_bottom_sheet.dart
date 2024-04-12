@@ -66,11 +66,7 @@ searchWithImageBottomSheet(BuildContext context) {
               ),
               child: Obx(() => _isLoading.value
                   ? Center(
-                      child: CircularProgressIndicator(
-                        color: darkModeController.isLightTheme.value
-                            ? ColorsConfig.primaryColor
-                            : ColorsConfig.secondaryColor,
-                      ),
+                      child: CircularProgressIndicator(color: Colors.black),
                     )
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,11 +124,7 @@ searchWithImageBottomSheet(BuildContext context) {
                                       await homeController.openGallery();
                                   _isLoading.value = false;
 
-                                  if (imageContent.isEmpty) {
-                                    Get.snackbar('Oops!',
-                                        'Something went wrong while doing image search');
-                                    return;
-                                  }
+                                  if (imageContent.isEmpty) return;
 
                                   Navigator.push(
                                     context,
@@ -197,12 +189,8 @@ searchWithImageBottomSheet(BuildContext context) {
                                       await homeController.openCamera();
                                   _isLoading.value = false;
 
-                                  if (imageContent.isEmpty) {
-                                    Get.snackbar('Oops!',
-                                        'Something went wrong while doing image search');
-                                    return;
-                                  }
-                                  Navigator.pop(context);
+                                  if (imageContent.isEmpty) return;
+
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
