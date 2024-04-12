@@ -1,39 +1,70 @@
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/config/font_family.dart';
+import 'package:UrbanEraFashion/config/font_size.dart';
+import 'package:UrbanEraFashion/config/image.dart';
+import 'package:UrbanEraFashion/config/size.dart';
+import 'package:UrbanEraFashion/controller/button_controller.dart';
+import 'package:UrbanEraFashion/controller/edit_profile_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_tawk/flutter_tawk.dart';
+import 'package:get/get.dart';
 
 class CustomerSupportPage extends StatelessWidget {
   const CustomerSupportPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    User? user = userController.currentUser.value;
+    Map<String, dynamic> userData = userController.userData.value;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
-            ' URBAN ERA CUSTOMER SUPPORT',
-            style: TextStyle(
-              color: Colors.black, // Text color
-              fontSize: 15.0, // Text size
-            ),
-          ),
-          backgroundColor: Colors.white, // Background color
-          elevation: 0, // No shadow
-          iconTheme: IconThemeData(color: Colors.black), // Icon color
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          automaticallyImplyLeading: false,
+          backgroundColor: darkModeController.isLightTheme.value
+              ? ColorsConfig.backgroundColor
+              : ColorsConfig.buttonColor,
+          elevation: 0,
+          title: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Image(
+                  image: const AssetImage(ImageConfig.backArrow),
+                  width: SizeConfig.width24,
+                  height: SizeConfig.height24,
+                  color: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Customer Support',
+                style: TextStyle(
+                  fontSize: FontSize.heading4,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: FontFamily.lexendMedium,
+                  color: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
+                ),
+              ),
+            ],
           ),
         ),
         body: Tawk(
           directChatLink:
               'https://tawk.to/chat/660ab5461ec1082f04dd8fe7/1hqct87ij',
           visitor: TawkVisitor(
-            name: 'patel palash',
-            email: 'patelpalash@gmail.com',
+            name: '${userData['name']}',
+            email: '${userData['email']}',
           ),
           onLoad: () {
             print('Hello Tawk!');
@@ -41,8 +72,10 @@ class CustomerSupportPage extends StatelessWidget {
           onLinkTap: (String url) {
             print(url);
           },
-          placeholder: const Center(
-            child: Text('Loading...'),
+          placeholder: Center(
+            child: CircularProgressIndicator(
+              color: ColorsConfig.primaryColor,
+            ),
           ),
         ),
       ),

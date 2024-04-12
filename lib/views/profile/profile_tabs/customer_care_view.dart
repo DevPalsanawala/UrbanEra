@@ -23,10 +23,11 @@ class CustomerCareView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          floatingActionButton: Container(
-            width: 50.0,
-            height: 50.0,
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
             child: FloatingActionButton(
+              elevation: 0,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -34,11 +35,14 @@ class CustomerCareView extends StatelessWidget {
                       builder: (context) => CustomerSupportPage()),
                 );
               },
-              backgroundColor: Colors.black,
-              mini: true,
+              backgroundColor: darkModeController.isLightTheme.value
+                  ? ColorsConfig.primaryColor
+                  : ColorsConfig.secondaryColor,
               child: Icon(
                 Icons.headset_mic_outlined,
-                color: Colors.white,
+                color: darkModeController.isLightTheme.value
+                    ? ColorsConfig.secondaryColor
+                    : ColorsConfig.primaryColor,
                 size: 25,
               ),
             ),
@@ -56,83 +60,45 @@ class CustomerCareView extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: SizeConfig.padding05,
               ),
-              child: !customerCareController.searchBoolean.value
-                  ? Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                            customerCareController.isFAQ1.value = false;
-                            customerCareController.isFAQ2.value = false;
-                            customerCareController.isFAQ3.value = false;
-                            customerCareController.isFAQ4.value = false;
-                            customerCareController.isFAQ5.value = false;
-                            customerCareController.isFAQ6.value = false;
-                            customerCareController.isFAQ7.value = false;
-                          },
-                          child: Image(
-                            image: const AssetImage(ImageConfig.backArrow),
-                            width: SizeConfig.width24,
-                            height: SizeConfig.height24,
-                            color: darkModeController.isLightTheme.value
-                                ? ColorsConfig.primaryColor
-                                : ColorsConfig.secondaryColor,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: SizeConfig.width10,
-                        ),
-                        Text(
-                          TextString.customerCare,
-                          style: TextStyle(
-                            fontFamily: FontFamily.lexendMedium,
-                            fontSize: FontSize.heading4,
-                            fontWeight: FontWeight.w500,
-                            color: darkModeController.isLightTheme.value
-                                ? ColorsConfig.primaryColor
-                                : ColorsConfig.secondaryColor,
-                          ),
-                        ),
-                      ],
-                    )
-                  : _searchTextField(),
-            ),
-            actions: [
-              Obx(() => Padding(
-                    padding: const EdgeInsets.only(
-                      right: SizeConfig.padding24,
-                      top: SizeConfig.padding10,
-                      bottom: SizeConfig.padding10,
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                      customerCareController.isFAQ1.value = false;
+                      customerCareController.isFAQ2.value = false;
+                      customerCareController.isFAQ3.value = false;
+                      customerCareController.isFAQ4.value = false;
+                      customerCareController.isFAQ5.value = false;
+                      customerCareController.isFAQ6.value = false;
+                      customerCareController.isFAQ7.value = false;
+                    },
+                    child: Image(
+                      image: const AssetImage(ImageConfig.backArrow),
+                      width: SizeConfig.width24,
+                      height: SizeConfig.height24,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.primaryColor
+                          : ColorsConfig.secondaryColor,
                     ),
-                    child: !customerCareController.searchBoolean.value
-                        ? GestureDetector(
-                            onTap: () {
-                              customerCareController.searchBoolean.value = true;
-                            },
-                            child: Image(
-                              image: const AssetImage(ImageConfig.search),
-                              width: SizeConfig.width20,
-                              height: SizeConfig.height20,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          )
-                        : GestureDetector(
-                            onTap: () {
-                              customerCareController.searchBoolean.value =
-                                  false;
-                            },
-                            child: Icon(
-                              Icons.clear_rounded,
-                              size: SizeConfig.width25,
-                              color: darkModeController.isLightTheme.value
-                                  ? ColorsConfig.primaryColor
-                                  : ColorsConfig.secondaryColor,
-                            ),
-                          ),
-                  )),
-            ],
+                  ),
+                  const SizedBox(
+                    width: SizeConfig.width10,
+                  ),
+                  Text(
+                    TextString.customerCare,
+                    style: TextStyle(
+                      fontFamily: FontFamily.lexendMedium,
+                      fontSize: FontSize.heading4,
+                      fontWeight: FontWeight.w500,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.primaryColor
+                          : ColorsConfig.secondaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.only(

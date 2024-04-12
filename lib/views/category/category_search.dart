@@ -1,3 +1,10 @@
+import 'package:UrbanEraFashion/config/colors.dart';
+import 'package:UrbanEraFashion/config/font_family.dart';
+import 'package:UrbanEraFashion/config/font_size.dart';
+import 'package:UrbanEraFashion/config/image.dart';
+import 'package:UrbanEraFashion/config/size.dart';
+import 'package:UrbanEraFashion/config/text_string.dart';
+import 'package:UrbanEraFashion/controller/button_controller.dart';
 import 'package:UrbanEraFashion/controllermy/product_controller.dart';
 import 'package:UrbanEraFashion/views/category/fashion_details_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -87,23 +94,110 @@ class _CategorySearchViewState extends State<CategorySearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: darkModeController.isLightTheme.value
+          ? ColorsConfig.backgroundColor
+          : ColorsConfig.buttonColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        backgroundColor: darkModeController.isLightTheme.value
+            ? ColorsConfig.backgroundColor
+            : ColorsConfig.buttonColor,
+        elevation: 0,
         title: Row(
           children: [
-            Expanded(
-              child: CupertinoSearchTextField(
-                controller: _searchController,
+            GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Image(
+                image: const AssetImage(ImageConfig.backArrow),
+                width: SizeConfig.width24,
+                height: SizeConfig.height24,
+                color: darkModeController.isLightTheme.value
+                    ? ColorsConfig.primaryColor
+                    : ColorsConfig.secondaryColor,
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.camera_alt),
-              onPressed: () {},
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: SizedBox(
+                height: SizeConfig.height48,
+                child: TextFormField(
+                  controller: _searchController,
+                  cursorColor: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
+                  style: TextStyle(
+                    fontFamily: FontFamily.lexendRegular,
+                    fontSize: FontSize.body2,
+                    fontWeight: FontWeight.w400,
+                    color: darkModeController.isLightTheme.value
+                        ? ColorsConfig.primaryColor
+                        : ColorsConfig.secondaryColor,
+                  ),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(
+                      left: SizeConfig.padding16,
+                      right: SizeConfig.padding16,
+                    ),
+                    hintText: TextString.searchHere,
+                    hintStyle: TextStyle(
+                      fontFamily: FontFamily.lexendLight,
+                      fontSize: FontSize.body3,
+                      fontWeight: FontWeight.w300,
+                      color: darkModeController.isLightTheme.value
+                          ? ColorsConfig.textLightColor
+                          : ColorsConfig.modeInactiveColor,
+                    ),
+                    filled: true,
+                    fillColor: darkModeController.isLightTheme.value
+                        ? ColorsConfig.secondaryColor
+                        : ColorsConfig.primaryColor,
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.borderRadius14),
+                      borderSide: BorderSide(
+                        color: darkModeController.isLightTheme.value
+                            ? ColorsConfig.textLightColor
+                            : ColorsConfig.modeInactiveColor,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.borderRadius14),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.borderRadius14),
+                      borderSide: BorderSide.none,
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.only(
+                        top: SizeConfig.padding15,
+                        bottom: SizeConfig.padding15,
+                      ),
+                      child: Image(
+                        image: const AssetImage(ImageConfig.search),
+                        width: SizeConfig.width18,
+                        color: darkModeController.isLightTheme.value
+                            ? ColorsConfig.primaryColor
+                            : ColorsConfig.secondaryColor,
+                      ),
+                    ),
+                    //
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: SizeConfig.width20,
             ),
           ],
         ),
       ),
-      backgroundColor: Colors.white,
       body: ListView.builder(
         itemCount: _resultList.length,
         itemBuilder: (context, index) {
@@ -119,22 +213,43 @@ class _CategorySearchViewState extends State<CategorySearchView> {
               );
             },
             child: ListTile(
-              leading: Hero(
-                tag: 'product_${_resultList[index]['id']}',
-                child: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  radius: 25,
-                  backgroundImage: AssetImage(
-                    'assets/admin_site_images/all final images with background removed/${_resultList[index]['img']}',
-                  ),
+              leading: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 25,
+                backgroundImage: AssetImage(
+                  'assets/admin_site_images/all final images with background removed/${_resultList[index]['img']}',
                 ),
               ),
-              title: Hero(
-                tag: 'subtitle_${_resultList[index]['id']}',
-                child: Text(_resultList[index]['subtitle']),
+              title: Text(
+                _resultList[index]['subtitle'],
+                style: TextStyle(
+                  fontFamily: FontFamily.lexendRegular,
+                  fontSize: FontSize.body2,
+                  fontWeight: FontWeight.w400,
+                  color: darkModeController.isLightTheme.value
+                      ? ColorsConfig.primaryColor
+                      : ColorsConfig.secondaryColor,
+                ),
               ),
-              subtitle: Text(_resultList[index]['title']),
-              trailing: Icon(Icons.arrow_forward_ios),
+              subtitle: Text(
+                _resultList[index]['title'],
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w400,
+                  fontSize: FontSize.body3,
+                  fontFamily: FontFamily.lexendLight,
+                  color: darkModeController.isLightTheme.value
+                      ? ColorsConfig.textColor
+                      : ColorsConfig.modeInactiveColor,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 13,
+                color: darkModeController.isLightTheme.value
+                    ? ColorsConfig.primaryColor
+                    : ColorsConfig.secondaryColor,
+              ),
             ),
           );
         },
