@@ -71,6 +71,8 @@ class HomeController extends GetxController {
     phrase = phrase.replaceAll('T-shirt', 'Tshirt');
     phrase = phrase.replaceAll('T-Shirt', 'Tshirt');
     phrase = phrase.replaceAll('Jeans', 'Pants');
+    phrase = phrase.replaceAll('Sneakers', 'Shoes');
+
     int index = imageSearchTerms.indexWhere((element) {
       debugPrint(
           '${phrase.toLowerCase()} | ${element.toLowerCase()} || ${phrase.toLowerCase().contains(element.toLowerCase())}');
